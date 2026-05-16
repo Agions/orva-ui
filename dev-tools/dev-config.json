@@ -1,0 +1,9 @@
+{
+  "hotReload": true,
+  "errorTracking": true,
+  "componentPreview": true,
+  "performanceMonitoring": true,
+  "debugMode": false,
+  "autoSave": true,
+  "port": 3000
+}

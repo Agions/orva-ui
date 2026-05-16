@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/i18n.json",
+  "name": "English",
+  "code": "en-US",
+  "direction": "ltr",
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "empty": "No data",
+    "notFound": "Not found",
+    "retry": "Retry"
+  },
+  "button": {
+    "primary": "Primary Button",
+    "default": "Default Button",
+    "success": "Success Button",
+    "warning": "Warning Button",
+    "danger": "Danger Button",
+    "info": "Info Button"
+  },
+  "form": {
+    "required": "Required",
+    "placeholder": "Please enter...",
+    "validateError": "Validation failed"
+  }
+}

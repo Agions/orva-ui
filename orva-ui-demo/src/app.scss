@@ -1,0 +1,83 @@
+/* 全局样式 - Nano-UI 主题 */
+page {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa;
+  color: #18181b;
+  font-size: 28px;
+  line-height: 1.5;
+}
+
+/* 重置样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Nano-UI 主题变量 - 紫罗兰主题 */
+:root {
+  /* 主色: 紫罗兰 */
+  --primary-color: #a855f7;
+  --primary-light: #f3e8ff;
+  --primary-dark: #9333ea;
+  
+  /* 次要色: 珊瑚橙 */
+  --secondary-color: #f97316;
+  --secondary-light: #ffedd5;
+  --secondary-dark: #ea580c;
+  
+  /* 功能色 */
+  --success-color: #22c55e;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --info-color: #0ea5e9;
+  
+  /* 文本色 */
+  --text-color: #18181b;
+  --text-color-secondary: #52525b;
+  --text-color-tertiary: #71717a;
+  --text-color-disabled: #a1a1aa;
+  
+  /* 背景色 */
+  --background-color: #fafafa;
+  --background-color-white: #ffffff;
+  --background-color-card: #ffffff;
+  --background-color-hover: rgba(168, 85, 247, 0.08);
+  
+  /* 边框色 */
+  --border-color: #e4e4e7;
+  --border-color-light: #f4f4f5;
+  --border-color-focus: #a855f7;
+  
+  /* 阴影 */
+  --shadow-color: rgba(168, 85, 247, 0.08);
+  
+  /* 链接 */
+  --link-color: #a855f7;
+}
+
+/* 暗色主题 */
+.dark {
+  --primary-color: #a855f7;
+  --primary-light: #d8b4fe;
+  --primary-dark: #c084fc;
+  
+  --secondary-color: #f97316;
+  --text-color: #fafafa;
+  --text-color-secondary: #d4d4d8;
+  --text-color-disabled: #52525b;
+  
+  --background-color: #18181b;
+  --background-color-white: #27272a;
+  --background-color-card: #27272a;
+  
+  --border-color: #3f3f46;
+  --border-color-focus: #c084fc;
+  
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --link-color: #c084fc;
+}

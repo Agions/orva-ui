@@ -1,0 +1,123 @@
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
+
+const sidebars: SidebarsConfig = {
+  docsSidebar: [
+    { type: 'doc', id: 'intro', label: '项目简介' },
+    { type: 'doc', id: 'quickstart', label: '快速开始' },
+    { type: 'doc', id: 'features', label: '核心功能' },
+    {
+      type: 'category',
+      label: '开发指南',
+      collapsed: false,
+      items: [
+        { type: 'doc', id: 'guides/installation', label: '安装配置' },
+        { type: 'doc', id: 'guides/theme-customization', label: '主题定制' },
+        { type: 'doc', id: 'guides/multi-platform', label: '多平台适配' },
+        { type: 'doc', id: 'guides/best-practices', label: '最佳实践' },
+      ],
+    },
+    { type: 'doc', id: 'hooks/index', label: 'Hooks 参考' },
+    { type: 'doc', id: 'api/index', label: 'API 参考' },
+    { type: 'doc', id: 'faq', label: '常见问题' },
+    { type: 'doc', id: 'changelog', label: '更新日志' },
+  ],
+  componentsSidebar: [
+    {
+      type: 'category',
+      label: '基础组件 Basic',
+      collapsed: false,
+      items: [
+        { type: 'doc', id: 'components/basic/button', label: 'Button 按钮' },
+        { type: 'doc', id: 'components/basic/icon', label: 'Icon 图标' },
+        { type: 'doc', id: 'components/basic/text', label: 'Text 文本' },
+        { type: 'doc', id: 'components/basic/divider', label: 'Divider 分割线' },
+        { type: 'doc', id: 'components/basic/typography', label: 'Typography 排版' },
+      ],
+    },
+    {
+      type: 'category',
+      label: '表单组件 Form',
+      items: [
+        { type: 'doc', id: 'components/form/form', label: 'Form 表单' },
+        { type: 'doc', id: 'components/form/input', label: 'Input 输入框' },
+        { type: 'doc', id: 'components/form/textarea', label: 'Textarea 文本域' },
+        { type: 'doc', id: 'components/form/select', label: 'Select 选择器' },
+        { type: 'doc', id: 'components/form/cascader', label: 'Cascader 级联选择' },
+        { type: 'doc', id: 'components/form/checkbox', label: 'Checkbox 复选框' },
+        { type: 'doc', id: 'components/form/radio', label: 'Radio 单选框' },
+        { type: 'doc', id: 'components/form/switch', label: 'Switch 开关' },
+        { type: 'doc', id: 'components/form/slider', label: 'Slider 滑动条' },
+        { type: 'doc', id: 'components/form/date-picker', label: 'DatePicker 日期选择' },
+        { type: 'doc', id: 'components/form/time-picker', label: 'TimePicker 时间选择' },
+        { type: 'doc', id: 'components/form/upload', label: 'Upload 上传' },
+      ],
+    },
+    {
+      type: 'category',
+      label: '展示组件 Display',
+      items: [
+        { type: 'doc', id: 'components/display/avatar', label: 'Avatar 头像' },
+        { type: 'doc', id: 'components/display/badge', label: 'Badge 徽标' },
+        { type: 'doc', id: 'components/display/tag', label: 'Tag 标签' },
+        { type: 'doc', id: 'components/display/card', label: 'Card 卡片' },
+        { type: 'doc', id: 'components/display/list', label: 'List 列表' },
+        { type: 'doc', id: 'components/display/table', label: 'Table 表格' },
+        { type: 'doc', id: 'components/display/calendar', label: 'Calendar 日历' },
+        { type: 'doc', id: 'components/display/timeline', label: 'Timeline 时间轴' },
+        { type: 'doc', id: 'components/display/carousel', label: 'Carousel 轮播' },
+        { type: 'doc', id: 'components/display/rate', label: 'Rate 评分' },
+        { type: 'doc', id: 'components/display/rich-text', label: 'RichText 富文本' },
+      ],
+    },
+    {
+      type: 'category',
+      label: '反馈组件 Feedback',
+      items: [
+        { type: 'doc', id: 'components/feedback/loading', label: 'Loading 加载' },
+        { type: 'doc', id: 'components/feedback/progress', label: 'Progress 进度条' },
+        { type: 'doc', id: 'components/feedback/message', label: 'Message 消息' },
+        { type: 'doc', id: 'components/feedback/toast', label: 'Toast 轻提示' },
+        { type: 'doc', id: 'components/feedback/notification', label: 'Notification 通知' },
+        { type: 'doc', id: 'components/feedback/modal', label: 'Modal 对话框' },
+        { type: 'doc', id: 'components/feedback/drawer', label: 'Drawer 抽屉' },
+        { type: 'doc', id: 'components/feedback/tooltip', label: 'Tooltip 文字提示' },
+        { type: 'doc', id: 'components/feedback/result', label: 'Result 结果' },
+      ],
+    },
+    {
+      type: 'category',
+      label: '布局组件 Layout',
+      items: [
+        { type: 'doc', id: 'components/layout/grid', label: 'Grid 栅格' },
+        { type: 'doc', id: 'components/layout/row', label: 'Row 行' },
+        { type: 'doc', id: 'components/layout/col', label: 'Col 列' },
+        { type: 'doc', id: 'components/layout/layout', label: 'Layout 布局' },
+        { type: 'doc', id: 'components/layout/container', label: 'Container 容器' },
+        { type: 'doc', id: 'components/layout/space', label: 'Space 间距' },
+        { type: 'doc', id: 'components/layout/affix', label: 'Affix 固钉' },
+      ],
+    },
+    {
+      type: 'category',
+      label: '导航组件 Navigation',
+      items: [
+        { type: 'doc', id: 'components/navigation/menu', label: 'Menu 菜单' },
+        { type: 'doc', id: 'components/navigation/navbar', label: 'NavBar 导航栏' },
+        { type: 'doc', id: 'components/navigation/tabs', label: 'Tabs 标签页' },
+        { type: 'doc', id: 'components/navigation/steps', label: 'Steps 步骤条' },
+        { type: 'doc', id: 'components/navigation/pagination', label: 'Pagination 分页' },
+      ],
+    },
+    {
+      type: 'category',
+      label: '通用组件 Common',
+      items: [
+        { type: 'doc', id: 'components/common/virtual-list', label: 'VirtualList 虚拟列表' },
+        { type: 'doc', id: 'components/common/lazy-component', label: 'LazyComponent 懒加载' },
+        { type: 'doc', id: 'components/common/error-boundary', label: 'ErrorBoundary 错误边界' },
+      ],
+    },
+  ],
+};
+
+export default sidebars;

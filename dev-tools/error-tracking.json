@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "captureConsoleErrors": true,
+  "reportComponentErrors": true,
+  "trackPerformance": true,
+  "errorBoundaryEnabled": true,
+  "reportingEndpoints": {
+    "local": "http://localhost:3000/api/errors",
+    "production": "https://api.orva-ui.com/errors"
+  },
+  "errorCategories": [
+    "runtime",
+    "build",
+    "network",
+    "performance",
+    "userInteraction"
+  ]
+}

@@ -1,0 +1,118 @@
+import type { Platform } from '../types';
+import { createLogger } from '@/utils/logger';
+
+const logger = createLogger('Environment');
+
+/**
+ * Detect whether code executes in a browser-like environment.
+ */
+export const isBrowserEnvironment = (): boolean => {
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
+};
+
+/**
+ * Detect whether Taro runtime is available (mini-program / native bridge).
+ */
+export const isTaroEnvironment = (): boolean => {
+  return (
+    typeof process !== 'undefined' &&
+    typeof process.env !== 'undefined' &&
+    typeof process.env['TARO_ENV'] !== 'undefined'
+  );
+};
+
+/**
+ * Resolve the current platform in a resilient manner.
+ */
+export const resolvePlatform = (): Platform | 'unknown' => {
+  if (isTaroEnvironment()) {
+    return (process.env['TARO_ENV'] as Platform) || 'unknown';
+  }
+  return 'h5';
+};
+
+/**
+ * Safe local storage wrapper guarding non-browser runtimes and incomplete localStorage implementations.
+ */
+export const safeLocalStorage = {
+  getItem(key: string): string | null {
+    if (
+      !isBrowserEnvironment() ||
+      typeof window.localStorage === 'undefined' ||
+      typeof window.localStorage.getItem !== 'function'
+    ) {
+      return null;
+    }
+
+    try {
+      return window.localStorage.getItem(key);
+    } catch (error) {
+      logger.warn('[safeLocalStorage] getItem failed:', error);
+      return null;
+    }
+  },
+
+  setItem(key: string, value: string): void {
+    if (
+      !isBrowserEnvironment() ||
+      typeof window.localStorage === 'undefined' ||
+      typeof window.localStorage.setItem !== 'function'
+    ) {
+      return;
+    }
+
+    try {
+      window.localStorage.setItem(key, value);
+    } catch (error) {
+      logger.warn('[safeLocalStorage] setItem failed:', error);
+    }
+  },
+
+  removeItem(key: string): void {
+    if (
+      !isBrowserEnvironment() ||
+      typeof window.localStorage === 'undefined' ||
+      typeof window.localStorage.removeItem !== 'function'
+    ) {
+      return;
+    }
+
+    try {
+      window.localStorage.removeItem(key);
+    } catch (error) {
+      logger.warn('[safeLocalStorage] removeItem failed:', error);
+    }
+  },
+
+  clear(): void {
+    if (
+      !isBrowserEnvironment() ||
+      typeof window.localStorage === 'undefined' ||
+      typeof window.localStorage.clear !== 'function'
+    ) {
+      return;
+    }
+
+    try {
+      window.localStorage.clear();
+    } catch (error) {
+      logger.warn('[safeLocalStorage] clear failed:', error);
+    }
+  },
+};
+
+/**
+ * Guarded matchMedia helper for SSR / mini-program runtimes.
+ */
+export const safeMatchMedia = (query: string): MediaQueryList | null => {
+  if (!isBrowserEnvironment() || typeof window.matchMedia !== 'function') {
+    return null;
+  }
+
+  try {
+    return window.matchMedia(query);
+  } catch (error) {
+    logger.warn('[safeMatchMedia] failed:', error);
+    return null;
+  }
+};

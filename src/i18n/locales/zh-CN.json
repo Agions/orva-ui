@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/i18n.json",
+  "name": "简体中文",
+  "code": "zh-CN",
+  "direction": "ltr",
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "success": "成功",
+    "warning": "警告",
+    "info": "提示",
+    "confirm": "确认",
+    "cancel": "取消",
+    "close": "关闭",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "search": "搜索",
+    "empty": "暂无数据",
+    "notFound": "未找到",
+    "retry": "重试"
+  },
+  "button": {
+    "primary": "主要按钮",
+    "default": "默认按钮",
+    "success": "成功按钮",
+    "warning": "警告按钮",
+    "danger": "危险按钮",
+    "info": "信息按钮"
+  },
+  "form": {
+    "required": "必填",
+    "placeholder": "请输入...",
+    "validateError": "验证失败"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "orva-ui": {
+      "command": "npx",
+      "args": ["tsx", "mcp/orva-ui-mcp.ts"],
+      "cwd": "."
+    }
+  }
+}

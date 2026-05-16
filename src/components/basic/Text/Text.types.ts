@@ -1,0 +1,304 @@
+import type { BaseProps } from '@/types/component';
+import type { ReactNode, HTMLAttributes, CSSProperties } from 'react';
+
+/** 文本尺寸 */
+export type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl';
+
+/** 文本粗细 */
+export type TextWeight = 'thin' | 'extralight' | 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'extrabold' | 'black';
+
+/** 文本颜色 */
+export type TextColor = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'muted' | '_disabled' | 'inherit' | 'current';
+
+/** 文本状态 */
+export type TextStatus = 'normal' | 'active' | 'disabled' | 'loading' | 'default' | 'success' | 'warning' | 'error' | 'info';
+
+/** 文本对齐方式 */
+export type TextAlign = 'left' | 'center' | 'right' | 'justify';
+
+/** 文本装饰 */
+export type TextDecoration = 'none' | 'underline' | 'line-through' | 'overline';
+
+/** 文本转换 */
+export type TextTransform = 'none' | 'uppercase' | 'lowercase' | 'capitalize';
+
+/** 文本溢出 */
+export type TextOverflow = 'clip' | 'ellipsis' | 'visible' | 'hidden';
+
+/** 文本方向 */
+export type TextDirection = 'ltr' | 'rtl' | 'auto';
+
+/** 文本样式 */
+export type TextStyle = 'normal' | 'italic' | 'oblique';
+
+/** 文本变体 */
+export type TextVariant = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'muted';
+
+/** 字母间距 */
+export type LetterSpacing = 'tighter' | 'tight' | 'normal' | 'wide' | 'wider' | 'widest';
+
+/** 行高 */
+export type LineHeight = 'none' | 'tight' | 'snug' | 'normal' | 'relaxed' | 'loose';
+
+/** 文本类型 */
+export type TextType = 'text' | 'paragraph' | 'heading' | 'span' | 'label' | 'code' | 'quote';
+
+/** 文本原生属性 */
+export interface TextNativeProps extends HTMLAttributes<HTMLElement> {
+  contentEditable?: boolean;
+  spellCheck?: boolean;
+  autoCorrect?: string;
+  autoCapitalize?: string;
+}
+
+export interface TextProps extends BaseProps {
+  /** 文本变体 */
+  variant?: 'default' | 'secondary' | 'tertiary' | 'quaternary' | 'normal';
+  /** 文本类型 */
+  type?: 'default' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'body';
+  /** 是否禁用 */
+  disabled?: boolean;
+  /** 是否可复制 */
+  copyable?: boolean;
+  /** 是否可编辑 */
+  editable?: boolean;
+  /** 是否省略 */
+  ellipsis?: boolean | { rows?: number; expandable?: boolean };
+  /** 是否标记 */
+  mark?: boolean;
+  /** 是否下划线 */
+  underline?: boolean;
+  /** 是否删除线 */
+  delete?: boolean;
+  /** 是否加粗 */
+  strong?: boolean;
+  /** 是否斜体 */
+  italic?: boolean;
+  /** 代码样式 */
+  code?: boolean;
+  /** 键盘样式 */
+  keyboard?: boolean;
+  /** 上标 */
+  superscript?: boolean;
+  /** 下标 */
+  subscript?: boolean;
+  children?: ReactNode;
+	/** 文本尺寸 */
+  size?: TextSize;
+  /** 文本粗细 */
+  weight?: TextWeight;
+  /** 文本颜色 */
+  color?: TextColor;
+  /** 文本对齐 */
+  align?: TextAlign;
+  /** 文本装饰 */
+  decoration?: TextDecoration;
+  /** 文本转换 */
+  transform?: TextTransform;
+  /** 文本溢出 */
+  overflow?: TextOverflow;
+  /** 文本方向 */
+  direction?: TextDirection;
+  /** 字体样式 */
+  fontStyle?: TextStyle;
+  /** 字母间距 */
+  letterSpacing?: string | number;
+  /** 行高 */
+  lineHeight?: string | number;
+  /** 文本状态 */
+  status?: TextStatus;
+  /** 是否可点击 */
+  clickable?: boolean;
+  /** 是否加载中 */
+  loading?: boolean;
+  /** 块级显示 */
+  block?: boolean;
+  /** 行内块显示 */
+  inlineBlock?: boolean;
+  /** 是否可选 */
+  selectable?: boolean;
+  /** 复制回调 */
+  onCopy?: () => void;
+	/** 最大行数 */
+  maxLines?: number;
+	/** 是否启用动画 */
+  animated?: boolean;
+	/** 动画持续时间 */
+  animationDuration?: number;
+	/** 是否启用无障碍访问 */
+  accessible?: boolean;
+	/** 无障碍标签 */
+  accessibilityLabel?: string;
+	/** 无障碍角色 */
+  accessibilityRole?: string;
+	/** 无障碍状态 */
+  accessibilityState?: {
+    disabled?: boolean;
+    selected?: boolean;
+    busy?: boolean;
+    expanded?: boolean;
+  };
+	/** 文本链接地址 */
+  href?: string;
+	/** 链接打开方式 */
+  target?: '_blank' | '_self' | '_parent' | '_top';
+	/** 是否删除线 */
+  strikethrough?: boolean;
+	/** 是否高亮 */
+  highlight?: boolean;
+	/** 高亮颜色 */
+  highlightColor?: string;
+	/** 是否自动换行 */
+  wrap?: boolean;
+	/** 是否保持单词完整 */
+  breakWord?: boolean;
+	/** 文本阴影 */
+  textShadow?: string;
+	/** 文本轮廓 */
+  textOutline?: string;
+	/** 文本渐变 */
+  gradient?: {
+    start: string;
+    end: string;
+    direction?: 'to right' | 'to left' | 'to bottom' | 'to top' | 'to bottom right' | 'to top left';
+  };
+	/** 自定义字体 */
+  fontFamily?: string | string[];
+	/** 文本间距 */
+  wordSpacing?: number | string;
+	/** 文本缩进 */
+  textIndent?: number | string;
+	/** 白空格处理 */
+  whiteSpace?: 'normal' | 'nowrap' | 'pre' | 'pre-wrap' | 'pre-line' | 'break-spaces';
+	/** 垂直对齐 */
+  verticalAlign?: 'baseline' | 'sub' | 'super' | 'top' | 'text-top' | 'middle' | 'bottom' | 'text-bottom';
+	/** 文本方向组合 */
+  writingMode?: 'horizontal-tb' | 'vertical-rl' | 'vertical-lr';
+	/** 文本渲染优化 */
+  textRendering?: 'auto' | 'optimizeSpeed' | 'optimizeLegibility' | 'geometricPrecision';
+  ariaLabel?: string;
+  onClick?: (event: any) => void;
+  // React native props
+  numberOfLines?: number;
+  ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
+  // Accessibility
+  role?: string;
+  // 排除可能与Taro组件冲突的React属性
+  dangerouslySetInnerHTML?: { __html: string };
+  suppressContentEditableWarning?: boolean;
+  suppressHydrationWarning?: boolean;
+  // Native props
+  // ...React.HTMLAttributes<HTMLElement>;
+}
+
+/** 文本组件引用类型 */
+export type TextRef = {
+	/** 文本元素 */
+  element: HTMLParagraphElement | HTMLSpanElement | null;
+	/** 获取文本内容 */
+  getText: () => string;
+	/** 设置文本内容 */
+  setText: (_text: string) => void;
+	/** 复制文本 */
+  copy: () => Promise<void>;
+	/** 选择文本 */
+  select: () => void;
+	/** 设置禁用状态 */
+  setDisabled: (_disabled: boolean) => void;
+	/** 设置加载状态 */
+  setLoading: (_loading: boolean) => void;
+	/** 获取文本状态 */
+  getStatus: () => TextStatus;
+	/** 获取文本尺寸 */
+  getSize: () => TextSize;
+	/** 获取文本颜色 */
+  getColor: () => string;
+	/** 设置文本颜色 */
+  setColor: (_color: string) => void;
+	/** 设置文本尺寸 */
+  setSize: (_size: TextSize) => void;
+	/** 设置文本权重 */
+  setWeight: (_weight: TextWeight) => void;
+	/** 滚动到视图 */
+  scrollIntoView: (options?: ScrollIntoViewOptions) => void;
+};
+
+/** 文本工具函数接口 */
+export interface TextUtils {
+	/** 获取文本样式类名 */
+  getTextClassName: (_props: Partial<TextProps>) => string;
+	/** 获取文本样式对象 */
+  getTextStyle: (_props: Partial<TextProps>) => React.CSSProperties;
+	/** 获取文本尺寸映射 */
+  getSizeMap: () => Record<TextSize, { fontSize: number; lineHeight: number }>;
+	/** 获取文本权重映射 */
+  getWeightMap: () => Record<TextWeight, number>;
+	/** 获取文本颜色映射 */
+  getColorMap: () => Record<TextColor, string>;
+	/** 验证文本属性 */
+  validateTextProps: (_props: TextProps) => boolean;
+	/** 格式化文本尺寸 */
+  formatTextSize: (_size: TextSize) => string;
+	/** 格式化文本权重 */
+  formatTextWeight: (_weight: TextWeight) => string;
+	/** 格式化文本颜色 */
+  formatTextColor: (_color: TextColor) => string;
+	/** 截断文本 */
+  truncateText: (_text: string, maxLength: number, suffix?: string) => string;
+	/** 高亮文本 */
+  highlightText: (_text: string, highlight: string, highlightColor?: string) => ReactNode;
+	/** 格式化数字 */
+  formatNumber: (_num: number, options?: Intl.NumberFormatOptions) => string;
+	/** 格式化日期 */
+  formatDate: (_date: Date | string | number, format?: string) => string;
+	/** 格式化货币 */
+  formatCurrency: (_amount: number, currency?: string, locale?: string) => string;
+	/** 计算文本长度 */
+  calculateTextLength: (_text: string, options?: { fontSize: number; fontFamily: string }) => number;
+	/** 检测文本语言 */
+  detectLanguage: (_text: string) => string;
+	/** 清理文本 */
+  sanitizeText: (_text: string) => string;
+	/** 转换HTML实体 */
+  escapeHtml: (_text: string) => string;
+	/** 反转换HTML实体 */
+  unescapeHtml: (_text: string) => string;
+}
+
+/** 打字机效果属性 */
+export interface TypewriterProps {
+	/** 要显示的文本 */
+  text: string;
+	/** 打字速度（毫秒） */
+  speed?: number;
+	/** 删除速度（毫秒） */
+  deleteSpeed?: number;
+	/** 是否循环 */
+  loop?: boolean;
+	/** 延迟开始时间（毫秒） */
+  delay?: number;
+	/** 删除前等待时间（毫秒） */
+  waitTime?: number;
+	/** 是否显示光标 */
+  showCursor?: boolean;
+	/** 光标字符 */
+  cursorChar?: string;
+	/** 完成回调 */
+  onComplete?: () => void;
+	/** 开始回调 */
+  onStart?: () => void;
+	/** 删除回调 */
+  onDelete?: () => void;
+}
+
+/** 文本渐变属性 */
+export interface TextGradientProps {
+	/** 渐变开始颜色 */
+  start: string;
+	/** 渐变结束颜色 */
+  end: string;
+	/** 渐变方向 */
+  direction?: 'to right' | 'to left' | 'to bottom' | 'to top' | 'to bottom right' | 'to top left';
+	/** 子元素 */
+  children: ReactNode;
+}

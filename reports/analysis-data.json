@@ -1,0 +1,208 @@
+{
+  "timestamp": "2026-05-13T21:18:11.234152",
+  "structure": {
+    "components_count": 7,
+    "categories": {
+      "feedback": 1,
+      "basic": 1,
+      "layout": 1,
+      "common": 1,
+      "form": 1,
+      "display": 1,
+      "navigation": 1
+    },
+    "total_files": 433,
+    "file_types": {
+      ".ts": 275,
+      ".tsx": 152,
+      ".scss": 5,
+      ".css": 1
+    }
+  },
+  "quality": {
+    "syntax_errors": [],
+    "missing_imports": [],
+    "unused_exports": [],
+    "large_components": [
+      {
+        "component": "feedback/Toast",
+        "size_kb": 10.06
+      },
+      {
+        "component": "feedback/Popconfirm",
+        "size_kb": 8.4
+      },
+      {
+        "component": "feedback/Progress",
+        "size_kb": 13.22
+      },
+      {
+        "component": "feedback/Modal",
+        "size_kb": 6.47
+      },
+      {
+        "component": "feedback/Tooltip",
+        "size_kb": 8.4
+      },
+      {
+        "component": "feedback/Notification",
+        "size_kb": 9.38
+      },
+      {
+        "component": "feedback/Drawer",
+        "size_kb": 6.01
+      },
+      {
+        "component": "feedback/Result",
+        "size_kb": 5.54
+      },
+      {
+        "component": "basic/Video",
+        "size_kb": 39.91
+      },
+      {
+        "component": "basic/Typography",
+        "size_kb": 6.67
+      },
+      {
+        "component": "basic/Text",
+        "size_kb": 8.96
+      },
+      {
+        "component": "basic/Button",
+        "size_kb": 8.48
+      },
+      {
+        "component": "basic/Divider",
+        "size_kb": 13.33
+      },
+      {
+        "component": "layout/Space",
+        "size_kb": 5.45
+      },
+      {
+        "component": "layout/ResponsiveGrid",
+        "size_kb": 5.32
+      },
+      {
+        "component": "common/VirtualList",
+        "size_kb": 6.46
+      },
+      {
+        "component": "common/LazyComponent",
+        "size_kb": 5.2
+      },
+      {
+        "component": "form/DatePicker",
+        "size_kb": 12.65
+      },
+      {
+        "component": "form/InputNumber",
+        "size_kb": 11.1
+      },
+      {
+        "component": "form/Upload",
+        "size_kb": 16.91
+      },
+      {
+        "component": "form/Textarea",
+        "size_kb": 17.35
+      },
+      {
+        "component": "form/Slider",
+        "size_kb": 10.01
+      },
+      {
+        "component": "form/Input",
+        "size_kb": 8.06
+      },
+      {
+        "component": "form/Cascader",
+        "size_kb": 18.34
+      },
+      {
+        "component": "form/Transfer",
+        "size_kb": 12.41
+      },
+      {
+        "component": "form/Select",
+        "size_kb": 16.18
+      },
+      {
+        "component": "form/Radio",
+        "size_kb": 10.54
+      },
+      {
+        "component": "form/AutoComplete",
+        "size_kb": 15.13
+      },
+      {
+        "component": "form/TimePicker",
+        "size_kb": 6.47
+      },
+      {
+        "component": "form/Checkbox",
+        "size_kb": 10.86
+      },
+      {
+        "component": "form/Switch",
+        "size_kb": 14.38
+      },
+      {
+        "component": "form/Form",
+        "size_kb": 7.76
+      },
+      {
+        "component": "display/Calendar",
+        "size_kb": 10.26
+      },
+      {
+        "component": "display/RichText",
+        "size_kb": 9.31
+      },
+      {
+        "component": "display/Rate",
+        "size_kb": 8.4
+      },
+      {
+        "component": "display/Table",
+        "size_kb": 13.37
+      },
+      {
+        "component": "display/Timeline",
+        "size_kb": 5.74
+      },
+      {
+        "component": "display/Carousel",
+        "size_kb": 7.83
+      },
+      {
+        "component": "navigation/Tabs",
+        "size_kb": 7.25
+      },
+      {
+        "component": "navigation/Pagination",
+        "size_kb": 10.63
+      },
+      {
+        "component": "navigation/NavBar",
+        "size_kb": 5.77
+      },
+      {
+        "component": "navigation/Menu",
+        "size_kb": 10.13
+      },
+      {
+        "component": "navigation/PageHeader",
+        "size_kb": 11.66
+      }
+    ]
+  },
+  "recommendations": [
+    "\u542f\u7528 gzip/Brotli \u538b\u7f29",
+    "\u914d\u7f6e CDN \u52a0\u901f",
+    "\u4f18\u5316\u8d44\u6e90\u7f13\u5b58\u7b56\u7565",
+    "\u5b9e\u73b0\u7ec4\u4ef6\u7ea7\u6309\u9700\u52a0\u8f7d",
+    "\u914d\u7f6e HTTP/2 \u652f\u6301"
+  ]
+}

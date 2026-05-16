@@ -1,0 +1,129 @@
+{
+  "name": "orva-ui",
+  "version": "0.0.1",
+  "description": "轻量级跨平台 UI 组件库，为 Taro 生态系统打造",
+  "keywords": [
+    "taro",
+    "react",
+    "ui",
+    "components",
+    "typescript",
+    "mobile",
+    "mini-program"
+  ],
+  "type": "module",
+  "main": "./dist/orva-ui.cjs.js",
+  "module": "./dist/orva-ui.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/orva-ui.es.js",
+      "require": "./dist/orva-ui.cjs.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:lib": "vite build --mode lib && npm run types:build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:coverage:debug": "vitest run --coverage --reporter=verbose",
+    "test:watch": "vitest watch",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "rm -rf dist .vite coverage",
+    "mcp": "tsx mcp/orva-ui-mcp.ts",
+    "tokens:generate": "tsx scripts/generate-scss-tokens.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "precommit": "npm run type-check && npm run lint:check && npm run test:run",
+    "prebuild": "npm run clean && npm run type-check",
+    "types:build": "tsc -p tsconfig.build.json",
+    "docs:generate": "typedoc",
+    "docs:watch": "typedoc --watch",
+    "docs:install": "cd docs && npm install",
+    "docs:dev": "cd docs && npm run start",
+    "docs:build": "cd docs && npm run build",
+    "docs:serve": "cd docs && npm run serve",
+    "docs:deploy": "cd docs && npm run deploy"
+  },
+  "dependencies": {
+    "@tarojs/components": "^4.1.6",
+    "@tarojs/taro": ">=4.1.6",
+    "react": ">=19.1.1",
+    "react-dom": ">=19.1.1"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-interactions": "^8.6.14",
+    "@storybook/builder-vite": "^8.6.14",
+    "@storybook/cli": "^8.6.14",
+    "@storybook/react": "^8.6.14",
+    "@storybook/testing-library": "^0.2.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@unocss/preset-attributify": "^66.6.8",
+    "@unocss/preset-icons": "^66.6.8",
+    "@unocss/preset-typography": "^66.6.8",
+    "@unocss/preset-uno": "^66.6.8",
+    "@unocss/preset-web-fonts": "^66.6.8",
+    "@vitejs/plugin-react": "^4.0.0",
+    "@vitest/coverage-v8": "^1.6.1",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-storybook": "^9.1.8",
+    "fast-check": "^4.5.3",
+    "globals": "^16.5.0",
+    "jsdom": "^24.0.0",
+    "postcss-pxtorem": "^6.1.0",
+    "prettier": "^3.6.2",
+    "tsx": "^4.19.2",
+    "typedoc": "^0.28.14",
+    "typescript": "^5.7.2",
+    "unocss": "^66.6.8",
+    "vite": "^7.1.5",
+    "vitest": "^1.6.1"
+  },
+  "peerDependencies": {
+    "@tarojs/taro": ">=4.1.6",
+    "react": ">=19.1.1",
+    "react-dom": ">=19.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": {
+    "name": "Agions"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agions/orva-ui.git"
+  },
+  "homepage": "https://agions.github.io/orva-ui",
+  "bugs": {
+    "url": "https://github.com/agions/orva-ui/issues"
+  }
+}
