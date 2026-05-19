@@ -1,19 +1,26 @@
 /**
- * FormItem Component
- * 表单项组件，用于包装表单控件并提供标签、验证等功能
+ * FormItem 表单项组件
  * @module components/form/Form/FormItem
+ * @description 用于包装表单控件，提供标签、验证消息、帮助文本、必填标记等功能。
+ *  支持水平/垂直布局、多种验证触发时机、自定义错误提示、字段状态管理。
+ *
+ * @example
+ * ```tsx
+ * <FormItem name="username" label="用户名" rules={[{ required: true, message: '请输入用户名' }]}>
+ *   <Input placeholder="请输入" />
+ * </FormItem>
+ * <FormItem name="bio" label="个人简介" helperText="不超过200字">
+ *   <Textarea maxLength={200} />
+ * </FormItem>
+ * ```
  */
 
-import React, { useEffect, useCallback, cloneElement, isValidElement, memo } from 'react';
+import React, { useEffect, useCallback, useMemo, cloneElement, isValidElement, memo } from 'react';
 import { View, Text } from '@tarojs/components';
 import type { FormItemProps, FormFieldStatus, FormItemContext } from './Form.types';
 import { useFormContext, FormItemContextProvider } from './FormContext';
 import { formStyles } from './Form.styles';
 
-/**
- * 表单项组件
- * @description 用于包装表单控件，提供标签、验证消息等功能
- */
 export const FormItem = memo<FormItemProps>(function FormItem(props) {
   const {
     name,
@@ -129,8 +136,8 @@ export const FormItem = memo<FormItemProps>(function FormItem(props) {
     }
   }, [formContext, name, finalValidateTrigger]);
 
-  // 创建表单项上下文
-  const formItemContext: FormItemContext = {
+  // 创建表单项上下文 — 用 useMemo 避免每次渲染重建
+  const formItemContext = useMemo<FormItemContext>(() => ({
     name,
     value,
     errors,
@@ -143,7 +150,7 @@ export const FormItem = memo<FormItemProps>(function FormItem(props) {
     labelWidth: finalLabelWidth,
     showValidateMessage: finalShowValidateMessage,
     formContext: formContext!,
-  };
+  }), [name, value, errors, field?.touched, field?.validating, fieldStatus, rules, isRequired, finalLabelAlign, finalLabelWidth, finalShowValidateMessage, formContext]);
 
   // 生成样式
   const itemStyle = formStyles.getItemStyle({

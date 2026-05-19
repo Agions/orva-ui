@@ -10,7 +10,7 @@
  * ```
  */
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Taro from '@tarojs/taro';
 import { createLogger } from '@/utils/logger';
 
@@ -35,17 +35,14 @@ export function useLocalStorage<T>(
 ): [T, (value: T | ((prev: T) => T)) => void, () => void] {
   const { serializer = JSON.stringify, deserializer = JSON.parse, initializeWithValue = true } = options;
 
-  // Get initial value from storage or use provided initial value
   const readValue = useCallback((): T => {
     try {
-      // In Taro, we need to use async storage API, but for initial value
-      // we'll use the provided initial value and fetch asynchronously later
       return initialValue;
     } catch (error) {
       logger.warn(`Error reading storage key "${key}":`, error);
       return initialValue;
     }
-  }, [key, initialValue, deserializer]);
+  }, [initialValue]);
 
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (initializeWithValue) {
@@ -54,23 +51,22 @@ export function useLocalStorage<T>(
     return initialValue;
   });
 
-  // Set value in storage
+  // 用 ref 保存最新值，避免 setValue 依赖 storedValue 导致每次变化重建回调
+  const storedValueRef = useRef(storedValue);
+  storedValueRef.current = storedValue;
+
+  // Set value in storage — 不依赖 storedValue，通过 ref 读取最新值
   const setValue = useCallback(
     (value: T | ((prev: T) => T)) => {
       try {
-        // Allow value to be a function so we have same API as useState
-        const valueToStore = value instanceof Function ? value(storedValue) : value;
-
-        // Save to state
+        const valueToStore = value instanceof Function ? value(storedValueRef.current) : value;
         setStoredValue(valueToStore);
-
-        // Save to storage using Taro API
         Taro.setStorageSync(key, serializer(valueToStore));
       } catch (error) {
         logger.warn(`Error setting storage key "${key}":`, error);
       }
     },
-    [key, serializer, storedValue],
+    [key, serializer],
   );
 
   // Remove value from storage
@@ -83,37 +79,17 @@ export function useLocalStorage<T>(
     }
   }, [key, initialValue]);
 
-  // Fetch initial value from storage asynchronously
+  // Fetch initial value from storage on mount
   useEffect(() => {
-    const fetchInitialValue = () => {
-      try {
-        const item = Taro.getStorageSync(key);
-        if (item.data) {
-          setStoredValue(deserializer(item.data));
-        }
-      } catch (error) {
-        logger.warn(`Error reading storage key "${key}":`, error);
+    try {
+      const item = Taro.getStorageSync(key);
+      if (item.data) {
+        setStoredValue(deserializer(item.data));
       }
-    };
-
-    fetchInitialValue();
-  }, [key, initialValue, deserializer]);
-
-  // Fetch initial value from storage asynchronously
-  useEffect(() => {
-    const fetchInitialValue = () => {
-      try {
-        const item = Taro.getStorageSync(key);
-        if (item.data) {
-          setStoredValue(deserializer(item.data));
-        }
-      } catch (error) {
-        logger.warn(`Error reading storage key "${key}":`, error);
-      }
-    };
-
-    fetchInitialValue();
-  }, [key, initialValue, deserializer]);
+    } catch (error) {
+      logger.warn(`Error reading storage key "${key}":`, error);
+    }
+  }, [key, deserializer]);
 
   return [storedValue, setValue, removeValue];
 }
@@ -130,14 +106,12 @@ export function useSessionStorage<T>(
 
   const readValue = useCallback((): T => {
     try {
-      // In Taro, we need to use async storage API, but for initial value
-      // we'll use the provided initial value and fetch asynchronously later
       return initialValue;
     } catch (error) {
       logger.warn(`Error reading storage key "${key}":`, error);
       return initialValue;
     }
-  }, [key, initialValue, deserializer]);
+  }, [initialValue]);
 
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (initializeWithValue) {
@@ -146,17 +120,21 @@ export function useSessionStorage<T>(
     return initialValue;
   });
 
+  // 用 ref 保存最新值
+  const storedValueRef = useRef(storedValue);
+  storedValueRef.current = storedValue;
+
   const setValue = useCallback(
     (value: T | ((prev: T) => T)) => {
       try {
-        const valueToStore = value instanceof Function ? value(storedValue) : value;
+        const valueToStore = value instanceof Function ? value(storedValueRef.current) : value;
         setStoredValue(valueToStore);
         Taro.setStorageSync(key, serializer(valueToStore));
       } catch (error) {
         logger.warn(`Error setting storage key "${key}":`, error);
       }
     },
-    [key, serializer, storedValue],
+    [key, serializer],
   );
 
   const removeValue = useCallback(() => {

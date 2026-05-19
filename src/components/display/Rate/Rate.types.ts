@@ -1,6 +1,6 @@
 import type { BaseProps } from '@/types/component';
 import { ReactNode } from 'react';
-import { Size } from '../../../types';
+import { Size } from '@/types';
 
 /** 评分尺寸 */
 

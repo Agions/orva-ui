@@ -1,5 +1,5 @@
 import type { GridProps, GridGap, GridCols } from './Grid.types';
-import type { Size, CSSUnit } from '../../../types';
+import type { Size, CSSUnit } from '@/types';
 
 /** Grid组件样式管理器 */
 export const gridStyles = {

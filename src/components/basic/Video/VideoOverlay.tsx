@@ -1,7 +1,11 @@
 /**
- * VideoOverlay 组件 - 视频覆盖层
- * 处理加载状态、错误状态、结束状态等覆盖层显示
+ * 视频覆盖层组件 (VideoOverlay)
  * @module components/basic/Video/VideoOverlay
+ * @description 处理加载状态、错误状态、结束状态等覆盖层显示
+ * @example
+ * ```tsx
+ * <VideoOverlay status="loading" error={null} onRetry={() => {}} />
+ * ```
  */
 
 import { useCallback } from 'react';
@@ -53,27 +57,61 @@ export const VideoOverlay = createComponent<VideoOverlayProps, HTMLDivElement>({
       onEndedClick?.();
     }, [onEndedClick]);
 
+    // ===== 模块级静态样式 =====
+    const overlayBaseStyle = {
+      position: 'absolute' as const,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: 'flex' as const,
+      flexDirection: 'column' as const,
+      alignItems: 'center' as const,
+      justifyContent: 'center' as const,
+      zIndex: 5,
+    };
+
+    const loadingOverlayStyle = {
+      ...overlayBaseStyle,
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    };
+
+    const errorOverlayStyle = {
+      ...overlayBaseStyle,
+      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    };
+
+    const endedOverlayStyle = {
+      ...overlayBaseStyle,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    };
+
+    const errorEmojiStyle = { fontSize: 48, marginBottom: 16 };
+    const errorTitleStyle = { color: '#fff', fontSize: 16, marginBottom: 8 };
+    const errorDescStyle = { color: '#aaa', fontSize: 12, marginBottom: 24, textAlign: 'center' as const };
+    const retryButtonStyle = (bg: string) => ({
+      padding: '8px 24px',
+      backgroundColor: bg,
+      borderRadius: 20,
+      cursor: 'pointer' as const,
+    });
+    const retryTextStyle = { color: '#fff', fontSize: 14 };
+    const endedEmojiStyle = { fontSize: 48, marginBottom: 16 };
+    const endedTitleStyle = { color: '#fff', fontSize: 18, marginBottom: 8 };
+    const loadingTextStyle = { marginTop: 16, color: '#fff', fontSize: 14 };
+    const loadingSpinnerStyle = (borderColor: string) => ({
+      width: 40,
+      height: 40,
+      border: `4px solid ${borderColor}`,
+      borderRadius: '50%',
+      borderTopColor: 'transparent',
+    });
+
     // 渲染加载状态
     const renderLoading = () => (
-      <View
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          zIndex: 5,
-        }}
-        aria-busy="true"
-        aria-label="Loading video"
-      >
-        <View style={{ width: 40, height: 40, border: `4px solid ${theme.colors.primary}`, borderRadius: '50%', borderTopColor: 'transparent' }} />
-        <Text style={{ marginTop: 16, color: '#fff', fontSize: 14 }}>
+      <View style={loadingOverlayStyle} aria-busy="true" aria-label="Loading video">
+        <View style={loadingSpinnerStyle(theme.colors.primary)} />
+        <Text style={loadingTextStyle}>
           {status === (VideoStatus.WAITING as VideoStatus) ? '缓冲中...' : '加载中...'}
         </Text>
       </View>
@@ -96,40 +134,21 @@ export const VideoOverlay = createComponent<VideoOverlayProps, HTMLDivElement>({
 
       return (
         <View
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-            zIndex: 5,
-          }}
+          style={errorOverlayStyle}
           aria-live="assertive"
           aria-atomic="true"
           {...a11y.getAriaAttributes()}
         >
-          <Text style={{ fontSize: 48, marginBottom: 16 }}>😢</Text>
-          <Text style={{ color: '#fff', fontSize: 16, marginBottom: 8 }}>视频加载失败</Text>
-          <Text style={{ color: '#aaa', fontSize: 12, marginBottom: 24, textAlign: 'center' }}>
-            {errorMessage}
-          </Text>
+          <Text style={errorEmojiStyle}>😢</Text>
+          <Text style={errorTitleStyle}>视频加载失败</Text>
+          <Text style={errorDescStyle}>{errorMessage}</Text>
           <View
-            style={{
-              padding: '8px 24px',
-              backgroundColor: theme.colors.primary,
-              borderRadius: 20,
-              cursor: 'pointer',
-            }}
+            style={retryButtonStyle(theme.colors.primary)}
             onClick={handleRetry}
             role="button"
             aria-label="Retry loading video"
           >
-            <Text style={{ color: '#fff', fontSize: 14 }}>重试</Text>
+            <Text style={retryTextStyle}>重试</Text>
           </View>
         </View>
       );
@@ -137,35 +156,16 @@ export const VideoOverlay = createComponent<VideoOverlayProps, HTMLDivElement>({
 
     // 渲染结束状态
     const renderEnded = () => (
-      <View
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          zIndex: 5,
-        }}
-      >
-        <Text style={{ fontSize: 48, marginBottom: 16 }}>🎬</Text>
-        <Text style={{ color: '#fff', fontSize: 18, marginBottom: 8 }}>视频已结束</Text>
+      <View style={endedOverlayStyle}>
+        <Text style={endedEmojiStyle}>🎬</Text>
+        <Text style={endedTitleStyle}>视频已结束</Text>
         <View
-          style={{
-            padding: '8px 24px',
-            backgroundColor: theme.colors.primary,
-            borderRadius: 20,
-            cursor: 'pointer',
-          }}
+          style={retryButtonStyle(theme.colors.primary)}
           onClick={handleEndedClickFn}
           role="button"
           aria-label="Replay video"
         >
-          <Text style={{ color: '#fff', fontSize: 14 }}>重新播放</Text>
+          <Text style={retryTextStyle}>重新播放</Text>
         </View>
       </View>
     );

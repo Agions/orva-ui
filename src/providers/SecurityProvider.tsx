@@ -17,7 +17,7 @@
  *
  * @module providers/SecurityProvider
  */
-import React, { ReactNode, createContext, useContext, useEffect } from 'react';
+import React, { ReactNode, createContext, useContext, useEffect, useMemo, useCallback } from 'react';
 import { ErrorBoundary } from '../components/common/ErrorBoundary';
 import { error as logError } from '../utils/logger';
 
@@ -132,7 +132,7 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
   }, [hstsEnabled, hstsMaxAge]);
 
   // 输入清洗 — 根据类型选择清洗策略
-  const sanitizeInput = (value: string, type: 'html' | 'attribute' | 'json' = 'html'): string => {
+  const sanitizeInput = useCallback((value: string, type: 'html' | 'attribute' | 'json' = 'html'): string => {
     if (typeof value !== 'string') return '';
     switch (type) {
       case 'html':
@@ -144,10 +144,10 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
       default:
         return escapeHTML(value);
     }
-  };
+  }, []);
 
   // 输入验证 — 支持规则配置
-  const validateInput = (
+  const validateInput = useCallback((
     value: string,
     rules: Record<string, unknown> = {},
   ): { isValid: boolean; errors: string[] } => {
@@ -177,10 +177,10 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
     }
 
     return { isValid: errors.length === 0, errors };
-  };
+  }, []);
 
   // 添加安全头部 — CSP/HSTS/X-Frame-Options 等
-  const addSecurityHeaders = (headers: Record<string, string> = {}): Record<string, string> => {
+  const addSecurityHeaders = useCallback((headers: Record<string, string> = {}): Record<string, string> => {
     const securityHeaders: Record<string, string> = { ...headers };
     if (cspEnabled) {
       securityHeaders['Content-Security-Policy'] = cspPolicy;
@@ -194,19 +194,19 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
     securityHeaders['X-XSS-Protection'] = '1; mode=block';
     securityHeaders['Referrer-Policy'] = 'strict-origin-when-cross-origin';
     return securityHeaders;
-  };
+  }, [cspEnabled, cspPolicy, hstsEnabled, hstsMaxAge]);
 
   // 错误报告
-  const reportError = (error: Error): void => {
+  const reportError = useCallback((error: Error): void => {
     logError(`Security error: ${error.message}`, { error });
-  };
+  }, []);
 
-  const value: SecurityContextType = {
+  const value = useMemo<SecurityContextType>(() => ({
     sanitizeInput,
     validateInput,
     addSecurityHeaders,
     reportError,
-  };
+  }), [sanitizeInput, validateInput, addSecurityHeaders, reportError]);
 
   return (
     <ErrorBoundary>

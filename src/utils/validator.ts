@@ -1,6 +1,15 @@
 /**
- * 数据验证工具
- * 提供常用的数据验证函数
+ * 数据验证工具模块 (validator)
+ * @module utils/validator
+ * @description 提供常用的数据验证函数，支持邮箱、手机号、URL、身份证等格式验证，以及自定义验证规则
+ * @example
+ * ```ts
+ * import { validateEmail, validatePhone, validateURL, createValidator } from '@/utils/validator';
+ *
+ * validateEmail('test@example.com'); // true
+ * validatePhone('13800138000'); // true
+ * validateURL('https://example.com'); // true
+ * ```
  */
 
 /** 验证结果 */

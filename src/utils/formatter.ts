@@ -1,6 +1,15 @@
 /**
- * 数据格式化工具
- * 提供日期、数字、货币等数据的格式化功能
+ * 数据格式化工具模块 (formatter)
+ * @module utils/formatter
+ * @description 提供日期、数字、货币等数据的格式化功能，支持多种格式模板和国际化
+ * @example
+ * ```ts
+ * import { formatDate, formatNumber, formatCurrency } from '@/utils/formatter';
+ *
+ * formatDate(new Date(), 'YYYY-MM-DD'); // '2024-01-15'
+ * formatNumber(1234567); // '1,234,567'
+ * formatCurrency(1234.56); // '¥1,234.56'
+ * ```
  */
 
 // ==================== 日期格式化 ====================

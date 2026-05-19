@@ -1,9 +1,18 @@
 /**
- * Taro-Uno Drawer Component
- * 抽屉组件实现
+ * 抽屉组件 (Drawer)
+ * @module components/feedback/Drawer
+ * @description 用于显示侧边抽屉的组件，支持多种方向（上下左右）、主题、遮罩层和动画效果
+ * @example
+ * ```tsx
+ * import { Drawer } from 'orva-ui';
+ *
+ * <Drawer visible={true} title="标题" direction="right">
+ *   内容区域
+ * </Drawer>
+ * ```
  */
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { View, Button } from '@tarojs/components';
 import type { DrawerProps, DrawerRef, DrawerDirection, DrawerTheme } from './Drawer.types';
 import { BaseStyles, getThemeStyle, getDirectionStyle, mergeStyles } from './Drawer.styles';
@@ -18,18 +27,31 @@ import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 const Drawer = createComponent<DrawerProps, DrawerRef>({
   name: 'Drawer',
   render: (props, ref) => {
-    const mergedConfig = {
-      title: props.title,
-      direction: props.direction,
-      theme: props.theme,
-      showClose: props.showClose,
-      maskClosable: props.maskClosable,
-      width: props.width,
-      height: props.height,
-      ...props.config,
-    };
+    const {
+      visible: propsVisible,
+      defaultVisible,
+      direction: propsDirection,
+      theme: propsTheme,
+      showClose: propsShowClose,
+      maskClosable: propsMaskClosable,
+      width: propsWidth,
+      height: propsHeight,
+      config,
+      ...restProps
+    } = props;
 
-    const [visible, setVisible] = useState<boolean>(props.visible || props.defaultVisible || false);
+    const mergedConfig = useMemo(() => ({
+      title: props.title,
+      direction: propsDirection,
+      theme: propsTheme,
+      showClose: propsShowClose,
+      maskClosable: propsMaskClosable,
+      width: propsWidth,
+      height: propsHeight,
+      ...config,
+    }), [props.title, propsDirection, propsTheme, propsShowClose, propsMaskClosable, propsWidth, propsHeight, config]);
+
+    const [visible, setVisible] = useState<boolean>(propsVisible || defaultVisible || false);
     const [internalVisible, setInternalVisible] = useState<boolean>(visible);
     const [direction, setDirection] = useState<DrawerDirection>(mergedConfig.direction || 'right');
     const [theme, setTheme] = useState<DrawerTheme>(mergedConfig.theme || 'light');
@@ -44,21 +66,21 @@ const Drawer = createComponent<DrawerProps, DrawerRef>({
     });
 
     useEffect(() => {
-      if (props.visible !== undefined) setVisible(props.visible);
-    }, [props.visible]);
+      if (propsVisible !== undefined) setVisible(propsVisible);
+    }, [propsVisible]);
 
     useEffect(() => {
       if (visible) {
         setInternalVisible(true);
-        props.onOpen?.();
+        restProps.onOpen?.();
       } else {
         const timer = setTimeout(() => {
           setInternalVisible(false);
-          props.onClose?.();
+          restProps.onClose?.();
         }, animationDuration);
         return () => clearTimeout(timer);
       }
-    }, [visible, animationDuration, props.onOpen, props.onClose]);
+    }, [visible, animationDuration, restProps]);
 
     useEffect(() => {
       if (mergedConfig.direction) setDirection(mergedConfig.direction);
@@ -66,21 +88,21 @@ const Drawer = createComponent<DrawerProps, DrawerRef>({
     }, [mergedConfig.direction, mergedConfig.theme]);
 
     const show = useCallback(() => {
-      if (!props.disabled) setVisible(true);
-    }, [props.disabled]);
+      if (!restProps.disabled) setVisible(true);
+    }, [restProps.disabled]);
 
     const hide = useCallback(() => { setVisible(false); }, []);
 
     const toggle = useCallback(() => {
-      if (!props.disabled) setVisible(!visible);
-    }, [visible, props.disabled]);
+      if (!restProps.disabled) setVisible(!visible);
+    }, [visible, restProps.disabled]);
 
     const handleMaskClick = useCallback(() => {
       if (mergedConfig.maskClosable !== false) {
         hide();
-        props.onMaskClick?.();
+        restProps.onMaskClick?.();
       }
-    }, [mergedConfig.maskClosable, hide, props.onMaskClick]);
+    }, [mergedConfig.maskClosable, hide, restProps]);
 
     const handleCloseClick = useCallback(() => { hide(); }, [hide]);
 
@@ -92,12 +114,12 @@ const Drawer = createComponent<DrawerProps, DrawerRef>({
 
       return (
         <>
-          {props.showMask !== false && (
+          {restProps.showMask !== false && (
             <View
-              style={mergeStyles(BaseStyles.mask, themeStyle.mask, props.maskStyle, {
+              style={mergeStyles(BaseStyles.mask, themeStyle.mask, restProps.maskStyle, {
                 opacity: visible ? 1 : 0,
               })}
-              className={props.maskClassName}
+              className={restProps.maskClassName}
               onClick={handleMaskClick}
             />
           )}
@@ -111,17 +133,17 @@ const Drawer = createComponent<DrawerProps, DrawerRef>({
                 transform: visible ? 'translate(0)' : directionStyle.transform,
                 transition: `transform ${animationDuration}ms ease`,
               },
-              props.style,
+              restProps.style,
               mergedConfig.style,
             )}
-            className={props.className || mergedConfig.className}
+            className={restProps.className || mergedConfig.className}
           >
             {(mergedConfig.title || mergedConfig.showClose !== false) && (
               <View style={mergeStyles(BaseStyles.header, themeStyle.header)}>
                 {mergedConfig.title && (
                   <View
-                    style={mergeStyles(BaseStyles.title, themeStyle.title, props.titleStyle)}
-                    className={props.titleClassName}
+                    style={mergeStyles(BaseStyles.title, themeStyle.title, restProps.titleStyle)}
+                    className={restProps.titleClassName}
                   >
                     {mergedConfig.title}
                   </View>
@@ -133,13 +155,13 @@ const Drawer = createComponent<DrawerProps, DrawerRef>({
                 )}
               </View>
             )}
-            <View style={mergeStyles(BaseStyles.content, props.contentStyle)} className={props.contentClassName}>
-              {props.children}
+            <View style={mergeStyles(BaseStyles.content, restProps.contentStyle)} className={restProps.contentClassName}>
+              {restProps.children}
             </View>
           </View>
         </>
       );
-    }, [internalVisible, visible, mergedConfig, props, themeStyle, directionStyle, animationDuration, handleMaskClick, handleCloseClick]);
+    }, [internalVisible, visible, mergedConfig, restProps, themeStyle, directionStyle, animationDuration, handleMaskClick, handleCloseClick]);
 
     useEffect(() => {
       if (ref && typeof ref === 'function') {

@@ -1,7 +1,22 @@
+/**
+ * Transfer 操作按钮组件 (TransferOperations)
+ * @module components/form/Transfer/components/TransferOperations
+ * @description Transfer 组件的中间操作按钮子组件，支持左右移动数据
+ * @example
+ * ```tsx
+ * <TransferOperations
+ *   operations={['>', '<']}
+ *   leftSelectedKeys={['1']}
+ *   rightSelectedKeys={['2']}
+ *   onMove={(dir) => console.log(dir)}
+ * />
+ * ```
+ */
+
 import React, { useCallback } from 'react';
 import { View, Text } from '@tarojs/components';
 
-import { createComponent } from '../../../../utils/createComponent';
+import { createComponent } from '@/utils/createComponent';
 import { TransferStyles } from '../Transfer.styles';
 import type { TransferDirection } from '../Transfer.types';
 

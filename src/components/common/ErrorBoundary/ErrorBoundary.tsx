@@ -1,6 +1,20 @@
+/**
+ * 错误边界组件 (ErrorBoundary)
+ * @module components/common/ErrorBoundary
+ * @description 用于捕获子组件树中的 JavaScript 错误，显示备用 UI 而非崩溃的组件
+ * @example
+ * ```tsx
+ * import { ErrorBoundary } from 'orva-ui';
+ *
+ * <ErrorBoundary fallback={<div>出错了</div>}>
+ *   <MyComponent />
+ * </ErrorBoundary>
+ * ```
+ */
+
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { View, Text, Button } from '@tarojs/components';
-import { error as logError } from '../../../utils/logger';
+import { error as logError } from '@/utils/logger';
 import type { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types';
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {

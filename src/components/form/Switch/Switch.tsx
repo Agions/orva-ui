@@ -10,7 +10,17 @@ import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 import { switchStyles } from './Switch.styles';
 import type { SwitchProps, SwitchRef, SwitchValidationResult } from './Switch.types';
 
-/** 开关组件 */
+/**
+ * Switch 开关组件
+ * @module components/form/Switch
+ * @description 用于切换开关状态的组件，支持禁用、加载状态、自定义尺寸和颜色。
+ *
+ * @example
+ * ```tsx
+ * <Switch checked={value} onChange={setValue} />
+ * <Switch disabled loading />
+ * ```
+*/
 export const Switch = createComponent<SwitchProps, SwitchRef>({
   name: 'Switch',
 

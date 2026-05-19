@@ -4,7 +4,7 @@
  * @module theme/styles/common/shadow
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 // ==================== 基础阴影样式 ====================
 

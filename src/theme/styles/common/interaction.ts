@@ -4,7 +4,7 @@
  * @module theme/styles/common/interaction
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 // ==================== 光标样式 ====================
 

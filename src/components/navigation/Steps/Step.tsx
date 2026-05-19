@@ -1,3 +1,13 @@
+/**
+ * 步骤条项组件 (Step)
+ * @module components/navigation/Steps/Step
+ * @description Steps 组件的子组件，用于展示单个步骤的标题、描述和状态
+ * @example
+ * ```tsx
+ * <Step title="步骤一" description="基本信息" status="finish" />
+ * ```
+ */
+
 import React, { forwardRef, useImperativeHandle, memo } from 'react';
 import { View, Text } from '@tarojs/components';
 import { StepProps, StepRef } from './Steps.types';

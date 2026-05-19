@@ -1,9 +1,19 @@
+/**
+ * InputNumber 步进控制组件 (InputNumberControls)
+ * @module components/form/InputNumber/components/InputNumberControls
+ * @description InputNumber 组件的步进按钮子组件，支持上下/双侧位置
+ * @example
+ * ```tsx
+ * <InputNumberControls size="md" controlsPosition="both" onStep={(dir) => console.log(dir)} />
+ * ```
+ */
+
 import { View, Text } from '@tarojs/components';
 import type { ITouchEvent } from '@tarojs/components';
 
-import { createComponent } from '../../../../utils/createComponent';
-import { useTheme } from '../../../../hooks/ui/useTheme';
-import { useInteractionState } from '../../../../hooks/ui/useInteractionState';
+import { createComponent } from '@/utils/createComponent';
+import { useTheme } from '@/hooks/ui/useTheme';
+import { useInteractionState } from '@/hooks/ui/useInteractionState';
 import type { InputNumberSize, InputNumberControlsPosition } from '../InputNumber.types';
 import type { BaseProps } from '@/types/component';
 import { inputNumberStyles } from '../InputNumber.styles';

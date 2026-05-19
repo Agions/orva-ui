@@ -4,11 +4,11 @@
  * @module components/form/Input/Input.styles
  */
 
-import { mergeStyles } from '../../../theme/styles/createStyles';
-import { flex, itemsCenter } from '../../../theme/styles/common/layout';
-import { cursorText, disabled as disabledStyle, focusRingPrimary, focusRingError } from '../../../theme/styles/common/interaction';
-import type { StyleObject } from '../../../types/style';
-import type { ThemeConfig } from '../../../theme/types';
+import { mergeStyles } from '@/theme/styles/createStyles';
+import { flex, itemsCenter } from '@/theme/styles/common/layout';
+import { cursorText, disabled as disabledStyle, focusRingPrimary, focusRingError } from '@/theme/styles/common/interaction';
+import type { StyleObject } from '@/types/style';
+import type { ThemeConfig } from '@/theme/types';
 
 // ==================== 基础样式 ====================
 

@@ -4,7 +4,7 @@
  * @module theme/styles/base/reset
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 /**
  * 盒模型重置

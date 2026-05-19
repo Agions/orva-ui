@@ -1,5 +1,5 @@
 import type { MenuItem } from './Menu.types';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
 
 /**
  * 菜单工具函数

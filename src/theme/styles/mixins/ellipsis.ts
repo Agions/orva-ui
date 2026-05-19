@@ -4,7 +4,7 @@
  * @module theme/styles/mixins/ellipsis
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 /**
  * 单行文本省略

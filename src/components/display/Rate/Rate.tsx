@@ -6,6 +6,18 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
+/**
+ * Rate 评分组件
+ * @module components/display/Rate
+ * @description 用于展示和输入评分的星级评分组件，支持半星、只读、禁用、自定义图标和颜色等功能。
+ *
+ * @example
+ * ```tsx
+ * <Rate value={4} onChange={handleChange} />
+ * <Rate allowHalf readonly count={10} character="♥" />
+ * ```
+ */
+
 /** 默认星星字符 */
 const DEFAULT_CHARACTER = '★';
 

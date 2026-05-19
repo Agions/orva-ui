@@ -29,6 +29,15 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
+// ==================== 模块级常量 ====================
+
+const STATUS_COLORS: Record<string, string> = {
+  normal: '#1890ff',
+  success: '#52c41a',
+  exception: '#ff4d4f',
+  active: '#faad14',
+};
+
 interface SVGCircleProps {
   cx: number;
   cy: number;
@@ -172,14 +181,8 @@ export const Progress = createComponent<ProgressProps, ProgressRef>({
     }, [format]);
 
     const getProgressColor = useCallback(() => {
-      if (strokeColor) return typeof strokeColor === 'string' ? strokeColor : theme?.primaryColor || '#1890ff';
-      const statusColors = {
-        normal: theme?.primaryColor || '#1890ff',
-        success: theme?.successColor || '#52c41a',
-        exception: theme?.errorColor || '#ff4d4f',
-        active: theme?.warningColor || '#faad14',
-      };
-      return statusColors[status];
+      if (strokeColor) return typeof strokeColor === 'string' ? strokeColor : theme?.primaryColor || STATUS_COLORS.normal;
+      return STATUS_COLORS[status] || theme?.primaryColor || STATUS_COLORS.normal;
     }, [strokeColor, status, theme]);
 
     const renderLineProgress = useCallback(() => {
@@ -248,26 +251,22 @@ export const Progress = createComponent<ProgressProps, ProgressRef>({
     }, [type, renderLineProgress, renderCircleProgress, renderDashboardProgress]);
 
     // 暴露给 ref 的方法
-    useEffect(() => {
-      if (ref && typeof ref === 'function') {
-        ref({
-          getPercent: () => internalPercent,
-          getProgress: () => internalPercent,
-          setProgress: (newPercent: number) => animateProgress(newPercent),
-          setPercent: (newPercent: number) => animateProgress(newPercent),
-          reset: () => { animateProgress(0); setStatus('normal'); },
-          start: () => { setIsAnimating(true); events?.onAnimationStart?.(); },
-          startAnimation: () => { setIsAnimating(true); events?.onAnimationStart?.(); },
-          pause: () => { if (animationRef.current) { animationRef.current.pause(); setIsAnimating(false); } },
-          stopAnimation: () => { if (animationRef.current) { animationRef.current.cancel(); setIsAnimating(false); } },
-          complete: () => { animateProgress(100); },
-          getElement: () => containerRef.current,
-          getStatus: () => status,
-          setStatus: (newStatus: ProgressStatus) => setStatus(newStatus),
-          isAnimating: () => isAnimating,
-        });
-      }
-    }, [ref, internalPercent, animateProgress, status, isAnimating, events]);
+    React.useImperativeHandle(ref, () => ({
+      getPercent: () => internalPercent,
+      getProgress: () => internalPercent,
+      setProgress: (newPercent: number) => animateProgress(newPercent),
+      setPercent: (newPercent: number) => animateProgress(newPercent),
+      reset: () => { animateProgress(0); setStatus('normal'); },
+      start: () => { setIsAnimating(true); events?.onAnimationStart?.(); },
+      startAnimation: () => { setIsAnimating(true); events?.onAnimationStart?.(); },
+      pause: () => { if (animationRef.current) { animationRef.current.pause(); setIsAnimating(false); } },
+      stopAnimation: () => { if (animationRef.current) { animationRef.current.cancel(); setIsAnimating(false); } },
+      complete: () => { animateProgress(100); },
+      getElement: () => containerRef.current,
+      getStatus: () => status,
+      setStatus: (newStatus: ProgressStatus) => setStatus(newStatus),
+      isAnimating: () => isAnimating,
+    }), [internalPercent, animateProgress, status, isAnimating, events]);
 
     const progressClasses = [
       className,

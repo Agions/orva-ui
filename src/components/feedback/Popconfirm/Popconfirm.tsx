@@ -1,9 +1,22 @@
 /**
- * Taro-Uno Popconfirm Component
- * 确认弹窗组件实现
+ * 确认弹窗组件 (Popconfirm)
+ * @module components/feedback/Popconfirm
+ * @description 用于显示确认弹窗的组件，支持自定义标题、内容、按钮文字、方向、主题等
+ * @example
+ * ```tsx
+ * import { Popconfirm } from 'orva-ui';
+ *
+ * <Popconfirm
+ *   visible={true}
+ *   title="确认删除？"
+ *   content="此操作不可恢复"
+ *   okText="删除"
+ *   cancelText="取消"
+ * />
+ * ```
  */
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { View, Button } from '@tarojs/components';
 import type { PopconfirmProps, PopconfirmRef, PopconfirmDirection, PopconfirmTheme } from './Popconfirm.types';
 import { BaseStyles, getThemeStyle, getDirectionStyle, getButtonStyle, mergeStyles } from './Popconfirm.styles';
@@ -19,7 +32,7 @@ const Popconfirm = createComponent<PopconfirmProps, PopconfirmRef>({
   name: 'Popconfirm',
   render: (props, ref) => {
     // 合并配置和直接属性
-    const mergedConfig = {
+    const mergedConfig = useMemo(() => ({
       title: props.title,
       content: props.content,
       direction: props.direction,
@@ -29,7 +42,7 @@ const Popconfirm = createComponent<PopconfirmProps, PopconfirmRef>({
       width: props.width,
       height: props.height,
       ...props.config,
-    };
+    }), [props.title, props.content, props.direction, props.theme, props.showClose, props.maskClosable, props.width, props.height, props.config]);
 
     const [visible, setVisible] = useState<boolean>(props.visible || props.defaultVisible || false);
     const [internalVisible, setInternalVisible] = useState<boolean>(visible);
@@ -114,16 +127,18 @@ const Popconfirm = createComponent<PopconfirmProps, PopconfirmRef>({
         const baseButtonStyle = isOkButton ? themeStyle.okButton : themeStyle.cancelButton;
         const typeStyle = getButtonStyle(buttonType);
 
+        const handleClick = () => {
+          buttonProps.onClick?.();
+          if (isOkButton) handleConfirm();
+          else handleCancel();
+        };
+
         return (
           <Button
             key={isOkButton ? 'ok' : 'cancel'}
             style={mergeStyles(BaseStyles.button, baseButtonStyle, typeStyle, buttonProps.style)}
             className={buttonProps.className}
-            onClick={() => {
-              buttonProps.onClick?.();
-              if (isOkButton) handleConfirm();
-              else handleCancel();
-            }}
+            onClick={handleClick}
             disabled={buttonProps.disabled}
           >
             {buttonProps.text}

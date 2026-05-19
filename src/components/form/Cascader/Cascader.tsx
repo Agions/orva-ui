@@ -3,6 +3,7 @@ import { View, Text, Input } from '@tarojs/components';
 import type { ITouchEvent, InputProps } from '@tarojs/components';
 import { CascaderStyles } from './Cascader.styles';
 import type { CascaderProps, CascaderRef, CascaderOption, CascaderValue } from './Cascader.types';
+import { CascaderMenu } from './components/CascaderMenu';
 import { useCascaderFieldNames } from './hooks/useCascaderFieldNames';
 import { useCascaderOptions } from './hooks/useCascaderOptions';
 import { useCascaderState } from './hooks/useCascaderState';
@@ -10,9 +11,30 @@ import { useCascaderState } from './hooks/useCascaderState';
 import { createComponent } from '@/utils/createComponent';
 import { useTheme } from '@/hooks/ui/useTheme';
 import { useInteractionState } from '@/hooks/ui/useInteractionState';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
 
-/** 级联选择器组件 */
+/**
+ * 级联选择器组件 (Cascader)
+ * @module components/form/Cascader
+ * @description 用于选择多级分类数据的表单组件，支持单选和多选模式
+ * @example
+ * ```tsx
+ * import { Cascader } from 'orva-ui';
+ *
+ * const options = [
+ *   { label: '浙江', value: 'zhejiang', children: [
+ *     { label: '杭州', value: 'hangzhou' },
+ *     { label: '宁波', value: 'ningbo' }
+ *   ]}
+ * ];
+ *
+ * <Cascader
+ *   options={options}
+ *   placeholder="请选择城市"
+ *   onChange={(value, selectedOptions) => console.log(value)}
+ * />
+ * ```
+ */
 const logger = createLogger('Cascader');
 
 export const Cascader = createComponent<CascaderProps, CascaderRef>({
@@ -278,177 +300,7 @@ export const Cascader = createComponent<CascaderProps, CascaderRef>({
       [internalDisabled, internalReadonly, setOpen],
     );
 
-    // 渲染菜单项
-    const renderMenuItem = useCallback(
-      (option: CascaderOption, level: number) => {
-        const optionValue = getOptionValue(option);
-        const optionLabel = getOptionLabel(option);
-        const isSelected = selectedOptions[level] && getOptionValue(selectedOptions[level]!) === optionValue;
-        const isExpanded = expandedValues.some((value) => value === optionValue);
-        const optionHasChildren = hasChildren(option);
 
-        const itemStyle = {
-          ...CascaderStyles['getMenuItemStyle'](isOptionDisabled(option), isSelected, isExpanded),
-          ...(option.style || {}),
-        };
-
-        return (
-          <View
-            key={String(optionValue)}
-            style={itemStyle}
-            className={option.className}
-            onClick={() => handleOptionClick(option, level)}
-          >
-            <Text>{optionRender ? optionRender(option, level) : optionLabel}</Text>
-            {optionHasChildren && (
-              <Text
-                style={{
-                  ...CascaderStyles['getMenuItemExpandIconStyle'](),
-                  ...(isExpanded ? CascaderStyles['getMenuItemExpandIconRotatedStyle']() : {}),
-                }}
-              >
-                ▶
-              </Text>
-            )}
-            {option.loading && <Text style={CascaderStyles['getLoadingIconStyle']()}>⏳</Text>}
-          </View>
-        );
-      },
-      [
-        selectedOptions,
-        expandedValues,
-        internalDisabled,
-        internalReadonly,
-        expandTrigger,
-        handleOptionClick,
-        optionRender,
-        getOptionValue,
-        getOptionLabel,
-        hasChildren,
-        isOptionDisabled,
-      ],
-    );
-
-    // 渲染菜单列
-    const renderMenuColumn = useCallback(
-      (columnOptions: CascaderOption[], level: number) => {
-        const columnStyle = {
-          ...CascaderStyles['getMenuColumnStyle'](),
-          ...(level === expandedValues.length ? CascaderStyles['getMenuColumnLastStyle']() : {}),
-        };
-
-        return (
-          <View key={level} style={columnStyle}>
-            {columnOptions.map((option) => renderMenuItem(option, level))}
-            {columnOptions.length === 0 && (
-              <View style={CascaderStyles['getEmptyStyle']()}>
-                <Text>无数据</Text>
-              </View>
-            )}
-          </View>
-        );
-      },
-      [expandedValues.length, renderMenuItem],
-    );
-
-    // 渲染菜单
-    const renderMenu = useCallback(() => {
-      if (!open) return null;
-
-      // 获取当前显示的列
-      const columns: CascaderOption[][] = [];
-      let currentOptions = options;
-
-      for (let i = 0; i <= expandedValues.length; i++) {
-        if (currentOptions.length > 0) {
-          columns.push(currentOptions);
-        }
-
-        if (i < expandedValues.length) {
-          const levelValue = expandedValues[i];
-          if (levelValue && levelValue.length > 0) {
-            const optionValue = levelValue[levelValue.length - 1];
-            const nextOption = currentOptions.find((opt: CascaderOption) => {
-              const currentValue = getOptionValue(opt);
-              return currentValue.length > 0 && currentValue[0] === optionValue;
-            });
-
-            if (nextOption && hasChildren(nextOption)) {
-              currentOptions = nextOption[fields.children as keyof typeof nextOption] as CascaderOption[];
-            } else {
-              break;
-            }
-          } else {
-            break;
-          }
-        } else {
-          break;
-        }
-      }
-
-      const menuContent = dropdownRender ? (
-        dropdownRender(
-          <View style={{ display: 'flex' }}>
-            {columns.map((columnOptions, level) => renderMenuColumn(columnOptions, level))}
-          </View>,
-        )
-      ) : (
-        <View style={{ display: 'flex' }}>
-          {columns.map((columnOptions, level) => renderMenuColumn(columnOptions, level))}
-        </View>
-      );
-
-      const dropdownStyle = {
-        ...CascaderStyles['getDropdownStyle'](),
-        ...(popupStyle || {}),
-      };
-
-      return (
-        <View style={dropdownStyle} className={popupClassName}>
-          {showSearch && (
-            <View style={CascaderStyles['getSearchStyle']()}>
-              <Input
-                style={CascaderStyles['getSearchInputStyle']()}
-                value={searchValue}
-                placeholder="搜索选项"
-                onInput={handleInputChange}
-                onFocus={(e) => e.stopPropagation()}
-              />
-            </View>
-          )}
-          {showPath && selectedOptions.length > 0 && (
-            <View style={CascaderStyles['getPathStyle']()}>
-              {selectedOptions.map((option, index) => (
-                <React.Fragment key={index}>
-                  <Text style={CascaderStyles['getPathItemStyle']()}>{String(getOptionLabel(option))}</Text>
-                  {index < selectedOptions.length - 1 && (
-                    <Text style={CascaderStyles['getPathSeparatorStyle']()}>{pathSeparator}</Text>
-                  )}
-                </React.Fragment>
-              ))}
-            </View>
-          )}
-          {menuContent}
-        </View>
-      );
-    }, [
-      open,
-      options,
-      expandedValues,
-      selectedOptions,
-      showSearch,
-      showPath,
-      pathSeparator,
-      searchValue,
-      handleInputChange,
-      renderMenuColumn,
-      dropdownRender,
-      popupStyle,
-      popupClassName,
-      getOptionLabel,
-      hasChildren,
-      fields,
-    ]);
 
     // 格式化显示值
     const formatDisplayValue = useCallback(() => {
@@ -627,7 +479,32 @@ export const Cascader = createComponent<CascaderProps, CascaderRef>({
           </View>
         </View>
 
-        {renderMenu()}
+        {(() => {
+          const _isOptionDisabled = ((opt: CascaderOption): boolean => Boolean(isOptionDisabled?.(opt))) as (option: CascaderOption) => boolean;
+          return (
+          <CascaderMenu
+          open={open}
+          options={options}
+          expandedValues={expandedValues}
+          selectedOptions={selectedOptions}
+          showSearch={showSearch}
+          showPath={showPath}
+          pathSeparator={pathSeparator}
+          searchValue={searchValue}
+          popupStyle={popupStyle}
+          popupClassName={popupClassName}
+          fields={fields}
+          dropdownRender={dropdownRender}
+          optionRender={optionRender}
+          getOptionValue={getOptionValue}
+          getOptionLabel={getOptionLabel}
+          hasChildren={hasChildren}
+          isOptionDisabled={_isOptionDisabled} // @ts-expect-error
+          handleOptionClick={handleOptionClick}
+          handleInputChange={handleInputChange}
+        />
+          );
+        })()}
       </View>
     );
   },

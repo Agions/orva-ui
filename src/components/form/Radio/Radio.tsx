@@ -10,7 +10,7 @@
  * ```
  */
 
-import React from 'react';
+import { useRef, useState, useEffect, useCallback, useImperativeHandle } from 'react';
 import { Radio as TaroRadio, Text, View } from '@tarojs/components';
 import type { ITouchEvent } from '@tarojs/components';
 
@@ -99,39 +99,39 @@ export const Radio = createComponent<RadioProps, RadioRef>({
       'aria-readonly': readonly,
     });
 
-    const radioRef = React.useRef<HTMLInputElement>(null);
-    const [internalChecked, setInternalChecked] = React.useState(defaultChecked);
-    const [internalStatus, setInternalStatus] = React.useState<RadioStatus>(propStatus);
-    const [internalDisabled, setInternalDisabled] = React.useState(disabled);
-    const [internalReadonly, setInternalReadonly] = React.useState(readonly);
-    const [validationResult, setValidationResult] = React.useState<{ valid: boolean; message?: string } | null>(null);
+    const radioRef = useRef<HTMLInputElement>(null);
+    const [internalChecked, setInternalChecked] = useState(defaultChecked);
+    const [internalStatus, setInternalStatus] = useState<RadioStatus>(propStatus);
+    const [internalDisabled, setInternalDisabled] = useState(disabled);
+    const [internalReadonly, setInternalReadonly] = useState(readonly);
+    const [validationResult, setValidationResult] = useState<{ valid: boolean; message?: string } | null>(null);
 
     // 处理受控/非受控模式
     const isControlled = controlledChecked !== undefined;
     const checked = isControlled ? controlledChecked : internalChecked;
 
     // 更新内部状态
-    React.useEffect(() => {
+    useEffect(() => {
       setInternalStatus(propStatus);
     }, [propStatus]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       setInternalDisabled(disabled);
     }, [disabled]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       setInternalReadonly(readonly);
     }, [readonly]);
 
     // 立即验证
-    React.useEffect(() => {
+    useEffect(() => {
       if (immediate && checked) {
         validateRadio(checked);
       }
     }, [immediate, checked]);
 
     // 验证单选框
-    const validateRadio = React.useCallback(
+    const validateRadio = useCallback(
       async (isChecked: boolean): Promise<{ valid: boolean; message?: string }> => {
         if (!rules && !validator) {
           return { valid: true };
@@ -181,7 +181,7 @@ export const Radio = createComponent<RadioProps, RadioRef>({
     );
 
     // 处理变化事件
-    const handleChange = React.useCallback(
+    const handleChange = useCallback(
       async (event: ITouchEvent) => {
         if (internalDisabled || internalReadonly) return;
 
@@ -210,7 +210,7 @@ export const Radio = createComponent<RadioProps, RadioRef>({
     const finalStatus: RadioStatus = internalDisabled ? 'disabled' : validationResult?.valid === false ? 'error' : internalStatus;
 
     // 暴露给外部的引用方法
-    React.useImperativeHandle(
+    useImperativeHandle(
       ref,
       () => ({
         element: radioRef.current,

@@ -1,6 +1,15 @@
 /**
- * 样式处理工具
- * 提供样式对象的合并、转换和处理功能
+ * 样式处理工具模块 (style)
+ * @module utils/style
+ * @description 提供样式对象的合并、转换和处理功能，支持响应式样式和条件样式
+ * @example
+ * ```ts
+ * import { mergeStyles, prefixStyle, conditionalStyle } from '@/utils/style';
+ *
+ * const combined = mergeStyles({ color: 'red' }, { fontSize: 14 });
+ * const prefixed = prefixStyle('flex', { display: 'flex' });
+ * const conditional = conditionalStyle(isActive, { color: 'red' });
+ * ```
  */
 
 import type { CSSProperties } from 'react';

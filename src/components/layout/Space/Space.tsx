@@ -7,7 +7,26 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** Space 组件 */
+/**
+ * 间距组件 (Space)
+ * @module components/layout/Space
+ * @description 用于在元素之间创建统一间距的布局组件
+ * @example
+ * ```tsx
+ * import { Space, Button } from 'orva-ui';
+ *
+ * <Space direction="vertical" size="large">
+ *   <Button>按钮1</Button>
+ *   <Button>按钮2</Button>
+ *   <Button>按钮3</Button>
+ * </Space>
+ *
+ * <Space size={16} wrap>
+ *   <span>自动换行</span>
+ *   <span>间距容器</span>
+ * </Space>
+ * ```
+ */
 export const Space = createComponent<SpaceProps, SpaceRef>({
   name: 'Space',
   render: (props, ref) => {

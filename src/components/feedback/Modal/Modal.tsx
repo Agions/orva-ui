@@ -1,10 +1,18 @@
 /**
- * 专业化 Modal 组件
- * 特性：背景模糊动画、内容缩放入场、退出动画、焦点陷阱
+ * 模态框组件 (Modal)
  * @module components/feedback/Modal
+ * @description 用于显示重要信息或进行交互的模态框组件，支持背景模糊动画、内容缩放入场、退出动画和焦点陷阱
+ * @example
+ * ```tsx
+ * import { Modal } from 'orva-ui';
+ *
+ * <Modal visible={show} title="提示" onClose={() => setShow(false)}>
+ *   <p>确定要执行此操作吗？</p>
+ * </Modal>
+ * ```
  */
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { View, Text } from '@tarojs/components';
 
 import { createComponent } from '@/utils/createComponent';
@@ -122,13 +130,26 @@ export const Modal = createComponent<ModalProps>({
       };
     }, [isEntering, isExiting, width, theme]);
 
-    const handleMaskClick = () => {
+    const handleMaskClick = useCallback(() => {
       if (maskClosable && onClose) {
         onClose();
       }
-    };
+    }, [maskClosable, onClose]);
 
-    const defaultFooter = (
+    const handleCancelClick = useCallback(() => {
+      onCancel?.();
+      onClose?.();
+    }, [onCancel, onClose]);
+
+    const handleConfirmClick = useCallback(() => {
+      onConfirm?.();
+    }, [onConfirm]);
+
+    const handleCloseClick = useCallback(() => {
+      onClose?.();
+    }, [onClose]);
+
+    const defaultFooter = useMemo(() => (
       <View style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 24 }}>
         {showCancel && (
           <View
@@ -140,10 +161,7 @@ export const Modal = createComponent<ModalProps>({
               cursor: 'pointer',
               transition: 'all 0.2s ease',
             }}
-            onClick={() => {
-              onCancel?.();
-              onClose?.();
-            }}
+            onClick={handleCancelClick}
           >
             <Text>{cancelText}</Text>
           </View>
@@ -159,15 +177,13 @@ export const Modal = createComponent<ModalProps>({
               transition: 'all 0.2s ease',
               opacity: confirmLoading ? 0.7 : 1,
             }}
-            onClick={() => {
-              onConfirm?.();
-            }}
+            onClick={handleConfirmClick}
           >
             <Text>{confirmText}</Text>
           </View>
         )}
       </View>
-    );
+    ), [showCancel, showConfirm, theme, onClose, onCancel, onConfirm, cancelText, confirmText, confirmLoading]);
 
     return (
       <View
@@ -214,7 +230,7 @@ export const Modal = createComponent<ModalProps>({
                 color: theme.colors.textSecondary,
                 transition: 'all 0.2s ease',
               }}
-              onClick={() => onClose?.()}
+              onClick={handleCloseClick}
             >
               <Text style={{ fontSize: 18 }}>×</Text>
             </View>

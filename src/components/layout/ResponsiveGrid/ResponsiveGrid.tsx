@@ -1,11 +1,21 @@
 /**
- * 响应式栅格组件
- * 提供多平台适配的响应式栅格布局系统，使用responsiveUtils工具
+ * 响应式栅格组件 (ResponsiveGrid)
+ * @module components/layout/ResponsiveGrid
+ * @description 提供多平台适配的响应式栅格布局系统，支持响应式列数和间距
+ * @example
+ * ```tsx
+ * import { ResponsiveGrid, ResponsiveGridItem } from 'orva-ui';
+ *
+ * <ResponsiveGrid columns={{ base: 1, md: 2, lg: 4 }} gap="16px">
+ *   <ResponsiveGridItem>项1</ResponsiveGridItem>
+ *   <ResponsiveGridItem>项2</ResponsiveGridItem>
+ * </ResponsiveGrid>
+ * ```
  */
 
 import React, { ReactNode } from 'react';
 import { View } from '@tarojs/components';
-import { useResponsive, ResponsiveValue } from '../../../utils/responsiveUtils';
+import { useResponsive, ResponsiveValue } from '@/utils/responsiveUtils';
 import { createComponent } from '@/utils/createComponent';
 
 export interface ResponsiveGridProps {

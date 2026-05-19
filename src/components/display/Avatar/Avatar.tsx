@@ -13,14 +13,13 @@
  */
 
 import { View, Image, Text } from '@tarojs/components';
-import { createNamespace } from '@/utils/createComponent';
-import { createComponent } from '@/utils/createComponent';
+import { createNamespace, createComponent } from '@/utils/createComponent';
 import { useTheme } from '@/hooks/ui/useTheme';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 import type { AvatarProps, AvatarRef } from './Avatar.types';
 import { avatarStyles } from './Avatar.styles';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
 
 const logger = createLogger('Avatar');
 

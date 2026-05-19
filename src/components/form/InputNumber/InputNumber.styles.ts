@@ -1,4 +1,4 @@
-import { getPlatformType } from '../../../utils';
+import { getPlatformType } from '@/utils';
 import type {
   InputNumberProps,
   InputNumberSize,

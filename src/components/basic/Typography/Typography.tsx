@@ -1,3 +1,17 @@
+/**
+ * 排版组件 (Typography)
+ * @module components/basic/Typography
+ * @description 用于展示文本内容的排版组件，支持标题、段落、文本等类型，以及丰富的样式定制
+ * @example
+ * ```tsx
+ * import { Typography } from 'orva-ui';
+ *
+ * <Typography.Title level={1}>标题一</Typography.Title>
+ * <Typography.Paragraph>段落内容</Typography.Paragraph>
+ * <Typography.Text>普通文本</Typography.Text>
+ * ```
+ */
+
 import React, { useState, useCallback, useImperativeHandle } from 'react';
 import { Text as TaroText, View, Input, Button } from '@tarojs/components';
 import { TypographyProps, TypographyRef, TitleProps, ParagraphProps, TypographyTextProps } from './Typography.types';
@@ -6,7 +20,7 @@ import { calculateTypographyStyles } from './Typography.styles';
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
 
 // 扩展 Typography 组件类型，包含子组件
 const logger = createLogger('Typography');

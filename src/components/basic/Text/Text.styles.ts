@@ -1,4 +1,4 @@
-import { getPlatformType } from '../../../utils';
+import { getPlatformType } from '@/utils';
 import type { TextProps, TextSize, TextWeight, TextColor, TextStatus } from './Text.types';
 
 /** 样式工具类 */

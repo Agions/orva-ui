@@ -1,3 +1,16 @@
+/**
+ * 通知管理器组件 (NotificationManager)
+ * @module components/feedback/Notification/NotificationManager
+ * @description 管理和显示多个通知提醒的容器，支持添加、移除通知和全局配置
+ * @example
+ * ```tsx
+ * import { NotificationManager } from 'orva-ui';
+ *
+ * const managerRef = useRef<NotificationManagerRef>();
+ * <NotificationManager ref={managerRef} maxCount={5} />
+ * ```
+ */
+
 import React, { useRef, useState, useCallback } from 'react';
 import { View } from '@tarojs/components';
 import type {
@@ -8,14 +21,27 @@ import type {
 } from './Notification.types';
 import { Notification } from './Notification';
 import { notificationStyleHelpers } from './Notification.styles';
-import { cn } from '../../../utils';
-import { isMobile } from '../../../utils/platform';
-import { useThemeContext } from '../../../providers/ThemeProvider';
+import { cn } from '@/utils';
+import { isMobile } from '@/utils/platform';
+import { useThemeContext } from '@/providers/ThemeProvider';
 import { DEFAULT_NOTIFICATION_CONFIG, NotificationUtils } from './Notification.types';
 import { createComponent } from '@/utils/createComponent';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 import type { ARIARole } from '@/hooks/ui/useAccessibility';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
+
+/**
+ * NotificationManager 通知管理器组件
+ * @module components/feedback/Notification/NotificationManager
+ * @description 用于全局管理通知提醒的组件，支持添加、移除、批量管理和自动清除通知。
+ *
+ * @example
+ * ```tsx
+ * <NotificationManager>
+ *   <App />
+ * </NotificationManager>
+ * ```
+ */
 
 const logger = createLogger('NotificationManager');
 interface InternalNotificationItem extends NotificationItem {

@@ -1,4 +1,18 @@
-/**\n * Taro-Uno AutoComplete Component\n * 自动完成组件实现\n */
+/**
+ * 自动完成组件 (AutoComplete)
+ * @module components/form/AutoComplete
+ * @description 提供自动完成功能的表单组件，支持自定义选项、防抖搜索、方向、主题等
+ * @example
+ * ```tsx
+ * import { AutoComplete } from 'orva-ui';
+ *
+ * <AutoComplete
+ *   options={['选项一', '选项二', '选项三']}
+ *   placeholder="请输入搜索"
+ *   onSelect={(option) => console.log(option)}
+ * />
+ * ```
+ */
 
 import { useState, useEffect, useRef, useCallback, forwardRef, useImperativeHandle } from 'react';
 import { View, Input, Button } from '@tarojs/components';

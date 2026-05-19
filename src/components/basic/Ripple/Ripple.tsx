@@ -1,7 +1,15 @@
 /**
- * Ripple 水波纹动效组件
- * 实现 Material Design 风格的水波纹触觉反馈
+ * 水波纹动效组件 (Ripple)
  * @module components/basic/Ripple
+ * @description 实现 Material Design 风格的水波纹触觉反馈效果，常用于按钮点击反馈
+ * @example
+ * ```tsx
+ * import { Ripple } from 'orva-ui';
+ *
+ * <Ripple color="rgba(255,255,255,0.3)">
+ *   <Button>点击我</Button>
+ * </Ripple>
+ * ```
  */
 
 import { useState, useCallback, useRef, useImperativeHandle } from 'react';

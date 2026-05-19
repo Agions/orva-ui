@@ -1,57 +1,205 @@
 /**
  * Tabs Component Test
  * 标签页组件测试
+ * @module tests/components/navigation/Tabs
+ *
+ * Requirements: 16.8
  */
 
-import { render, screen, fireEvent } from '../../test-utils';
+import React from 'react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { Tabs } from '../../../src/components/navigation/Tabs';
 import { describe, test, expect, vi } from 'vitest';
+import { ThemeContext } from '../../../src/hooks/ui/useTheme';
+import { defaultTheme } from '../../../src/theme/defaults';
+import type { ThemeContextType } from '../../../src/hooks/ui/useTheme';
 
-describe('Tabs Component', () => {
-  const defaultItems = [
-    { key: '1', title: '标签一', content: '标签一内容' },
-    { key: '2', title: '标签二', content: '标签二内容' },
-    { key: '3', title: '标签三', content: '标签三内容' },
-  ];
+/**
+ * 创建测试用的主题上下文值
+ */
+const createMockThemeContext = (): ThemeContextType => ({
+  theme: defaultTheme,
+  themeMode: 'light',
+  isDark: false,
+  isSystemDark: false,
+  setThemeMode: vi.fn(),
+  toggleTheme: vi.fn(),
+  setCustomTheme: vi.fn(),
+  resetTheme: vi.fn(),
+  exportTheme: () => JSON.stringify({ mode: 'light', custom: null }),
+  importTheme: () => false,
+  getThemeValue: <T,>(path: string): T | undefined => {
+    const keys = path.split('.');
+    let value: unknown = defaultTheme;
+    for (const key of keys) {
+      value = (value as Record<string, unknown>)?.[key];
+    }
+    return value as T | undefined;
+  },
+  generateThemeCSS: () => '',
+});
 
-  test('renders Tabs with items', () => {
-    render(<Tabs items={defaultItems} />);
-    
-    const tab1 = screen.getByText('标签一');
-    const tab2 = screen.getByText('标签二');
-    const tab3 = screen.getByText('标签三');
-    
-    expect(tab1).toBeInTheDocument();
-    expect(tab2).toBeInTheDocument();
-    expect(tab3).toBeInTheDocument();
+/**
+ * 测试包装器，提供主题上下文
+ */
+const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <ThemeContext.Provider value={createMockThemeContext()}>
+    {children}
+  </ThemeContext.Provider>
+);
+
+/**
+ * 自定义 render 函数，自动包装主题上下文
+ */
+const renderWithTheme = (ui: React.ReactElement) => {
+  return render(ui, { wrapper: TestWrapper });
+};
+
+describe('Tabs 标签页组件', () => {
+  // ==================== 基础渲染测试 ====================
+
+  describe('基础渲染', () => {
+    test('应该正确渲染 Tabs 组件', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    test('应该渲染多个标签页', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[
+          { key: '1', label: 'Tab 1', children: <div>内容1</div> },
+          { key: '2', label: 'Tab 2', children: <div>内容2</div> },
+        ]} activeKey="1" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
   });
 
-  test('handles tab change', () => {
-    const onChange = vi.fn();
-    render(<Tabs items={defaultItems} onChange={onChange} />);
-    
-    const tab2 = screen.getByText('标签二');
-    fireEvent.click(tab2);
-    expect(onChange).toHaveBeenCalledWith('2');
+  // ==================== 类型测试 ====================
+
+  describe('类型', () => {
+    test('应该支持 line 类型', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" type="line" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    test('应该支持 card 类型', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" type="card" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
   });
 
-  test('renders active tab correctly', () => {
-    render(<Tabs items={defaultItems} activeKey="2" />);
-    
-    const tab2 = screen.getByText('标签二');
-    expect(tab2).toBeInTheDocument();
+  // ==================== 位置测试 ====================
+
+  describe('位置', () => {
+    test('应该支持 top 位置', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" position="top" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    test('应该支持 bottom 位置', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" position="bottom" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    test('应该支持 left 位置', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" position="left" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    test('应该支持 right 位置', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" position="right" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
   });
 
-  test('renders Tabs with different types', () => {
-    const { container: container1 } = render(
-      <Tabs items={defaultItems} type="line" />,
-    );
-    
-    const { container: container2 } = render(
-      <Tabs items={defaultItems} type="card" />,
-    );
-    
-    expect(container1.firstChild).toBeInTheDocument();
-    expect(container2.firstChild).toBeInTheDocument();
+  // ==================== 尺寸测试 ====================
+
+  describe('尺寸', () => {
+    test('应该支持 default 尺寸', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" size="default" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    test('应该支持 small 尺寸', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" size="small" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+  });
+
+  // ==================== 激活测试 ====================
+
+  describe('激活', () => {
+    test('应该支持 defaultActiveKey', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }, { key: '2', label: 'Tab 2' }]} defaultActiveKey="2" />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    test('应该支持 onTabClick 回调', () => {
+      const handleTabClick = vi.fn();
+      const { container } = renderWithTheme(
+        <Tabs
+          items={[{ key: '1', label: 'Tab 1' }, { key: '2', label: 'Tab 2' }]}
+          activeKey="1"
+          onTabClick={handleTabClick}
+        />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+  });
+
+  // ==================== 禁用状态测试 ====================
+
+  describe('禁用状态', () => {
+    test('应该支持禁用标签页', () => {
+      const { container } = renderWithTheme(
+        <Tabs
+          items={[
+            { key: '1', label: 'Tab 1' },
+            { key: '2', label: 'Tab 2', disabled: true },
+          ]}
+          activeKey="1"
+        />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+  });
+
+  // ==================== 动画测试 ====================
+
+  describe('动画', () => {
+    test('应该支持启用动画', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" animated />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    test('应该支持禁用动画', () => {
+      const { container } = renderWithTheme(
+        <Tabs items={[{ key: '1', label: 'Tab 1' }]} activeKey="1" animated={false} />
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
   });
 });

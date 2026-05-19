@@ -12,8 +12,7 @@
  */
 
 import { View, Text } from '@tarojs/components';
-import { createNamespace } from '@/utils/createComponent';
-import { createComponent } from '@/utils/createComponent';
+import { createNamespace, createComponent } from '@/utils/createComponent';
 import type { BadgeProps, BadgeRef } from './Badge.types';
 
 const { bem } = createNamespace('badge');

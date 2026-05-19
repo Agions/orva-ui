@@ -4,8 +4,8 @@
  * @module theme/styles/variants/size
  */
 
-import type { StyleObject } from '../../../types/style';
-import type { Size } from '../../../types/common';
+import type { StyleObject } from '@/types/style';
+import type { Size } from '@/types/common';
 
 // ==================== 按钮尺寸变体 ====================
 

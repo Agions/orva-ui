@@ -8,9 +8,29 @@ import { TransferList, TransferOperations } from './components';
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
 
-/** Transfer 穿梭框组件 */
+/**
+ * 穿梭框组件 (Transfer)
+ * @module components/form/Transfer
+ * @description 用于在两个列表之间移动数据的表单组件，常用于权限分配或批量选择
+ * @example
+ * ```tsx
+ * import { Transfer } from 'orva-ui';
+ *
+ * const dataSource = [
+ *   { key: '1', title: '选项 1' },
+ *   { key: '2', title: '选项 2' },
+ *   { key: '3', title: '选项 3' },
+ * ];
+ *
+ * <Transfer
+ *   dataSource={dataSource}
+ *   targetKeys={['1']}
+ *   onChange={(targetKeys, direction) => console.log(targetKeys)}
+ * />
+ * ```
+ */
 const logger = createLogger('Transfer');
 
 export const Transfer = createComponent<TransferProps & BaseProps, TransferRef>({

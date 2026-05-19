@@ -1,3 +1,17 @@
+/**
+ * 固钉组件 (Affix)
+ * @module components/layout/Affix
+ * @description 将元素固定在可视区域的组件，常用于导航栏、侧边栏的固定定位
+ * @example
+ * ```tsx
+ * import { Affix } from 'orva-ui';
+ *
+ * <Affix offsetTop={0}>
+ *   <NavBar />
+ * </Affix>
+ * ```
+ */
+
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { View } from '@tarojs/components';
 import { AffixProps, AffixRef } from './Affix.types';

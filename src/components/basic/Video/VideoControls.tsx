@@ -1,16 +1,30 @@
 /**
- * VideoControls 组件 - 视频控制栏
- * 包含播放/暂停、进度条、音量、倍速等控制功能
+ * 视频控制栏组件 (VideoControls)
  * @module components/basic/Video/VideoControls
+ * @description 包含播放/暂停、进度条、音量、倍速等控制功能的视频控制栏
+ * @example
+ * ```tsx
+ * <VideoControls
+ *   playing={true}
+ *   currentTime={30}
+ *   duration={120}
+ *   onPlay={() => {}}
+ *   onPause={() => {}}
+ * />
+ * ```
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { View, Text, Slider } from '@tarojs/components';
 import type { VideoControlsProps, PlaybackRate } from './Video.types';
 import { createComponent } from '@/utils/createComponent';
 import { useTheme } from '@/hooks/ui/useTheme';
 import { useAccessibility, ARIA_ROLES, ARIA_LABELS } from '@/hooks/ui/useAccessibility';
 import { formatTime } from './utils';
+
+// ==================== 模块级常量 ====================
+
+const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5, 2] as const;
 
 export const VideoControls = createComponent<VideoControlsProps, HTMLDivElement>({
   name: 'VideoControls',
@@ -127,35 +141,120 @@ export const VideoControls = createComponent<VideoControlsProps, HTMLDivElement>
       onMenuClose?.();
     }, [onMenuClose]);
 
-    // 获取音量图标
-    const getVolumeIcon = () => {
+    // ===== 模块级静态样式（不依赖 props，避免重复创建）=====
+    const memoControlsContainerStyle = useMemo(() => ({
+      position: 'absolute' as const,
+      bottom: showControls ? 0 : -60,
+      left: 0,
+      right: 0,
+      padding: 12,
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      transition: 'bottom 0.3s ease',
+      zIndex: 10,
+    }), [showControls]);
+
+    // 播放按钮样式
+    const memoPlayButtonStyle = useMemo(() => ({
+      padding: 8,
+      backgroundColor: 'transparent',
+      borderRadius: '50%',
+      cursor: 'pointer' as const,
+    }), []);
+
+    // 倍速选择器样式
+    const memoRatePickerStyle = useMemo(() => ({
+      position: 'absolute' as const,
+      bottom: 50,
+      left: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      borderRadius: 8,
+      padding: 8,
+      minWidth: 80,
+    }), []);
+
+    // 缓冲进度条样式
+    const bufferBarStyle = useMemo(() => ({
+      position: 'absolute' as const,
+      left: 0,
+      top: 0,
+      height: 4,
+      width: `${bufferPercent}%`,
+      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    }), [bufferPercent]);
+
+    // 时间显示文本样式
+    const timeTextStyle = useMemo(() => ({
+      color: '#fff' as const,
+      fontSize: 12,
+      fontFamily: 'monospace' as const,
+    }), []);
+
+    // 倍速按钮文本样式
+    const rateTextStyle = useMemo(() => ({
+      color: '#fff' as const,
+      fontSize: 12,
+      minWidth: 35,
+      textAlign: 'center' as const,
+    }), []);
+
+    // 循环按钮样式
+    const loopButtonStyle = useMemo(() => ({
+      padding: 4,
+      opacity: loop ? 1 : 0.6,
+      cursor: 'pointer' as const,
+    }), [loop]);
+
+    // 通用图标按钮样式
+    const iconButtonStyle = useMemo(() => ({
+      padding: 4,
+      cursor: 'pointer' as const,
+    }), []);
+
+    // 通用图标文本样式
+    const iconTextStyle = useMemo(() => ({
+      fontSize: 16,
+      color: '#fff' as const,
+    }), []);
+
+    // 左右控制行样式
+    const controlsRowStyle = useMemo(() => ({
+      display: 'flex' as const,
+      alignItems: 'center' as const,
+      gap: 12,
+    }), []);
+
+    const controlsRowSpaceStyle = useMemo(() => ({
+      display: 'flex' as const,
+      alignItems: 'center' as const,
+      justifyContent: 'space-between' as const,
+    }), []);
+
+    const rateOptionStyle = useCallback((rate: number) => ({
+      padding: 8,
+      color: playbackRate === rate ? theme.colors.primary : '#fff',
+      cursor: 'pointer' as const,
+    }), [playbackRate, theme.colors.primary]);
+
+    // 音量图标
+    const volumeIcon = useMemo(() => {
       if (muted || (volume ?? 0) === 0) return '🔇';
       if ((volume ?? 0) < 0.5) return '🔉';
       return '🔊';
-    };
+    }, [muted, volume]);
 
-    // 获取播放图标
-    const getPlayIcon = () => (isPlaying ? '⏸️' : '▶️');
+    // 播放图标
+    const playIcon = isPlaying ? '⏸️' : '▶️';
 
-    // 获取全屏图标
-    const getFullscreenIcon = () => (isFullscreen ? '⛶' : '⛶');
+    // 全屏图标
+    const fullscreenIcon = '⛶';
 
-    // 获取画中画图标
-    const getPiPIcon = () => (isPictureInPicture ? '🖼️' : '🖼️');
+    // 画中画图标
+    const pipIcon = '🖼️';
 
     return (
       <View
         ref={ref}
-        style={{
-          position: 'absolute',
-          bottom: showControls ? 0 : -60,
-          left: 0,
-          right: 0,
-          padding: 12,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          transition: 'bottom 0.3s ease',
-          zIndex: 10,
-        }}
+        style={memoControlsContainerStyle}
         {...a11y.getAriaAttributes()}
       >
         {/* 进度条 */}
@@ -172,40 +271,26 @@ export const VideoControls = createComponent<VideoControlsProps, HTMLDivElement>
           />
           {/* 缓冲进度 */}
           {bufferPercent > 0 && bufferPercent !== progressPercent && (
-            <View
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                height: 4,
-                width: `${bufferPercent}%`,
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-              }}
-            />
+            <View style={bufferBarStyle} />
           )}
         </View>
 
         {/* 控制按钮行 */}
-        <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <View style={controlsRowSpaceStyle}>
           {/* 左侧控制 */}
-          <View style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <View style={controlsRowStyle}>
             {/* 播放/暂停按钮 */}
             <View
-              style={{
-                padding: 8,
-                backgroundColor: 'transparent',
-                borderRadius: '50%',
-                cursor: 'pointer',
-              }}
+              style={memoPlayButtonStyle}
               onClick={handlePlayPause}
               aria-label={isPlaying ? 'Pause' : 'Play'}
             >
-              <Text style={{ fontSize: 20 }}>{getPlayIcon()}</Text>
+              <Text style={{ fontSize: 20 }}>{playIcon}</Text>
             </View>
 
             {/* 时间显示 */}
             <View style={{ minWidth: 100 }}>
-              <Text style={{ color: '#fff', fontSize: 12, fontFamily: 'monospace' }}>
+              <Text style={timeTextStyle}>
                 {formatTime(currentTime ?? 0)} / {formatTime(duration ?? 0)}
               </Text>
             </View>
@@ -223,7 +308,7 @@ export const VideoControls = createComponent<VideoControlsProps, HTMLDivElement>
                 onClick={handleMuteToggle}
                 aria-label={muted ? 'Unmute' : 'Mute'}
               >
-                <Text style={{ fontSize: 16 }}>{getVolumeIcon()}</Text>
+                <Text style={{ fontSize: 16 }}>{volumeIcon}</Text>
               </View>
               {showVolumeSlider && (
                 <View style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
@@ -246,7 +331,7 @@ export const VideoControls = createComponent<VideoControlsProps, HTMLDivElement>
               onClick={() => setShowRatePicker(!showRatePicker)}
               aria-label="Playback speed"
             >
-              <Text style={{ color: '#fff', fontSize: 12, minWidth: 35, textAlign: 'center' }}>
+              <Text style={rateTextStyle}>
                 {playbackRate === 1 ? '1x' : `${playbackRate}x`}
               </Text>
             </View>
@@ -254,25 +339,13 @@ export const VideoControls = createComponent<VideoControlsProps, HTMLDivElement>
             {/* 倍速选择器 */}
             {showRatePicker && (
               <View
-                style={{
-                  position: 'absolute',
-                  bottom: 50,
-                  left: 0,
-                  backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                  borderRadius: 8,
-                  padding: 8,
-                  minWidth: 80,
-                }}
-              {...({ onMouseLeave: () => setShowRatePicker(false) } as Record<string, unknown>)}
+                style={memoRatePickerStyle}
+                {...({ onMouseLeave: () => setShowRatePicker(false) } as Record<string, unknown>)}
               >
-                {[0.5, 0.75, 1, 1.25, 1.5, 2].map((rate) => (
+                {PLAYBACK_RATES.map((rate) => (
                   <View
                     key={rate}
-                    style={{
-                      padding: 8,
-                      color: playbackRate === rate ? theme.colors.primary : '#fff',
-                      cursor: 'pointer',
-                    }}
+                    style={rateOptionStyle(rate)}
                     onClick={() => handleRateChange(rate.toString())}
                   >
                     <Text>{rate}x</Text>
@@ -283,59 +356,55 @@ export const VideoControls = createComponent<VideoControlsProps, HTMLDivElement>
           </View>
 
           {/* 右侧控制 */}
-          <View style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <View style={controlsRowStyle}>
             {/* 循环按钮 */}
             <View
-              style={{
-                padding: 4,
-                opacity: loop ? 1 : 0.6,
-                cursor: 'pointer',
-              }}
+              style={loopButtonStyle}
               onClick={handleLoopToggle}
               aria-label={loop ? 'Disable loop' : 'Enable loop'}
             >
-              <Text style={{ fontSize: 16, color: '#fff' }}>🔁</Text>
+              <Text style={iconTextStyle}>🔁</Text>
             </View>
 
             {/* 截图按钮 */}
             <View
-              style={{ padding: 4, cursor: 'pointer' }}
+              style={iconButtonStyle}
               onClick={handleScreenshot}
               aria-label="Screenshot"
             >
-              <Text style={{ fontSize: 16, color: '#fff' }}>📷</Text>
+              <Text style={iconTextStyle}>📷</Text>
             </View>
 
             {/* 下载按钮 */}
             <View
-              style={{ padding: 4, cursor: 'pointer' }}
+              style={iconButtonStyle}
               onClick={handleDownload}
               aria-label="Download"
             >
-              <Text style={{ fontSize: 16, color: '#fff' }}>⬇️</Text>
+              <Text style={iconTextStyle}>⬇️</Text>
             </View>
 
             {/* 画中画按钮 */}
             <View
-              style={{ padding: 4, cursor: 'pointer' }}
+              style={iconButtonStyle}
               onClick={handlePictureInPictureToggle}
               aria-label={isPictureInPicture ? 'Exit picture-in-picture' : 'Picture-in-picture'}
             >
-              <Text style={{ fontSize: 16, color: '#fff' }}>{getPiPIcon()}</Text>
+              <Text style={iconTextStyle}>{pipIcon}</Text>
             </View>
 
             {/* 全屏按钮 */}
             <View
-              style={{ padding: 4, cursor: 'pointer' }}
+              style={iconButtonStyle}
               onClick={handleFullscreenToggle}
               aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
             >
-              <Text style={{ fontSize: 16, color: '#fff' }}>{getFullscreenIcon()}</Text>
+              <Text style={iconTextStyle}>{fullscreenIcon}</Text>
             </View>
 
             {/* 菜单按钮 */}
             <View
-              style={{ padding: 4, cursor: 'pointer' }}
+              style={iconButtonStyle}
               onClick={handleOptionsMenuToggle}
               aria-label="Options menu"
             >

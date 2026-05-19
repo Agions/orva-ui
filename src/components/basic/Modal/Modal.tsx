@@ -20,6 +20,41 @@ import { useInteractionState } from '@/hooks/ui/useInteractionState';
 import { useAccessibility, ARIA_ROLES, type AccessibilityProps } from '@/hooks/ui/useAccessibility';
 import type { ModalProps, ModalRef } from './Modal.types';
 
+// ==================== 模块级样式常量 ====================
+
+const HEADER_BASE_STYLE: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '16px 20px',
+};
+
+const CONTENT_STYLE: React.CSSProperties = {
+  padding: '20px',
+};
+
+const FOOTER_BASE_STYLE: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: 12,
+  padding: '16px 20px',
+};
+
+const CLOSE_BUTTON_STYLE: React.CSSProperties = {
+  cursor: 'pointer',
+  padding: 4,
+};
+
+const CANCEL_BUTTON_BASE: React.CSSProperties = {
+  padding: '8px 16px',
+  cursor: 'pointer',
+};
+
+const CONFIRM_BUTTON_BASE: React.CSSProperties = {
+  padding: '8px 16px',
+  color: '#fff',
+};
+
 // ==================== 主组件 ====================
 
 /**
@@ -172,10 +207,7 @@ export const Modal = createComponent<ModalProps & AccessibilityProps, ModalRef>(
           {/* 标题栏 */}
           {(title || closable) && (
             <View style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '16px 20px',
+              ...HEADER_BASE_STYLE,
               borderBottom: `1px solid ${theme.colors.border}`,
             }}>
               <Text id="modal-title" style={{
@@ -187,7 +219,7 @@ export const Modal = createComponent<ModalProps & AccessibilityProps, ModalRef>(
               </Text>
               
               {closable && (
-                <View onClick={handleClose} style={{ cursor: 'pointer', padding: 4 }}>
+                <View onClick={handleClose} style={CLOSE_BUTTON_STYLE}>
                   <Text style={{ fontSize: 18, color: theme.colors.textSecondary }}>✕</Text>
                 </View>
               )}
@@ -195,17 +227,14 @@ export const Modal = createComponent<ModalProps & AccessibilityProps, ModalRef>(
           )}
 
           {/* 内容区 */}
-          <View style={{ padding: '20px' }}>
+          <View style={CONTENT_STYLE}>
             {children}
           </View>
 
           {/* 底部操作栏 */}
           {showFooter && (
             <View style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              gap: 12,
-              padding: '16px 20px',
+              ...FOOTER_BASE_STYLE,
               borderTop: `1px solid ${theme.colors.border}`,
             }}>
               {footer || (
@@ -213,12 +242,11 @@ export const Modal = createComponent<ModalProps & AccessibilityProps, ModalRef>(
                   <View
                     onClick={onCancel}
                     style={{
-                      padding: '8px 16px',
+                      ...CANCEL_BUTTON_BASE,
                       borderRadius: theme.borderRadius.md,
                       border: `1px solid ${theme.colors.border}`,
                       backgroundColor: theme.colors.background,
                       color: theme.colors.text,
-                      cursor: 'pointer',
                       fontSize: theme.typography.fontSize.md,
                     }}
                   >
@@ -227,10 +255,9 @@ export const Modal = createComponent<ModalProps & AccessibilityProps, ModalRef>(
                   <View
                     onClick={handleConfirm}
                     style={{
-                      padding: '8px 16px',
+                      ...CONFIRM_BUTTON_BASE,
                       borderRadius: theme.borderRadius.md,
                       backgroundColor: theme.colors.primary,
-                      color: '#fff',
                       cursor: loading ? 'not-allowed' : 'pointer',
                       opacity: loading ? 0.6 : 1,
                       fontSize: theme.typography.fontSize.md,

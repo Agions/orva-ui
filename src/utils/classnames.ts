@@ -1,6 +1,15 @@
 /**
- * 类名合并工具
- * 提供灵活的类名合并功能，支持多种输入格式
+ * 类名合并工具模块 (classnames)
+ * @module utils/classnames
+ * @description 提供灵活的类名合并功能，支持字符串、数组、对象等多种输入格式，与 clsx 和 classnames 库兼容
+ * @example
+ * ```ts
+ * import { classnames } from '@/utils/classnames';
+ *
+ * classnames('foo', 'bar'); // 'foo bar'
+ * classnames('foo', { bar: true }); // 'foo bar'
+ * classnames(['foo', 'bar']); // 'foo bar'
+ * ```
  */
 
 /** 类名值类型 */

@@ -1,12 +1,27 @@
+/**
+ * Transfer 搜索组件 (TransferSearch)
+ * @module components/form/Transfer/components/TransferSearch
+ * @description Transfer 组件的搜索子组件，支持搜索过滤和自定义搜索渲染
+ * @example
+ * ```tsx
+ * <TransferSearch
+ *   direction="left"
+ *   showSearch={true}
+ *   searchValue=""
+ *   onSearch={(dir, val) => console.log(dir, val)}
+ * />
+ * ```
+ */
+
 import React, { useCallback } from 'react';
 import type { ITouchEvent } from '@tarojs/components';
 import { View } from '@tarojs/components';
 
-import { createComponent } from '../../../../utils/createComponent';
-import { Input } from '../../../form/Input';
+import { createComponent } from '@/utils/createComponent';
+import { Input } from '@/components/form/Input';
 import { TransferStyles } from '../Transfer.styles';
 import type { SearchRenderProps, TransferDirection } from '../Transfer.types';
-import type { BaseProps } from '../../../../types/component';
+import type { BaseProps } from '@/types/component';
 
 interface TransferSearchProps extends BaseProps {
   /** 方向 */

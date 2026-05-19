@@ -6,7 +6,25 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** Col 组件 */
+/**
+ * 栅格列组件 (Col)
+ * @module components/layout/Col
+ * @description 栅格系统中的列组件，用于创建响应式布局
+ * @example
+ * ```tsx
+ * import { Row, Col } from 'orva-ui';
+ *
+ * <Row>
+ *   <Col span={12}><Box>左半边</Box></Col>
+ *   <Col span={12}><Box>右半边</Box></Col>
+ * </Row>
+ *
+ * // 响应式断点
+ * <Col span={24} md={12} lg={8} xl={6}>
+ *   自适应列
+ * </Col>
+ * ```
+ */
 export const Col = createComponent<ColProps, ColRef>({
   name: 'Col',
   render: (props, ref) => {

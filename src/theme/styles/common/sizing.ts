@@ -4,7 +4,7 @@
  * @module theme/styles/common/sizing
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 // ==================== 宽度样式 ====================
 

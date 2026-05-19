@@ -1,6 +1,17 @@
 /**
- * Taro-Uno PageHeader Component
- * 页面头部组件实现
+ * 页面头部组件 (PageHeader)
+ * @module components/navigation/PageHeader
+ * @description 用于展示页面标题、面包屑、返回按钮和操作区域的组件，支持多种布局和主题
+ * @example
+ * ```tsx
+ * import { PageHeader } from 'orva-ui';
+ *
+ * <PageHeader
+ *   title="页面标题"
+ *   breadcrumbs={[{ title: '首页', path: '/' }, { title: '当前页' }]}
+ *   onBack={() => history.back()}
+ * />
+ * ```
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';

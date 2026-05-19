@@ -53,6 +53,21 @@ export interface CreateComponentOptions<
   memo?: boolean;
 
   /**
+   * 自定义 memo 比较函数
+   * 返回 true 表示 props 相等，跳过重渲染
+   * 仅在 memo=true 时生效
+   *
+   * @example
+   * ```ts
+   * arePropsEqual: (prev, next) => prev.children === next.children && prev.size === next.size
+   * ```
+   */
+  arePropsEqual?: (
+    prevProps: Readonly<PropsWithoutRef<P> & RefAttributes<R>>,
+    nextProps: Readonly<PropsWithoutRef<P> & RefAttributes<R>>,
+  ) => boolean;
+
+  /**
    * 默认 Props
    * 会与传入的 props 合并
    */
@@ -263,6 +278,7 @@ export function createComponent<
     name,
     render,
     memo: useMemo = true,
+    arePropsEqual,
     defaultProps,
     meta,
   } = options;
@@ -290,7 +306,7 @@ export function createComponent<
 
   // 根据配置决定是否使用 memo
   if (useMemo) {
-    const MemoizedComponent = memo(ForwardedComponent);
+    const MemoizedComponent = memo(ForwardedComponent, arePropsEqual);
     MemoizedComponent.displayName = name;
     if (meta) {
       (MemoizedComponent as unknown as Record<string, unknown>).__orva_meta__ = meta;

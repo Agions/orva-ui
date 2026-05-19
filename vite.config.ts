@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import UnoCSS from 'unocss/vite';
 import path from 'path';
 import pxtorem from 'postcss-pxtorem';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // 组件懒加载配置
 const componentChunkPatterns = {
@@ -25,6 +26,13 @@ export default defineConfig(({ mode }) => {
         jsxRuntime: 'automatic',
       }),
       UnoCSS(),
+      visualizer({
+        filename: 'dist/stats.html',
+        open: false,
+        gzipSize: true,
+        brotliSize: true,
+        template: 'treemap',
+      }),
     ],
 
     resolve: {
@@ -185,7 +193,6 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "@/theme/design-tokens.scss";',
           charset: false,
         },
       },

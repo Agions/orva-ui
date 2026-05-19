@@ -4,8 +4,8 @@
  * @module theme/styles/variants/shape
  */
 
-import type { StyleObject } from '../../../types/style';
-import type { Shape } from '../../../types/common';
+import type { StyleObject } from '@/types/style';
+import type { Shape } from '@/types/common';
 
 // ==================== 按钮形状变体 ====================
 

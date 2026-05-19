@@ -68,10 +68,11 @@ export function useCascaderOptions(options: CascaderOption[], fieldNames?: Casca
     [fields],
   );
 
-  // 检查选项是否禁用
+  // 检查选项是否禁用 - 返回明确的 boolean 类型
   const isOptionDisabled = useCallback(
-    (option: CascaderOption) => {
-      return !!option[fields.disabled as keyof typeof option];
+    (option: CascaderOption): boolean => {
+      const value = (option as any)[fields.disabled];
+      return value === true || value === 'true' || value === '1' || value === 1;
     },
     [fields],
   );

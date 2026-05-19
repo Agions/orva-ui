@@ -1,7 +1,7 @@
 import type { BaseProps } from '@/types/component';
 import { ReactNode } from 'react';
 import type { ITouchEvent } from '@tarojs/components';
-import { Size, CSSUnit } from '../../../types';
+import { Size, CSSUnit } from '@/types';
 
 /** Space组件方向 */
 

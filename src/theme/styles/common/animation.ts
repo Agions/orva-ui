@@ -4,7 +4,7 @@
  * @module theme/styles/common/animation
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 // ==================== 过渡时长样式 ====================
 

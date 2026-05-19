@@ -5,7 +5,25 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** 虚拟列表组件 */
+/**
+ * 虚拟列表组件 (VirtualList)
+ * @module components/common/VirtualList
+ * @description 用于渲染大量数据的虚拟列表组件，只渲染可见区域的元素以提升性能
+ * @example
+ * ```tsx
+ * import { VirtualList } from 'orva-ui';
+ *
+ * const data = Array.from({ length: 10000 }, (_, i) => ({ id: i, title: `Item ${i}` }));
+ *
+ * <VirtualList
+ *   data={data}
+ *   height={400}
+ *   itemHeight={50}
+ *   itemKey="id"
+ *   renderItem={(item) => <div>{item.title}</div>}
+ * />
+ * ```
+ */
 export const VirtualList = createComponent<VirtualListProps<unknown>, HTMLElement>({
   name: 'VirtualList',
   render: (props, ref) => {

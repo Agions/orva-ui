@@ -1,6 +1,15 @@
 /**
- * 存储工具
- * 提供跨平台的存储功能，自动适配 localStorage 和 Taro.setStorage
+ * 存储工具模块 (storage)
+ * @module utils/storage
+ * @description 提供跨平台的存储功能，自动适配 localStorage 和 Taro.setStorage，支持过期时间和加密
+ * @example
+ * ```ts
+ * import { setItem, getItem, removeItem } from '@/utils/storage';
+ *
+ * await setItem('user', { name: 'Tom' }, { expires: 3600000 });
+ * const user = await getItem('user');
+ * await removeItem('user');
+ * ```
  */
 
 import Taro from '@tarojs/taro';

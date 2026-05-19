@@ -1,6 +1,6 @@
 {
   "name": "orva-ui",
-  "version": "0.0.1",
+  "version": "1.2.1",
   "description": "轻量级跨平台 UI 组件库，为 Taro 生态系统打造",
   "keywords": [
     "taro",
@@ -12,16 +12,58 @@
     "mini-program"
   ],
   "type": "module",
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "./dist/style.css"
+  ],
   "main": "./dist/orva-ui.cjs.js",
   "module": "./dist/orva-ui.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/orva-ui.es.js",
-      "require": "./dist/orva-ui.cjs.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/orva-ui.cjs.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/style.css": "./dist/style.css",
+    "./components/*": "./dist/components/*/index.js",
+    "./hooks/*": "./dist/hooks/*/index.js",
+    "./utils/*": "./dist/utils/*/index.js",
+    "./theme": "./dist/theme/index.js",
+    "./types": "./dist/types/index.js",
+    "./form": {
+      "import": "./dist/components/form/index.js",
+      "types": "./dist/components/form/index.d.ts"
+    },
+    "./display": {
+      "import": "./dist/components/display/index.js",
+      "types": "./dist/components/display/index.d.ts"
+    },
+    "./feedback": {
+      "import": "./dist/components/feedback/index.js",
+      "types": "./dist/components/feedback/index.d.ts"
+    },
+    "./layout": {
+      "import": "./dist/components/layout/index.js",
+      "types": "./dist/components/layout/index.d.ts"
+    },
+    "./navigation": {
+      "import": "./dist/components/navigation/index.js",
+      "types": "./dist/components/navigation/index.d.ts"
+    },
+    "./common": {
+      "import": "./dist/components/common/index.js",
+      "types": "./dist/components/common/index.d.ts"
+    },
+    "./basic": {
+      "import": "./dist/components/basic/index.js",
+      "types": "./dist/components/basic/index.d.ts"
+    },
+    "./lazy": {
+      "import": "./dist/lazy.js",
+      "types": "./dist/lazy.d.ts"
+    }
   },
   "files": [
     "dist",
@@ -57,7 +99,8 @@
     "docs:dev": "cd docs && npm run start",
     "docs:build": "cd docs && npm run build",
     "docs:serve": "cd docs && npm run serve",
-    "docs:deploy": "cd docs && npm run deploy"
+    "docs:deploy": "cd docs && npm run deploy",
+    "analyze": "vite build --mode lib --sourcemap true && npx rollup-plugin-visualizer --open"
   },
   "dependencies": {
     "@tarojs/components": "^4.1.6",
@@ -99,6 +142,7 @@
     "jsdom": "^24.0.0",
     "postcss-pxtorem": "^6.1.0",
     "prettier": "^3.6.2",
+    "rollup-plugin-visualizer": "^7.0.1",
     "tsx": "^4.19.2",
     "typedoc": "^0.28.14",
     "typescript": "^5.7.2",

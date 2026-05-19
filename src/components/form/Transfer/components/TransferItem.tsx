@@ -1,7 +1,22 @@
+/**
+ * Transfer 选项组件 (TransferItem)
+ * @module components/form/Transfer/components/TransferItem
+ * @description Transfer 组件的单个选项子组件，支持选中状态、禁用状态和自定义渲染
+ * @example
+ * ```tsx
+ * <TransferItem
+ *   item={{ key: '1', title: '选项一' }}
+ *   direction="left"
+ *   isSelected={false}
+ *   onClick={(item) => console.log(item)}
+ * />
+ * ```
+ */
+
 import React, { useCallback } from 'react';
 import { View, Text } from '@tarojs/components';
 
-import { createComponent } from '../../../../utils/createComponent';
+import { createComponent } from '@/utils/createComponent';
 import { TransferStyles } from '../Transfer.styles';
 import type { TransferOption, TransferDirection } from '../Transfer.types';
 

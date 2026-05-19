@@ -233,7 +233,7 @@ export type {
 // ==================== 组件库版本和配置 ====================
 
 /** 组件库版本 */
-export const VERSION = '1.2.0';
+export const VERSION = '1.2.1';
 
 /** 组件库配置 */
 export const CONFIG = {
@@ -241,11 +241,11 @@ export const CONFIG = {
   theme: 'light',
   platform: 'taro',
   components: {
-    basic: ['Button', 'Icon', 'Text', 'Divider', 'Typography', 'Video'],
+    basic: ['Button', 'Icon', 'Text', 'Divider', 'Typography', 'Video', 'Ripple'],
     display: ['Avatar', 'Badge', 'Card', 'List', 'Rate', 'Table', 'Tag', 'Timeline', 'Calendar', 'Carousel', 'RichText'],
     feedback: ['Modal', 'Message', 'Notification', 'Loading', 'Progress', 'Tooltip', 'Result', 'Toast', 'Drawer', 'Popconfirm'],
     form: ['Form', 'Input', 'Select', 'DatePicker', 'TimePicker', 'Radio', 'Checkbox', 'Switch', 'Slider', 'Textarea', 'InputNumber', 'Cascader', 'Transfer', 'Upload', 'AutoComplete'],
-    layout: ['Grid', 'Layout', 'Space', 'Affix', 'Row', 'Col', 'Container'],
+    layout: ['Grid', 'Layout', 'Space', 'Affix', 'Row', 'Col', 'Container', 'ResponsiveContainer', 'ResponsiveGrid'],
     navigation: ['Menu', 'Tabs', 'Pagination', 'NavBar', 'Steps', 'Breadcrumb', 'PageHeader'],
   },
 };

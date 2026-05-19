@@ -5,7 +5,21 @@ import { getContentStyle } from './Layout.styles';
 import { createComponent } from '@/utils/createComponent';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** 布局内容区域组件 */
+/**
+ * 布局内容区域组件 (Content)
+ * @module components/layout/Content
+ * @description Layout 布局的主要内容区域组件
+ * @example
+ * ```tsx
+ * import { Layout, Header, Content, Footer } from 'orva-ui';
+ *
+ * <Layout>
+ *   <Header>头部</Header>
+ *   <Content>主要内容</Content>
+ *   <Footer>底部</Footer>
+ * </Layout>
+ * ```
+ */
 export const LayoutContent = createComponent<LayoutContentProps, LayoutContentRef>({
   name: 'LayoutContent',
   render: (props, ref) => {

@@ -1,6 +1,15 @@
 /**
- * 对象操作工具
- * 提供 deepMerge, omit, pick 等对象操作函数
+ * 对象操作工具模块 (object)
+ * @module utils/object
+ * @description 提供 deepMerge、omit、pick、clone、merge 等对象操作函数，支持深度操作和类型安全
+ * @example
+ * ```ts
+ * import { deepMerge, omit, pick, clone } from '@/utils/object';
+ *
+ * const merged = deepMerge({ a: 1 }, { b: 2 });
+ * const picked = pick(user, ['name', 'email']);
+ * const omitted = omit(user, ['password']);
+ * ```
  */
 
 // ==================== 类型定义 ====================

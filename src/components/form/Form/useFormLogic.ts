@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import type { ITouchEvent } from '@tarojs/components';
 import type { FormProps, FormInstance, FormValues, FormErrors, FormFieldInfo, FormContext, FormSize, FormRule } from './Form.types';
 import { formStyles } from './Form.styles';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
 
 const logger = createLogger('use Form Logic');
 

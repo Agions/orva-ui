@@ -4,7 +4,7 @@
  * @module theme/styles/common/border
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 // ==================== 边框宽度样式 ====================
 

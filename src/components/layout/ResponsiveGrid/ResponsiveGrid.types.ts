@@ -3,7 +3,7 @@
  */
 
 import type { ReactNode } from 'react';
-import type { ResponsiveValue } from '../../../utils/responsiveUtils';
+import type { ResponsiveValue } from '@/utils/responsiveUtils';
 import type { BaseProps } from '@/types/component';
 
 export interface ResponsiveGridProps extends BaseProps {

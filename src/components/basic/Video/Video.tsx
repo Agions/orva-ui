@@ -1,8 +1,17 @@
 /**
- * Video 组件 - 视频播放器主组件
- * 组合 VideoPlayer、VideoControls、VideoOverlay、VideoAd、VideoChapterMarkers
- * 保持原有 API 兼容性，作为组合器使用
+ * 视频播放器组件 (Video)
  * @module components/basic/Video
+ * @description 组合 VideoPlayer、VideoControls、VideoOverlay、VideoAd、VideoChapterMarkers 的视频播放器主组件，支持播放控制、广告、章节标记等功能
+ * @example
+ * ```tsx
+ * import { Video } from 'orva-ui';
+ *
+ * <Video
+ *   src="https://example.com/video.mp4"
+ *   poster="https://example.com/poster.jpg"
+ *   onPlay={() => console.log('play')}
+ * />
+ * ```
  */
 
 import { useCallback, useImperativeHandle, useRef, useState, useEffect } from 'react';

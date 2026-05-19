@@ -1,7 +1,14 @@
 /**
- * 性能优化工具类
- * 提供防抖、节流、记忆化等性能优化函数
+ * 性能优化工具模块 (performance)
  * @module utils/performance
+ * @description 提供防抖、节流、记忆化等性能优化函数，帮助提升应用性能
+ * @example
+ * ```ts
+ * import { debounce, throttle, useMemoized } from '@/utils/performance';
+ *
+ * const debouncedSearch = debounce(search, 300);
+ * const throttledScroll = throttle(onScroll, 100);
+ * ```
  */
 
 import React, { useMemo, useCallback, useRef, useEffect, useState } from 'react';

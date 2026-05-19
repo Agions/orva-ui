@@ -6,7 +6,32 @@ import type { SliderProps, SliderRef } from './Slider.types';
 import { createComponent } from '@/utils/createComponent';
 import { useInteractionState } from '@/hooks/ui/useInteractionState';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
-/** 滑块组件 */
+
+/**
+ * 滑块组件 (Slider)
+ * @module components/form/Slider
+ * @description 用于在连续区间内选择数值的表单组件，支持离散标记点
+ * @example
+ * ```tsx
+ * import { Slider } from 'orva-ui';
+ *
+ * // 基本用法
+ * <Slider
+ *   min={0}
+ *   max={100}
+ *   defaultValue={50}
+ *   onChange={(value) => console.log(value)}
+ * />
+ *
+ * // 带标记点
+ * <Slider
+ *   min={0}
+ *   max={100}
+ *   marks={{ 0: '0%', 50: '50%', 100: '100%' }}
+ *   tooltip={{ formatter: (value) => `${value}%` }}
+ * />
+ * ```
+ */
 export const Slider = createComponent<SliderProps, SliderRef>({
   name: 'Slider',
 

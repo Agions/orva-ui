@@ -3,7 +3,7 @@
  */
 
 import type { ReactNode } from 'react';
-import type { ResponsiveStyle, ResponsiveValue } from '../../../utils/responsiveUtils';
+import type { ResponsiveStyle, ResponsiveValue } from '@/utils/responsiveUtils';
 import type { BaseProps } from '@/types/component';
 
 export interface ResponsiveContainerProps extends BaseProps {

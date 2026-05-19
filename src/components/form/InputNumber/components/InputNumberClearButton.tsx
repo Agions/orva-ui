@@ -1,9 +1,19 @@
+/**
+ * InputNumber 清除按钮组件 (InputNumberClearButton)
+ * @module components/form/InputNumber/components/InputNumberClearButton
+ * @description InputNumber 组件的清除按钮子组件，用于清除输入值
+ * @example
+ * ```tsx
+ * <InputNumberClearButton size="md" onClear={(e) => console.log('clear')} />
+ * ```
+ */
+
 import { View, Text } from '@tarojs/components';
 import type { ITouchEvent } from '@tarojs/components';
 
-import { createComponent } from '../../../../utils/createComponent';
-import { useTheme } from '../../../../hooks/ui/useTheme';
-import { useInteractionState } from '../../../../hooks/ui/useInteractionState';
+import { createComponent } from '@/utils/createComponent';
+import { useTheme } from '@/hooks/ui/useTheme';
+import { useInteractionState } from '@/hooks/ui/useInteractionState';
 import type { InputNumberSize } from '../InputNumber.types';
 import type { BaseProps } from '@/types/component';
 import { inputNumberStyles } from '../InputNumber.styles';

@@ -6,7 +6,22 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** 布局侧边栏组件 */
+/**
+ * 布局侧边栏组件 (Sider)
+ * @module components/layout/Sider
+ * @description Layout 布局的侧边栏组件，支持折叠展开
+ * @example
+ * ```tsx
+ * import { Layout, Sider, Content } from 'orva-ui';
+ *
+ * <Layout>
+ *   <Sider width={200} collapsible>
+ *     侧边菜单
+ *   </Sider>
+ *   <Content>内容区域</Content>
+ * </Layout>
+ * ```
+ */
 export const LayoutSider = createComponent<LayoutSiderProps, LayoutSiderRef>({
   name: 'LayoutSider',
   render: (props, ref) => {

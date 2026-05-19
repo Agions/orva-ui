@@ -1,11 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text } from '@tarojs/components';
 import { MessageProps, MessageRef } from './Message.types';
-import { cn } from '../../../utils';
+import { cn } from '@/utils';
 import { messageStyles } from './Message.styles';
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
+
+/**
+ * Message 消息提示组件
+ * @module components/feedback/Message
+ * @description 用于展示提示信息、状态反馈的组件，支持多种类型（info/success/warning/error）、自动关闭、手动关闭和自定义图标。
+ *
+ * @example
+ * ```tsx
+ * <Message type="success" content="操作成功" />
+ * <Message type="error" title="错误" content="请稍后重试" closable onClose={handleClose} />
+ * ```
+ */
 
 export const Message = createComponent<MessageProps, MessageRef>({
   name: 'Message',

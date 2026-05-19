@@ -7,6 +7,18 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
+/**
+ * Pagination 分页器组件
+ * @module components/navigation/Pagination
+ * @description 用于分页展示的组件，支持当前页码、总页数、页面大小选择和多种样式。
+ *
+ * @example
+ * ```tsx
+ * <Pagination current={1} total={50} onChange={handleChange} />
+ * <Pagination current={3} total={100} pageSize={20} showQuickJumper />
+ * ```
+ */
+
 /** Pagination 组件 */
 export const Pagination = createComponent<PaginationProps, PaginationRef>({
   name: 'Pagination',

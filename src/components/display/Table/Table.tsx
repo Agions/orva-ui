@@ -140,7 +140,7 @@ export const Table = createComponent<TableProps, TableRef>({
       return processedData.slice(startIndex, endIndex);
     }, [processedData, currentPage, pageSize, pagination]);
 
-    const renderHeader = () => {
+    const renderHeader = useCallback(() => {
       if (!showHeader) return null;
       const headerProps = onHeaderRow?.(columns, 0) || {};
       return (
@@ -187,9 +187,9 @@ export const Table = createComponent<TableProps, TableRef>({
           </View>
         </View>
       );
-    };
+    }, [showHeader, onHeaderRow, rowSelection, data.length, selectedRowKeys, expandable, columns, sortField, sortOrder, handleSelectAll, handleSort]);
 
-    const renderRow = (record: any, rowIndex: number) => {
+    const renderRow = useCallback((record: any, rowIndex: number) => {
       const key = String(record[rowKey as keyof typeof record]);
       const isSelected = selectedRowKeys.includes(key);
       const isExpanded = expandedRowKeys.includes(key);
@@ -245,9 +245,9 @@ export const Table = createComponent<TableProps, TableRef>({
           )}
         </View>
       );
-    };
+    }, [rowKey, selectedRowKeys, expandedRowKeys, onRow, striped, rowSelection, expandable, columns, handleRowSelect, handleExpand]);
 
-    const renderPagination = () => {
+    const renderPagination = useCallback(() => {
       if (!pagination) return null;
       const total = data.length;
       const totalPages = Math.ceil(total / pageSize);
@@ -261,18 +261,18 @@ export const Table = createComponent<TableProps, TableRef>({
           </View>
         </View>
       );
-    };
+    }, [pagination, data.length, pageSize, currentPage, handlePageChange]);
 
-    const renderEmpty = () => {
+    const renderEmpty = useCallback(() => {
       if (data.length > 0) return null;
       return (
         <View className="orva-ui-table__empty">
           <Text className="orva-ui-table__empty-text">{emptyText}</Text>
         </View>
       );
-    };
+    }, [data.length, emptyText]);
 
-    const renderLoading = () => {
+    const renderLoading = useCallback(() => {
       if (!loading) return null;
       return (
         <View className="orva-ui-table__loading">
@@ -280,7 +280,7 @@ export const Table = createComponent<TableProps, TableRef>({
           <Text className="orva-ui-table__loading-text">加载中...</Text>
         </View>
       );
-    };
+    }, [loading]);
 
     React.useImperativeHandle(
       ref,

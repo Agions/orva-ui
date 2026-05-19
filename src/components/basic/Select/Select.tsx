@@ -1,7 +1,16 @@
 /**
- * Select 选择器组件
- * 支持单选、多选、搜索、虚拟滚动
+ * 选择器组件 (Select)
  * @module components/basic/Select
+ * @description 用于从列表中选择单个或多个选项的组件，支持单选、多选、搜索和虚拟滚动
+ * @example
+ * ```tsx
+ * import { Select } from 'orva-ui';
+ *
+ * <Select
+ *   options={[{ label: '选项一', value: '1' }, { label: '选项二', value: '2' }]}
+ *   onChange={(value) => console.log(value)}
+ * />
+ * ```
  */
 
 import { useCallback, useState, useMemo, useRef } from 'react';
@@ -12,6 +21,14 @@ import { useTheme } from '@/hooks/ui/useTheme';
 import { useInteractionState } from '@/hooks/ui/useInteractionState';
 import { useAccessibility, ARIA_ROLES, type AccessibilityProps } from '@/hooks/ui/useAccessibility';
 import type { SelectProps, SelectRef, SelectOption } from './Select.types';
+
+// ==================== 尺寸映射（模块级常量） ====================
+const SIZE_STYLES: Record<string, React.CSSProperties> = {
+  xs: { fontSize: 12, padding: '4px 8px', height: 24 },
+  sm: { fontSize: 14, padding: '6px 10px', height: 28 },
+  md: { fontSize: 16, padding: '8px 12px', height: 34 },
+  lg: { fontSize: 18, padding: '10px 14px', height: 40 },
+};
 
 // ==================== 主组件 ====================
 
@@ -70,14 +87,7 @@ export const Select = createComponent<SelectProps & AccessibilityProps, SelectRe
       expanded: isOpen,
     });
 
-    // 尺寸映射
-    const sizeStyles: Record<string, React.CSSProperties> = {
-      xs: { fontSize: 12, padding: '4px 8px', height: 24 },
-      sm: { fontSize: 14, padding: '6px 10px', height: 28 },
-      md: { fontSize: 16, padding: '8px 12px', height: 34 },
-      lg: { fontSize: 18, padding: '10px 14px', height: 40 },
-    };
-    const sizeStyle = sizeStyles[size] || sizeStyles.md;
+    const sizeStyle = SIZE_STYLES[size] ?? SIZE_STYLES.md;
 
     // 过滤选项
     const filteredOptions = useMemo(() => {

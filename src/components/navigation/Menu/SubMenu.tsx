@@ -1,3 +1,16 @@
+/**
+ * 子菜单组件 (SubMenu)
+ * @module components/navigation/Menu/SubMenu
+ * @description Menu 组件的子菜单项，支持多级嵌套、展开/收起和图标
+ * @example
+ * ```tsx
+ * <Menu.SubMenu key="about" title="关于" icon={<FolderIcon />}>
+ *   <Menu.Item key="team">团队</Menu.Item>
+ *   <Menu.Item key="company">公司</Menu.Item>
+ * </Menu.SubMenu>
+ * ```
+ */
+
 import React, { useCallback, useEffect, useState, memo } from 'react';
 import { View, Text } from '@tarojs/components';
 import type { ITouchEvent } from '@tarojs/components';

@@ -6,6 +6,18 @@ import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 import type { ARIARole } from '@/hooks/ui/useAccessibility';
 
+/**
+ * Result 结果展示组件
+ * @module components/feedback/Result
+ * @description 用于展示操作结果、状态页面的组件，支持多种状态（success/info/warning/error）、自定义图标、标题和副标题。
+ *
+ * @example
+ * ```tsx
+ * <Result status="success" title="操作成功" subTitle="您的请求已处理完成" />
+ * <Result status="error" title="出错了" extra={<Button>重试</Button>} />
+ * ```
+ */
+
 /** 结果组件 */
 export const Result = createComponent<ResultProps, ResultRef>({
   name: 'Result',

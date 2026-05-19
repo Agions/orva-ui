@@ -26,7 +26,7 @@ import { createLogger } from '../../utils/logger';
 /**
  * useBoolean Hook 返回类型
  */
-const logger = createLogger('use Boolean');
+const logger = createLogger('useBoolean');
 
 export interface UseBooleanReturn {
   /** 当前布尔值 */

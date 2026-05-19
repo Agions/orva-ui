@@ -6,6 +6,18 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
+/**
+ * Tabs 标签页组件
+ * @module components/navigation/Tabs
+ * @description 用于切换内容面板的组件，支持多种类型（line/card）、位置控制、禁用状态和自定义渲染。
+ *
+ * @example
+ * ```tsx
+ * <Tabs items={[{ key: '1', label: 'Tab 1' }, { key: '2', label: 'Tab 2' }]} activeKey="1" />
+ * <Tabs type="card" position="left" />
+ * ```
+ */
+
 /** Tabs 组件 */
 export const Tabs = createComponent<TabsProps, TabsRef>({
   name: 'Tabs',
@@ -80,7 +92,7 @@ export const Tabs = createComponent<TabsProps, TabsRef>({
       [onRemove, onEdit],
     );
 
-    const renderTabBarInternal = () => {
+    const renderTabBarInternal = useCallback(() => {
       if (renderTabBar) return renderTabBar(props);
 
       return (
@@ -130,9 +142,9 @@ export const Tabs = createComponent<TabsProps, TabsRef>({
           )}
         </View>
       );
-    };
+    }, [renderTabBar, props, internalPosition, internalType, internalItems, activeKey, internalSize, renderTab, editable, addable, handleTabClick, handleRemove, handleAdd]);
 
-    const renderContentInternal = () => {
+    const renderContentInternal = useCallback(() => {
       return (
         <View className="orva-ui-tabs__content" style={tabsStyles['getContentStyle'](internalPosition, animated)}>
           {internalItems.map((item, index) => {
@@ -152,7 +164,7 @@ export const Tabs = createComponent<TabsProps, TabsRef>({
           })}
         </View>
       );
-    };
+    }, [internalPosition, animated, internalItems, activeKey, destroyInactiveTabPane, forceRender, renderContent]);
 
     const tabsStyle = tabsStyles['getBaseStyle']({ position: internalPosition, type: internalType, size: internalSize, centered, style: style || {} } as any);
     const tabsClassName = tabsStyles['getClassName']({ position: internalPosition, type: internalType, size: internalSize, centered, className: className || '' } as any);

@@ -4,7 +4,7 @@
  * @module theme/styles/mixins/scrollbar
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 /**
  * 隐藏滚动条

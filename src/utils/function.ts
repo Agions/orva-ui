@@ -1,6 +1,16 @@
 /**
- * 函数工具
- * 提供 debounce, throttle 等函数工具
+ * 函数工具模块 (function)
+ * @module utils/function
+ * @description 提供 debounce、throttle、once、memoize 等函数工具，支持函数防抖、节流、记忆化等高级功能
+ * @example
+ * ```ts
+ * import { debounce, throttle, once, memoize } from '@/utils/function';
+ *
+ * const debouncedSearch = debounce(search, 300);
+ * const throttledScroll = throttle(onScroll, 100);
+ * const initialize = once(init);
+ * const memoized = memoize(compute);
+ * ```
  */
 
 // ==================== 类型定义 ====================

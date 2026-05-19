@@ -1,4 +1,4 @@
-import React from 'react';
+import { Children, isValidElement, cloneElement } from 'react';
 import { View } from '@tarojs/components';
 import { ListProps, ListItemProps, ListRef } from './List.types';
 import { cn } from '@/utils/index';
@@ -49,12 +49,12 @@ export const List = createComponent<ListProps, ListRef>({
         ));
       }
 
-      return React.Children.map(children, (child, index) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child, {
+      return Children.map(children, (child, index) => {
+        if (isValidElement(child)) {
+          return cloneElement(child, {
             index,
             size,
-            split: split && index !== React.Children.count(children) - 1,
+            split: split && index !== Children.count(children) - 1,
           } as Partial<ListItemProps>);
         }
         return child;

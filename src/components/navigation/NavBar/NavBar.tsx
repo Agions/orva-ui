@@ -6,6 +6,18 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
+/**
+ * NavBar 导航栏组件
+ * @module components/navigation/NavBar
+ * @description 用于页面顶部导航的组件，支持标题、左右侧内容、返回按钮和固定定位。
+ *
+ * @example
+ * ```tsx
+ * <NavBar title="页面标题" backArrow onBack={handleBack} />
+ * <NavBar left={<BackIcon />} right={<MoreIcon />} />
+ * ```
+ */
+
 /** NavBar 组件 */
 export const NavBar = createComponent<NavBarProps, NavBarRef>({
   name: 'NavBar',

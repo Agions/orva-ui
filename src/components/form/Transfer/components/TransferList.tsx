@@ -1,7 +1,23 @@
+/**
+ * Transfer 列表组件 (TransferList)
+ * @module components/form/Transfer/components/TransferList
+ * @description Transfer 组件的列表子组件，支持搜索、全选、分页和自定义渲染
+ * @example
+ * ```tsx
+ * <TransferList
+ *   direction="left"
+ *   dataSource={data}
+ *   targetKeys={targetKeys}
+ *   selectedKeys={selectedKeys}
+ *   onItemClick={handleItemClick}
+ * />
+ * ```
+ */
+
 import React, { useCallback } from 'react';
 import { View, Text } from '@tarojs/components';
 
-import { createComponent } from '../../../../utils/createComponent';
+import { createComponent } from '@/utils/createComponent';
 import { TransferStyles } from '../Transfer.styles';
 import { TransferItem } from './TransferItem';
 import { TransferSearch } from './TransferSearch';

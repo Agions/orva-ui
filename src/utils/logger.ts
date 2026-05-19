@@ -1,6 +1,15 @@
 /**
- * 日志工具
- * 提供统一的日志记录功能，支持开发/生产环境区分
+ * 日志工具模块 (logger)
+ * @module utils/logger
+ * @description 提供统一的日志记录功能，支持开发/生产环境区分、彩色输出和日志级别控制
+ * @example
+ * ```ts
+ * import { info, error, warn } from '@/utils/logger';
+ *
+ * info('应用启动');
+ * warn('内存使用率高');
+ * error('请求失败', new Error('Network error'));
+ * ```
  */
 
 /** 日志级别 */
@@ -332,13 +341,6 @@ export const logger = new Logger();
 // ==================== 便捷函数 ====================
 
 /**
- * 调试日志
- */
-export function debug(message: string, ...args: unknown[]): void {
-  logger.debug(message, ...args);
-}
-
-/**
  * 信息日志
  */
 export function info(message: string, ...args: unknown[]): void {
@@ -370,63 +372,6 @@ export function error(message: string, ...args: unknown[]): void {
  */
 export function createLogger(prefix: string, config?: Partial<LoggerConfig>): Logger {
   return new Logger({ ...config, prefix });
-}
-
-/**
- * 性能日志
- * 用于测量代码执行时间
- *
- * @example
- * ```typescript
- * const end = perfLog('fetchData');
- * await fetchData();
- * end(); // 输出: fetchData: 123ms
- * ```
- */
-export function perfLog(label: string): () => void {
-  const start = performance.now();
-  return () => {
-    const duration = performance.now() - start;
-    logger.debug(`${label}: ${duration.toFixed(2)}ms`);
-  };
-}
-
-/**
- * 条件日志
- * 仅在条件为真时输出日志
- *
- * @example
- * ```typescript
- * logIf(isDebug, 'info', 'Debug mode enabled');
- * ```
- */
-export function logIf(
-  condition: boolean,
-  level: Exclude<LogLevel, 'silent'>,
-  message: string,
-  ...args: unknown[]
-): void {
-  if (condition) {
-    logger[level](message, ...args);
-  }
-}
-
-/**
- * 仅在开发环境输出日志
- */
-export function devLog(message: string, ...args: unknown[]): void {
-  if (process.env['NODE_ENV'] !== 'production') {
-    logger.debug(message, ...args);
-  }
-}
-
-/**
- * 仅在生产环境输出日志
- */
-export function prodLog(message: string, ...args: unknown[]): void {
-  if (process.env['NODE_ENV'] === 'production') {
-    logger.info(message, ...args);
-  }
 }
 
 // ==================== 默认导出 ====================

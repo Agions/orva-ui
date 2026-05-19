@@ -1,3 +1,19 @@
+/**
+ * 富文本组件 (RichText)
+ * @module components/display/RichText
+ * @description 用于渲染富文本内容的组件，支持自定义节点、图片和复杂的文本样式
+ * @example
+ * ```tsx
+ * import { RichText } from 'orva-ui';
+ *
+ * const nodes = [
+ *   { name: 'h1', children: [{ type: 'text', text: '标题' }] },
+ *   { name: 'p', children: [{ type: 'text', text: '段落内容' }] }
+ * ];
+ * <RichText nodes={nodes} />
+ * ```
+ */
+
 import Taro from '@tarojs/taro';
 import React, { useRef } from 'react';
 import { View, Text, Image } from '@tarojs/components';
@@ -13,6 +29,18 @@ import {
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
+
+/**
+ * RichText 富文本组件
+ * @module components/display/RichText
+ * @description 用于展示富文本内容的组件，支持 HTML 字符串、节点数组、内联样式、链接处理和自定义渲染等功能。
+ *
+ * @example
+ * ```tsx
+ * <RichText nodes="<p>Hello World</p>" />
+ * <RichText nodes={[{ type: 'text', value: 'Hello' }]} onLinkClick={handleLink} />
+ * ```
+ */
 
 /** 处理链接点击 */
 const handleLinkClick = (href: string, type: 'internal' | 'external' = 'external', onLinkClick?: RichTextProps['onLinkClick']) => {

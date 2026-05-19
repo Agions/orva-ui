@@ -1,7 +1,7 @@
 import type { BaseProps } from '@/types/component';
 import { ReactNode } from 'react';
 // import { View } from '@tarojs/components'; // Commented out - unused
-import { Size } from '../../../types';
+import { Size } from '@/types';
 
 /** Tab位置 */
 

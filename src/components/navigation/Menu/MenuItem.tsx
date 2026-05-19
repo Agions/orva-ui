@@ -1,3 +1,13 @@
+/**
+ * 菜单项组件 (MenuItem)
+ * @module components/navigation/Menu/MenuItem
+ * @description Menu 组件的菜单项子组件，支持禁用状态、选中状态和图标
+ * @example
+ * ```tsx
+ * <Menu.Item key="home" icon={<HomeIcon />}>首页</Menu.Item>
+ * ```
+ */
+
 import React, { useCallback, memo } from 'react';
 import { View, Text } from '@tarojs/components';
 import type { ITouchEvent } from '@tarojs/components';

@@ -1,6 +1,15 @@
 /**
- * FormItem 复合组件
- * 提供表单项的标准布局、标签、错误提示和帮助文本支持
+ * 表单项组件 (FormItem)
+ * @module components/form/FormItem
+ * @description 提供表单项的标准布局、标签、错误提示和帮助文本支持
+ * @example
+ * ```tsx
+ * import { FormItem } from 'orva-ui';
+ *
+ * <FormItem name="email" label="邮箱" required help="请输入有效的邮箱地址">
+ *   <Input type="email" />
+ * </FormItem>
+ * ```
  */
 
 import { useMemo } from 'react';

@@ -6,7 +6,19 @@ import { tooltipStyles } from './Tooltip.styles';
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
+
+/**
+ * Tooltip 文字提示组件
+ * @module components/feedback/Tooltip
+ * @description 用于展示提示信息、hover/focus 触发、位置控制的组件，支持多种触发方式、placement 定位、箭头和自定义样式。
+ *
+ * @example
+ * ```tsx
+ * <Tooltip title="提示内容">Hover Me</Tooltip>
+ * <Tooltip title="点击提示" trigger="click" placement="right">Click Me</Tooltip>
+ * ```
+ */
 
 const logger = createLogger('Tooltip');
 

@@ -1,12 +1,21 @@
 /**
- * 响应式容器组件
- * 提供多平台适配的响应式布局容器，使用responsiveUtils工具
+ * 响应式容器组件 (ResponsiveContainer)
+ * @module components/layout/ResponsiveContainer
+ * @description 提供多平台适配的响应式布局容器，支持响应式样式和断点控制
+ * @example
+ * ```tsx
+ * import { ResponsiveContainer } from 'orva-ui';
+ *
+ * <ResponsiveContainer style={{ width: { base: '100%', md: '50%' } }}>
+ *   内容
+ * </ResponsiveContainer>
+ * ```
  */
 
 import React, { ReactNode } from 'react';
 import { View } from '@tarojs/components';
-import { useResponsive } from '../../../utils/responsiveUtils';
-import type { ResponsiveStyle, ResponsiveValue } from '../../../utils/responsiveUtils';
+import { useResponsive } from '@/utils/responsiveUtils';
+import type { ResponsiveStyle, ResponsiveValue } from '@/utils/responsiveUtils';
 import { createComponent } from '@/utils/createComponent';
 
 export interface ResponsiveContainerProps {

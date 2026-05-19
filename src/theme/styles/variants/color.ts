@@ -4,8 +4,8 @@
  * @module theme/styles/variants/color
  */
 
-import type { StyleObject } from '../../../types/style';
-import type { Status } from '../../../types/common';
+import type { StyleObject } from '@/types/style';
+import type { Status } from '@/types/common';
 
 // ==================== 颜色值常量 ====================
 

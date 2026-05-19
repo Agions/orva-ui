@@ -8,7 +8,27 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES, type ARIARole } from '@/hooks/ui/useAccessibility';
 
-/** 复选框组组件 */
+/**
+ * 复选框组组件 (CheckboxGroup)
+ * @module components/form/CheckboxGroup
+ * @description 用于多选场景的复选框组组件，支持全选、数量限制和选项数组模式
+ * @example
+ * ```tsx
+ * import { CheckboxGroup } from 'orva-ui';
+ *
+ * const options = [
+ *   { label: '苹果', value: 'apple' },
+ *   { label: '香蕉', value: 'banana' },
+ *   { label: '橙子', value: 'orange' },
+ * ];
+ *
+ * <CheckboxGroup
+ *   options={options}
+ *   defaultValue={['apple']}
+ *   onChange={(values) => console.log(values)}
+ * />
+ * ```
+ */
 export const CheckboxGroup = createComponent<CheckboxGroupProps, CheckboxGroupRef>({
   name: 'CheckboxGroup',
   render: (props, ref) => {

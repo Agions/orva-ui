@@ -1,4 +1,4 @@
-import { getPlatformType } from '../../../utils';
+import { getPlatformType } from '@/utils';
 import type { IconProps, IconSize, IconStatus, IconTheme } from './Icon.types';
 
 /** 样式工具类 */

@@ -1,3 +1,19 @@
+/**
+ * 步骤条组件 (Steps)
+ * @module components/navigation/Steps
+ * @description 用于展示步骤进度的组件，支持垂直/水平方向、点状/数字/图标步骤、状态自定义等
+ * @example
+ * ```tsx
+ * import { Steps } from 'orva-ui';
+ *
+ * <Steps current={1} direction="horizontal">
+ *   <Steps.Step title="步骤一" description="基本信息" />
+ *   <Steps.Step title="步骤二" description="填写表单" />
+ *   <Steps.Step title="步骤三" description="完成" />
+ * </Steps>
+ * ```
+ */
+
 import React, { useRef, useImperativeHandle } from 'react';
 import { View, Text } from '@tarojs/components';
 import { StepsProps, StepsRef, Step } from './Steps.types';
@@ -14,6 +30,20 @@ import {
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
+
+/**
+ * Steps 步骤条组件
+ * @module components/navigation/Steps
+ * @description 用于展示步骤流程的组件，支持水平/垂直方向、步骤状态、图标和自定义渲染。
+ *
+ * @example
+ * ```tsx
+ * <Steps current={1}>
+ *   <Step title="步骤一" description="描述" />
+ *   <Step title="步骤二" description="描述" />
+ * </Steps>
+ * ```
+ */
 
 export const Steps = createComponent<StepsProps, StepsRef>({
   name: 'Steps',

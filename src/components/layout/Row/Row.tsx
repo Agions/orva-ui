@@ -6,7 +6,25 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** Row 组件 */
+/**
+ * 栅格行组件 (Row)
+ * @module components/layout/Row
+ * @description 栅格系统中的行组件，用于包裹 Col 组件并设置栅格属性
+ * @example
+ * ```tsx
+ * import { Row, Col } from 'orva-ui';
+ *
+ * <Row gutter={16}>
+ *   <Col span={8}>列1</Col>
+ *   <Col span={8}>列2</Col>
+ *   <Col span={8}>列3</Col>
+ * </Row>
+ *
+ * <Row align="middle" justify="space-between">
+ *   <Col>垂直居中</Col>
+ * </Row>
+ * ```
+ */
 export const Row = createComponent<RowProps, RowRef>({
   name: 'Row',
   render: (props, ref) => {

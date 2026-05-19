@@ -19,12 +19,12 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Text as TaroText, View } from '@tarojs/components';
 import { textStyles } from './Text.styles';
 import type { TextProps, TextRef } from './Text.types';
-import { useSecurity } from '../../../providers/SecurityProvider';
-import { useThemeContext as useTheme } from '../../../providers/ThemeProvider';
+import { useSecurity } from '@/providers/SecurityProvider';
+import { useThemeContext as useTheme } from '@/providers/ThemeProvider';
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
 
 /**
  * Text 文本组件

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback, Children } from 'react';
+import React, { useRef, useState, useEffect, useCallback, Children, useMemo } from 'react';
 import { View, Text } from '@tarojs/components';
 import { carouselStyles } from './Carousel.styles';
 import type { CarouselProps, CarouselRef } from './Carousel.types';
@@ -50,7 +50,7 @@ export const Carousel = createComponent<CarouselProps, CarouselRef>({
     const timerRef = useRef<NodeJS.Timeout | null>(null);
     const elementRef = useRef<any>(null);
 
-    const childrenArray = Children.toArray(children);
+    const childrenArray = useMemo(() => Children.toArray(children), [children]);
     const totalSlides = childrenArray.length;
 
     const animation = useMicroAnimation({ type: 'micro', enabled: autoplay });
@@ -117,21 +117,20 @@ export const Carousel = createComponent<CarouselProps, CarouselRef>({
       goToSlide(newIndex);
     }, [currentIndex, totalSlides, infinite, slidesToScroll, goToSlide]);
 
-    const getTransform = () => {
+    const getTransform = useCallback(() => {
       if (effect === 'fade') return 'none';
       const translateValue = -(currentIndex * (100 / slidesToShow));
       return vertical ? `translateY(${translateValue}%)` : `translateX(${translateValue}%)`;
-    };
+    }, [effect, currentIndex, slidesToShow, vertical]);
 
-    const getWrapperStyle = () => {
+    const getWrapperStyle = useCallback(() => {
       const baseStyle = { ...carouselStyles['wrapper'], transform: getTransform() };
       if (vertical) Object.assign(baseStyle, carouselStyles['wrapperVertical']);
-      if (!isTransitioning && effect === 'slide') { /* transition in base */ }
-      else if (effect === 'fade') Object.assign(baseStyle, carouselStyles['wrapperNoTransition']);
+      if (effect === 'fade') Object.assign(baseStyle, carouselStyles['wrapperNoTransition']);
       return baseStyle;
-    };
+    }, [vertical, effect, getTransform]);
 
-    const getSlideStyle = (index: number) => {
+    const getSlideStyle = useCallback((index: number) => {
       const baseStyle = { ...carouselStyles['slide'] };
       if (slidesToShow > 1) {
         if (vertical) Object.assign(baseStyle, carouselStyles['slideVertical']);
@@ -142,9 +141,9 @@ export const Carousel = createComponent<CarouselProps, CarouselRef>({
         if (index === currentIndex) Object.assign(baseStyle, carouselStyles['slideFadeActive']);
       }
       return baseStyle;
-    };
+    }, [slidesToShow, vertical, effect, currentIndex]);
 
-    const renderDots = () => {
+    const renderDots = useCallback(() => {
       if (!showDots || totalSlides <= 1) return null;
       const dotsStyle = { ...carouselStyles['dots'], ...carouselStyles[`dots${dotsPosition.charAt(0).toUpperCase() + dotsPosition.slice(1)}` as keyof typeof carouselStyles] };
       return (
@@ -158,9 +157,9 @@ export const Carousel = createComponent<CarouselProps, CarouselRef>({
           ))}
         </View>
       );
-    };
+    }, [showDots, totalSlides, dotsPosition, currentIndex, goToSlide]);
 
-    const renderArrows = () => {
+    const renderArrows = useCallback(() => {
       if (!showArrows || totalSlides <= 1) return null;
       const canGoPrev = infinite || currentIndex > 0;
       const canGoNext = infinite || currentIndex < totalSlides - 1;
@@ -178,13 +177,13 @@ export const Carousel = createComponent<CarouselProps, CarouselRef>({
           </View>
         </>
       );
-    };
+    }, [showArrows, totalSlides, infinite, currentIndex, vertical, goPrev, goNext]);
 
-    const getCarouselStyle = () => {
+    const getCarouselStyle = useCallback(() => {
       const baseStyle = { ...carouselStyles['base'], ...style };
       if (vertical) Object.assign(baseStyle, carouselStyles['vertical']);
       return baseStyle;
-    };
+    }, [style, vertical]);
 
     React.useImperativeHandle(
       ref,

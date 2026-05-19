@@ -4,8 +4,8 @@
  * @module theme/styles/mixins/responsive
  */
 
-import type { StyleObject } from '../../../types/style';
-import type { Breakpoint } from '../../../types/common';
+import type { StyleObject } from '@/types/style';
+import type { Breakpoint } from '@/types/common';
 
 /**
  * 默认断点值（像素）

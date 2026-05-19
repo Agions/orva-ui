@@ -1,6 +1,16 @@
 /**
- * 类型判断工具
- * 提供各种类型判断函数
+ * 类型判断工具模块 (is)
+ * @module utils/is
+ * @description 提供各种类型判断函数，如 isUndefined、isNull、isString、isNumber、isArray、isPlainObject 等
+ * @example
+ * ```ts
+ * import { isString, isNumber, isArray, isPlainObject } from '@/utils/is';
+ *
+ * isString('hello'); // true
+ * isNumber(123); // true
+ * isArray([]); // true
+ * isPlainObject({}); // true
+ * ```
  */
 
 // ==================== 基础类型判断 ====================

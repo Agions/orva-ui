@@ -1,6 +1,6 @@
 import type { ColProps } from './Col.types';
 import type { RowGutter } from '../Row/Row.types';
-import type { Size, CSSUnit } from '../../../types';
+import type { Size, CSSUnit } from '@/types';
 
 /** Col组件样式管理器 */
 export const colStyles = {

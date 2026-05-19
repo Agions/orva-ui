@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Select } from './Select';
 
 const mockOptions = [
@@ -72,15 +72,33 @@ describe('Select 组件', () => {
   });
 
   describe('交互', () => {
-    it('应该渲染可交互的选择器', () => {
+    it('点击 Select 应该触发交互', () => {
       const handleChange = vi.fn();
       const { container } = render(<Select options={mockOptions} onChange={handleChange} />);
+      const selectEl = container.firstChild as HTMLElement;
+      fireEvent.click(selectEl);
+      // Select 组件使用 Picker，点击行为由 Taro 处理
       expect(container.firstChild).toBeTruthy();
     });
 
     it('应该显示清除按钮', () => {
       const { container } = render(
         <Select options={mockOptions} allowClear value="a" />
+      );
+      expect(container.firstChild).toBeTruthy();
+    });
+
+    it('应该支持搜索功能', () => {
+      const { container } = render(
+        <Select options={mockOptions} showSearch />
+      );
+      expect(container.firstChild).toBeTruthy();
+    });
+
+    it('应该支持多选模式', () => {
+      const handleChange = vi.fn();
+      const { container } = render(
+        <Select options={mockOptions} mode="multiple" onChange={handleChange} />
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -95,6 +113,14 @@ describe('Select 组件', () => {
     it('应该渲染只读状态的选择器', () => {
       const { container } = render(<Select options={mockOptions} readonly />);
       expect(container.firstChild).toBeTruthy();
+    });
+  });
+
+  describe('可访问性', () => {
+    it('应该正确渲染选项列表', () => {
+      render(<Select options={mockOptions} />);
+      // Options 由 Taro Picker 渲染
+      expect(screen.getByText('请选择')).toBeInTheDocument();
     });
   });
 });

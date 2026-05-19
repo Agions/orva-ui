@@ -6,7 +6,26 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** Grid 组件 */
+/**
+ * 栅格组件 (Grid)
+ * @module components/layout/Grid
+ * @description 响应式网格布局容器，支持定义列数、间距和对齐方式
+ * @example
+ * ```tsx
+ * import { Grid } from 'orva-ui';
+ *
+ * <Grid cols={4} gap="medium">
+ *   <div>Item 1</div>
+ *   <div>Item 2</div>
+ *   <div>Item 3</div>
+ *   <div>Item 4</div>
+ * </Grid>
+ *
+ * <Grid cols={3} align="center" justify="space-between">
+ *   <div>居中对齐</div>
+ * </Grid>
+ * ```
+ */
 export const Grid = createComponent<GridProps, GridRef>({
   name: 'Grid',
   render: (props, ref) => {

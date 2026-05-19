@@ -1,7 +1,17 @@
 /**
- * 专业化 Card 组件
- * 特性：悬浮抬升、入场动画、Hover 光泽效果、微交互反馈
+ * 卡片组件 (Card)
  * @module components/display/Card
+ * @description 用于展示内容区域的卡片组件，支持悬浮抬升、入场动画、Hover 光泽效果和微交互反馈
+ * @example
+ * ```tsx
+ * import { Card } from 'orva-ui';
+ *
+ * <Card hoverable shadow="medium">
+ *   <Card.Header>标题</Card.Header>
+ *   <Card.Body>内容区域</Card.Body>
+ *   <Card.Footer>底部</Card.Footer>
+ * </Card>
+ * ```
  */
 
 import { useMemo } from 'react';

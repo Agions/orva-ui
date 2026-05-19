@@ -1,9 +1,24 @@
 /**
- * Form Component
- * 表单组件，提供完整的表单验证和状态管理功能
+ * 表单组件 (Form)
+ * @module components/form/Form
+ * @description 提供完整的表单验证和状态管理功能，支持布局、标签、错误提示等
+ * @example
+ * ```tsx
+ * import { Form } from 'orva-ui';
+ *
+ * <Form onSubmit={handleSubmit}>
+ *   <Form.Item name="username" label="用户名">
+ *     <Input />
+ *   </Form.Item>
+ *   <Form.Item name="password" label="密码">
+ *     <Input type="password" />
+ *   </Form.Item>
+ *   <Form.Submit>提交</Form.Submit>
+ * </Form>
+ * ```
  */
 
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { Form as TaroForm } from '@tarojs/components';
 import type { ITouchEvent } from '@tarojs/components';
 import { formStyles } from './Form.styles';
@@ -14,7 +29,24 @@ import { FormItem } from './FormItem';
 import { createComponent } from '@/utils/createComponent';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** 表单组件 */
+/**
+ * 表单组件 (Form)
+ * @module components/form/Form
+ * @description 用于收集和验证用户输入的表单容器组件，支持布局、尺寸和验证规则
+ * @example
+ * ```tsx
+ * import { Form, Input, Button } from 'orva-ui';
+ *
+ * <Form layout="vertical" onFinish={(values) => console.log(values)}>
+ *   <Form.Item name="username" label="用户名" rules={[{ required: true }]}>
+ *     <Input placeholder="请输入用户名" />
+ *   </Form.Item>
+ *   <Form.Item>
+ *     <Button htmlType="submit">提交</Button>
+ *   </Form.Item>
+ * </Form>
+ * ```
+ */
 export const Form = createComponent<FormProps, FormRef & { Item: typeof FormItem }>({
   name: 'Form',
   render: (props, ref) => {
@@ -159,13 +191,12 @@ export const Form = createComponent<FormProps, FormRef & { Item: typeof FormItem
       [formInstance, validateField, setFieldValue, updateField, updateFormInstance, onSubmit, onFinishFailed, setFieldError, getFieldError, setFieldTouched, setFieldValidating, resetField],
     );
 
-    const formStyle = formStyles['getStyle']({ layout, size, style });
-    const formClassName = formStyles['getClassName']({ layout, size, className });
+    const formStyle = useMemo(() => formStyles['getStyle']({ layout, size, style }), [layout, size, style]);
+    const formClassName = useMemo(() => formStyles['getClassName']({ layout, size, className }), [layout, size, className]);
 
-    // Filter out incompatible event handlers
-    const filteredProps = Object.fromEntries(
+    const filteredProps = useMemo(() => Object.fromEntries(
       Object.entries(restProps).filter(([key]) => !key.startsWith('on') || key.includes('Click') || key.includes('Touch')),
-    );
+    ), [restProps]);
 
     return (
       <FormContextProvider.Provider value={formContext}>

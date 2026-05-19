@@ -24,12 +24,12 @@ export default defineConfig({
     mockReset: true,
     restoreMocks: true,
     clearMocks: true,
-    // Performance optimizations
+    // Performance optimizations - fewer threads to reduce memory usage
     pool: 'threads',
     poolOptions: {
       threads: {
         singleThread: false,
-        maxThreads: 4,
+        maxThreads: 2,
       },
     },
     // Reduce environment setup overhead
@@ -60,7 +60,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "@/theme/design-tokens.scss";',
+        charset: false,
       },
     },
   },

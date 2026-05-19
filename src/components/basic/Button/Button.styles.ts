@@ -4,11 +4,11 @@
  * @module components/basic/Button/Button.styles
  */
 
-import { mergeStyles } from '../../../theme/styles/createStyles';
-import { inlineFlex, itemsCenter, justifyCenter } from '../../../theme/styles/common/layout';
-import { clickable, disabled as disabledStyle } from '../../../theme/styles/common/interaction';
-import type { StyleObject } from '../../../types/style';
-import type { ThemeConfig } from '../../../theme/types';
+import { mergeStyles } from '@/theme/styles/createStyles';
+import { inlineFlex, itemsCenter, justifyCenter } from '@/theme/styles/common/layout';
+import { clickable, disabled as disabledStyle } from '@/theme/styles/common/interaction';
+import type { StyleObject } from '@/types/style';
+import type { ThemeConfig } from '@/theme/types';
 
 // ==================== 基础样式 ====================
 
@@ -24,6 +24,43 @@ const buttonBase: StyleObject = {
   fontWeight: 500,
   outline: 'none',
   boxSizing: 'border-box',
+};
+
+// ==================== 尺寸/类型/变体映射（模块级常量，避免重复创建） ====================
+
+const SIZE_MAP: Record<string, StyleObject> = {
+  sm: { padding: '6px 12px', fontSize: 12, height: 28 },
+  md: { padding: '8px 16px', fontSize: 14, height: 32 },
+  lg: { padding: '12px 24px', fontSize: 16, height: 40 },
+};
+
+const TYPE_MAP: Record<string, (theme: ThemeConfig) => StyleObject> = {
+  default: (theme) => ({ backgroundColor: theme.colors.background, color: theme.colors.text, borderColor: theme.colors.border }),
+  primary: (theme) => ({ backgroundColor: theme.colors.primary, color: theme.colors.textInverse, borderColor: theme.colors.primary }),
+  success: (theme) => ({ backgroundColor: theme.colors.success, color: theme.colors.textInverse, borderColor: theme.colors.success }),
+  warning: (theme) => ({ backgroundColor: theme.colors.warning, color: theme.colors.textInverse, borderColor: theme.colors.warning }),
+  danger: (theme) => ({ backgroundColor: theme.colors.error, color: theme.colors.textInverse, borderColor: theme.colors.error }),
+};
+
+const VARIANT_MAP: Record<string, StyleObject> = {
+  solid: {},
+  outline: { backgroundColor: 'transparent', borderWidth: 1 },
+  ghost: { backgroundColor: 'transparent', borderColor: 'transparent' },
+  text: { backgroundColor: 'transparent', borderColor: 'transparent', borderWidth: 0, padding: 0 },
+};
+
+const SHAPE_MAP: Record<string, (theme: ThemeConfig) => StyleObject> = {
+  default: (theme) => ({ borderRadius: theme.borderRadius.md }),
+  round: (theme) => ({ borderRadius: theme.borderRadius.full }),
+  circle: () => ({ borderRadius: '50%', width: 32, height: 32, padding: 0 }),
+};
+
+const OUTLINE_COLOR_MAP: Record<string, (theme: ThemeConfig) => string> = {
+  default: (theme) => theme.colors.text,
+  primary: (theme) => theme.colors.primary,
+  success: (theme) => theme.colors.success,
+  warning: (theme) => theme.colors.warning,
+  danger: (theme) => theme.colors.error,
 };
 
 // ==================== 子元素样式 ====================
@@ -57,75 +94,44 @@ export const loadingTextStyle: StyleObject = { fontSize: 'inherit', color: 'inhe
 
 /** 获取尺寸样式 */
 export function getSizeStyle(size: string, theme: ThemeConfig): StyleObject {
-  const sizeMap: Record<string, StyleObject> = {
-    sm: { padding: '6px 12px', fontSize: theme.typography.fontSize.sm, height: 28 },
-    md: { padding: '8px 16px', fontSize: theme.typography.fontSize.base, height: 32 },
-    lg: { padding: '12px 24px', fontSize: theme.typography.fontSize.lg, height: 40 },
-  };
-  return sizeMap[size] ?? sizeMap['md'] ?? {};
+  return SIZE_MAP[size] ?? SIZE_MAP['md'] ?? {};
 }
 
 /** 获取类型样式 */
 export function getTypeStyle(type: string, theme: ThemeConfig): StyleObject {
-  const typeMap: Record<string, StyleObject> = {
-    default: { backgroundColor: theme.colors.background, color: theme.colors.text, borderColor: theme.colors.border },
-    primary: { backgroundColor: theme.colors.primary, color: theme.colors.textInverse, borderColor: theme.colors.primary },
-    success: { backgroundColor: theme.colors.success, color: theme.colors.textInverse, borderColor: theme.colors.success },
-    warning: { backgroundColor: theme.colors.warning, color: theme.colors.textInverse, borderColor: theme.colors.warning },
-    danger: { backgroundColor: theme.colors.error, color: theme.colors.textInverse, borderColor: theme.colors.error },
-  };
-  return typeMap[type] ?? typeMap['default'] ?? {};
+  const fn = TYPE_MAP[type] ?? TYPE_MAP['default'];
+  return fn(theme);
 }
 
 /** 获取变体样式 */
 export function getVariantStyle(variant: string): StyleObject {
-  const variantMap: Record<string, StyleObject> = {
-    solid: {},
-    outline: { backgroundColor: 'transparent', borderWidth: 1 },
-    ghost: { backgroundColor: 'transparent', borderColor: 'transparent' },
-    text: { backgroundColor: 'transparent', borderColor: 'transparent', borderWidth: 0, padding: 0 },
-  };
-  return variantMap[variant] ?? variantMap['solid'] ?? {};
+  return VARIANT_MAP[variant] ?? VARIANT_MAP['solid'] ?? {};
 }
 
 /** 获取形状样式 */
 export function getShapeStyle(shape: string, theme: ThemeConfig): StyleObject {
-  const shapeMap: Record<string, StyleObject> = {
-    default: { borderRadius: theme.borderRadius.md },
-    round: { borderRadius: theme.borderRadius.full },
-    circle: { borderRadius: '50%', width: 32, height: 32, padding: 0 },
-  };
-  return shapeMap[shape] ?? shapeMap['default'] ?? {};
+  const fn = SHAPE_MAP[shape] ?? SHAPE_MAP['default'];
+  return fn(theme);
 }
-
 
 /** 获取 outline 变体颜色样式 */
 export function getOutlineColorStyle(type: string, theme: ThemeConfig): StyleObject {
-  const colorMap: Record<string, string> = {
-    default: theme.colors.text, primary: theme.colors.primary, success: theme.colors.success,
-    warning: theme.colors.warning, danger: theme.colors.error,
-  };
-  const color = colorMap[type] || colorMap['default'];
+  const fn = OUTLINE_COLOR_MAP[type] ?? OUTLINE_COLOR_MAP['default'];
+  const color = fn(theme);
   return { color, borderColor: color, backgroundColor: 'transparent' };
 }
 
 /** 获取 ghost 变体颜色样式 */
 export function getGhostColorStyle(type: string, theme: ThemeConfig): StyleObject {
-  const colorMap: Record<string, string> = {
-    default: theme.colors.text, primary: theme.colors.primary, success: theme.colors.success,
-    warning: theme.colors.warning, danger: theme.colors.error,
-  };
-  const color = colorMap[type] || colorMap['default'];
+  const fn = OUTLINE_COLOR_MAP[type] ?? OUTLINE_COLOR_MAP['default'];
+  const color = fn(theme);
   return { color, backgroundColor: 'transparent', borderColor: 'transparent' };
 }
 
 /** 获取 text 变体颜色样式 */
 export function getTextColorStyle(type: string, theme: ThemeConfig): StyleObject {
-  const colorMap: Record<string, string> = {
-    default: theme.colors.text, primary: theme.colors.primary, success: theme.colors.success,
-    warning: theme.colors.warning, danger: theme.colors.error,
-  };
-  const color = colorMap[type] || colorMap['default'];
+  const fn = OUTLINE_COLOR_MAP[type] ?? OUTLINE_COLOR_MAP['default'];
+  const color = fn(theme);
   return { color, backgroundColor: 'transparent', borderColor: 'transparent' };
 }
 

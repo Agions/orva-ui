@@ -18,6 +18,20 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
+// ==================== 模块级常量 ====================
+
+const TOAST_ICON_MAP: Record<string, string> = {
+  success: '✓', error: '✗', warning: '⚠', info: 'ℹ', loading: '⟳',
+};
+
+const TOAST_TYPE_COLORS: Record<string, string> = {
+  success: 'rgba(82, 196, 26, 0.9)',
+  error: 'rgba(245, 34, 45, 0.9)',
+  warning: 'rgba(250, 173, 20, 0.9)',
+  info: 'rgba(24, 144, 255, 0.9)',
+  loading: 'rgba(24, 144, 255, 0.9)',
+};
+
 /** Toast 组件 */
 export const Toast = createComponent<ToastProps, ToastRef>({
   name: 'Toast',
@@ -88,16 +102,15 @@ export const Toast = createComponent<ToastProps, ToastRef>({
 
     const handleClick = useCallback((event: React.MouseEvent) => { onClick?.(event); }, [onClick]);
 
-    const getIcon = () => {
+    const getIcon = useCallback(() => {
       if (icon) return icon;
       if (!showIcon) return null;
-      const iconMap: Record<string, string> = { success: '✓', error: '✗', warning: '⚠', info: 'ℹ' };
-      return iconMap[internalType] || 'ℹ';
-    };
+      return TOAST_ICON_MAP[internalType] || 'ℹ';
+    }, [icon, showIcon, internalType]);
 
-    const getPositionStyle = () => {
-      const baseStyle = {
-        position: 'fixed' as const,
+    const getPositionStyle = useCallback(() => {
+      const baseStyle: React.CSSProperties = {
+        position: 'fixed',
         zIndex: 9999,
         display: internalVisible ? 'flex' : 'none',
         alignItems: 'center',
@@ -107,13 +120,14 @@ export const Toast = createComponent<ToastProps, ToastRef>({
         opacity: internalVisible ? 1 : 0,
         transition: `opacity ${animationDuration}ms ease-in-out`,
       };
-      switch (internalPosition) {
-        case 'top': return { ...baseStyle, top: '80px' };
-        case 'center': return { ...baseStyle, top: '50%', transform: 'translateX(-50%) translateY(-50%)' };
-        case 'bottom': return { ...baseStyle, bottom: '80px' };
-        default: return { ...baseStyle, top: '80px' };
+      if (internalPosition === 'center') {
+        return { ...baseStyle, top: '50%', transform: 'translateX(-50%) translateY(-50%)' };
       }
-    };
+      if (internalPosition === 'bottom') {
+        return { ...baseStyle, bottom: '80px' };
+      }
+      return { ...baseStyle, top: '80px' };
+    }, [internalVisible, internalPosition, animationDuration]);
 
     const toastStyle = { ...getPositionStyle(), ...style };
     const toastClassName = `${toastStyles.container} ${toastStyles[internalType] || toastStyles.info} ${className || ''}`;
@@ -181,21 +195,9 @@ const createGlobalToastContainer = () => {
   return container;
 };
 
-const getIconText = (type: string) => {
-  const icons = { success: '✓', error: '✗', warning: '⚠', info: 'ℹ', loading: '⟳' };
-  return icons[type as keyof typeof icons] || 'ℹ';
-};
+const getIconText = (type: string) => TOAST_ICON_MAP[type] || 'ℹ';
 
-const getTypeColor = (type: string) => {
-  const colors = {
-    success: 'rgba(82, 196, 26, 0.9)',
-    error: 'rgba(245, 34, 45, 0.9)',
-    warning: 'rgba(250, 173, 20, 0.9)',
-    info: 'rgba(24, 144, 255, 0.9)',
-    loading: 'rgba(24, 144, 255, 0.9)',
-  };
-  return colors[type as keyof typeof colors] || colors.info;
-};
+const getTypeColor = (type: string) => TOAST_TYPE_COLORS[type] || TOAST_TYPE_COLORS.info;
 
 // 静态方法
 type ToastComponent = typeof Toast & {

@@ -1,7 +1,11 @@
 /**
- * VideoPlayer 组件 - 视频播放器核心
- * 负责视频元素的渲染和事件处理
+ * 视频播放器核心组件 (VideoPlayer)
  * @module components/basic/Video/VideoPlayer
+ * @description 负责视频元素的渲染和事件处理，是 Video 组件的核心播放器
+ * @example
+ * ```tsx
+ * <VideoPlayer src="https://example.com/video.mp4" />
+ * ```
  */
 
 import { useCallback } from 'react';

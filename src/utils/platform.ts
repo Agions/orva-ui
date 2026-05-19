@@ -1,6 +1,18 @@
 /**
- * 平台检测工具
- * 提供跨平台检测和适配功能
+ * 平台检测工具模块 (platform)
+ * @module utils/platform
+ * @description 提供跨平台检测和适配功能，支持 Web、H5、微信小程序、React Native、鸿蒙等平台
+ * @example
+ * ```ts
+ * import { isPlatform, getPlatformType, isH5, isMiniProgram } from '@/utils/platform';
+ *
+ * if (isH5()) {
+ *   console.log('运行在 H5 环境中');
+ * }
+ * if (isMiniProgram()) {
+ *   console.log('运行在小程序中');
+ * }
+ * ```
  */
 
 import {

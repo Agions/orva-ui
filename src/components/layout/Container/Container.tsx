@@ -6,7 +6,23 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** Container 组件 */
+/**
+ * 容器组件 (Container)
+ * @module components/layout/Container
+ * @description 用于创建具有最大宽度和居中功能的页面容器组件
+ * @example
+ * ```tsx
+ * import { Container } from 'orva-ui';
+ *
+ * <Container size="large" center>
+ *   内容区域
+ * </Container>
+ *
+ * <Container maxWidth={800} padding="large">
+ *   自定义容器
+ * </Container>
+ * ```
+ */
 export const Container = createComponent<ContainerProps, ContainerRef>({
   name: 'Container',
   render: (props, ref) => {

@@ -17,7 +17,23 @@ import { createComponent } from '@/utils/createComponent';
 import { useTheme } from '@/hooks/ui/useTheme';
 import { useInteractionState } from '@/hooks/ui/useInteractionState';
 
-/** 上传组件 */
+/**
+ * 上传组件 (Upload)
+ * @module components/form/Upload
+ * @description 用于上传文件的表单组件，支持图片、视频等多种文件类型
+ * @example
+ * ```tsx
+ * import { Upload } from 'orva-ui';
+ *
+ * <Upload
+ *   accept="image/*"
+ *   multiple
+ *   maxCount={9}
+ *   maxSize={5 * 1024 * 1024}
+ *   onChange={(fileList) => console.log(fileList)}
+ * />
+ * ```
+ */
 export const Upload = createComponent<UploadProps, UploadRef>({
   name: 'Upload',
 

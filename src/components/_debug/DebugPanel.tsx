@@ -4,7 +4,17 @@ import type { DebugPanelProps } from './DebugPanel.types';
 import { createComponent } from '@/utils/createComponent';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** 调试面板组件 */
+/**
+ * 调试面板组件 (DebugPanel)
+ * @module components/_debug/DebugPanel
+ * @description 开发环境调试面板，用于展示组件挂载数量、渲染时间、内存使用等性能指标
+ * @example
+ * ```tsx
+ * import { DebugPanel } from 'orva-ui';
+ *
+ * <DebugPanel visible={isDebug} onClose={() => setIsDebug(false)} theme="dark" />
+ * ```
+ */
 export const DebugPanel = createComponent<DebugPanelProps, void>({
   name: 'DebugPanel',
   render: (props) => {

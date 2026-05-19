@@ -1,5 +1,5 @@
 import type { ContainerProps } from './Container.types';
-import type { Size, CSSUnit } from '../../../types';
+import type { Size, CSSUnit } from '@/types';
 
 /** Container组件样式管理器 */
 export const containerStyles = {

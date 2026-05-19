@@ -1,6 +1,13 @@
 /**
- * 响应式工具
- * 提供屏幕尺寸检测、断点管理、响应式样式生成等功能，适配Taro.js多平台环境
+ * 响应式工具模块 (responsiveUtils)
+ * @module utils/responsiveUtils
+ * @description 提供屏幕尺寸检测、断点管理、响应式样式生成等功能，适配 Taro.js 多平台环境
+ * @example
+ * ```ts
+ * import { useResponsive, ResponsiveGrid, ResponsiveContainer } from '@/utils/responsiveUtils';
+ *
+ * const { isMobile, isTablet, isDesktop } = useResponsive();
+ * ```
  */
 
 import { useMemo, useState, useEffect } from 'react';

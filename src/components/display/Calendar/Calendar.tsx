@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react'
 import { View, Text } from '@tarojs/components';
 import { calendarStyles } from './Calendar.styles';
 import type { CalendarProps, CalendarRef, CalendarDate } from './Calendar.types';
-import { useThemeContext as useTheme } from '../../../providers/ThemeProvider';
+import { useThemeContext as useTheme } from '@/providers/ThemeProvider';
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';

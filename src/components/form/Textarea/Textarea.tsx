@@ -12,7 +12,22 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** 文本域组件 */
+/**
+ * 文本域组件 (Textarea)
+ * @module components/form/Textarea
+ * @description 用于输入多行文本的表单组件，支持字数统计和自动调整高度
+ * @example
+ * ```tsx
+ * import { Textarea } from 'orva-ui';
+ *
+ * <Textarea
+ *   placeholder="请输入内容"
+ *   maxLength={500}
+ *   showCount
+ *   onChange={(value) => console.log(value)}
+ * />
+ * ```
+ */
 export const Textarea = createComponent<TextareaProps, TextareaRef>({
   name: 'Textarea',
   render: (props, ref) => {

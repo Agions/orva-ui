@@ -4,7 +4,7 @@
  * @module theme/styles/common/layout
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 // ==================== Flexbox 布局样式 ====================
 

@@ -1,11 +1,26 @@
+/**
+ * Transfer 分页组件 (TransferPagination)
+ * @module components/form/Transfer/components/TransferPagination
+ * @description Transfer 组件的分页子组件，支持简洁模式、快速跳转和上下翻页
+ * @example
+ * ```tsx
+ * <TransferPagination
+ *   pagination={{ pageSize: 10, simple: false }}
+ *   currentPage={1}
+ *   total={50}
+ *   onPageChange={(page) => console.log(page)}
+ * />
+ * ```
+ */
+
 import React, { useCallback, memo } from 'react';
 import { View, Text } from '@tarojs/components';
 
-import { createComponent } from '../../../../utils/createComponent';
+import { createComponent } from '@/utils/createComponent';
 import { TransferStyles } from '../Transfer.styles';
 import { Input } from '../../Input';
 import type { TransferDirection, TransferPaginationConfig } from '../Transfer.types';
-import type { BaseProps } from '../../../../types/component';
+import type { BaseProps } from '@/types/component';
 
 interface TransferPaginationProps extends BaseProps {
   /** 方向 */

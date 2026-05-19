@@ -7,7 +7,28 @@ import { createComponent } from '@/utils/createComponent';
 import { useTheme } from '@/hooks/ui/useTheme';
 import { useInteractionState } from '@/hooks/ui/useInteractionState';
 
-/** 日期选择器组件 */
+/**
+ * 日期选择器组件 (DatePicker)
+ * @module components/form/DatePicker
+ * @description 用于选择日期或日期范围的表单组件，支持多种日期格式
+ * @example
+ * ```tsx
+ * import { DatePicker } from 'orva-ui';
+ *
+ * // 单选模式
+ * <DatePicker
+ *   placeholder="请选择日期"
+ *   onChange={(date) => console.log(date)}
+ * />
+ *
+ * // 范围选择
+ * <DatePicker
+ *   range
+ *   rangePlaceholder={['开始日期', '结束日期']}
+ *   onRangeChange={(start, end) => console.log(start, end)}
+ * />
+ * ```
+ */
 export const DatePicker = createComponent<DatePickerProps, DatePickerRef>({
   name: 'DatePicker',
 
@@ -248,7 +269,6 @@ export const DatePicker = createComponent<DatePickerProps, DatePickerRef>({
         element: pickerRef.current,
         getValue: () => latestValueRef.current,
         setValue: (value: Date | null) => {
-          // 立即更新状态和 ref
           latestValueRef.current = value;
           setInternalValue(value);
           const dateString = formatDate(value, format);
@@ -267,32 +287,16 @@ export const DatePicker = createComponent<DatePickerProps, DatePickerRef>({
         blur: () => {
           inputRef.current?.blur();
         },
-        disable: () => {
-          // 禁用逻辑通过props控制
-        },
-        enable: () => {
-          // 启用逻辑通过props控制
-        },
+        disable: () => {},
+        enable: () => {},
         open,
         close,
         isOpen: () => isOpened,
         isDisabled: () => disabled,
         isReadOnly: () => readOnly,
       }),
-      [
-        internalValue,
-        internalRangeValue,
-        getDateString,
-        getRangeDateString,
-        clearSelection,
-        open,
-        close,
-        isOpened,
-        disabled,
-        readOnly,
-        handleDateChange,
-        handleRangeDateChange,
-      ],
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [format, onChange, handleRangeDateChange, getDateString, getRangeDateString, clearSelection, open, close, isOpened, disabled, readOnly],
     );
 
     // 生成样式

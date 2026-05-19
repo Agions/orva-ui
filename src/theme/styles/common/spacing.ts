@@ -4,7 +4,7 @@
  * @module theme/styles/common/spacing
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 // ==================== 间距值常量 ====================
 

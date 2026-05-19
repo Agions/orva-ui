@@ -6,7 +6,24 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** 图标组件 */
+/**
+ * 图标组件 (Icon)
+ * @module components/basic/Icon
+ * @description 用于显示图标的基础组件，支持多种图标源（内置图标、自定义图片、SVG）
+ * @example
+ * ```tsx
+ * import { Icon } from 'orva-ui';
+ *
+ * // 使用内置图标
+ * <Icon source="check-circle" theme="filled" />
+ *
+ * // 使用图片图标
+ * <Icon source="https://example.com/icon.png" size={24} />
+ *
+ * // 自定义 SVG
+ * <Icon source={{ type: 'svg', content: '<svg>...</svg>' }} />
+ * ```
+ */
 export const Icon = createComponent<IconProps, IconRef>({
   name: 'Icon',
   render: (props, ref) => {

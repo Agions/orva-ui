@@ -7,7 +7,7 @@
 import type { ReactNode } from 'react';
 import type { ITouchEvent } from '@tarojs/components';
 import type { FormItemProps } from '@/types/component';
-import type { Status, Shape } from '../../../types/common';
+import type { Status, Shape } from '@/types/common';
 
 // ==================== Input 特有类型 ====================
 

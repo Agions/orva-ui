@@ -1,3 +1,18 @@
+/**
+ * 布局组件 (Layout)
+ * @module components/layout/Layout
+ * @description 应用程序整体布局组件，支持顶部、底部和侧边栏布局
+ * @example
+ * ```tsx
+ * <Layout>
+ *   <Header />
+ *   <Sider />
+ *   <Content />
+ *   <Footer />
+ * </Layout>
+ * ```
+ */
+
 import React, { useRef, useImperativeHandle } from 'react';
 import { View } from '@tarojs/components';
 import { LayoutProps, LayoutRef } from './Layout.types';

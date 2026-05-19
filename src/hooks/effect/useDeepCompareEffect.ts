@@ -13,27 +13,16 @@
  * ```
  */
 
-import { useEffect, useRef } from 'react';
-import { createLogger } from '../../utils/logger';
+import { useEffect, useRef, useCallback } from 'react';
+import { createLogger } from '@/utils/logger';
 
-/**
- * Deep comparison function
- */
-const logger = createLogger('use Deep Compare Effect');
+const logger = createLogger('useDeepCompareEffect');
 
 function isEqual(a: unknown, b: unknown): boolean {
-  // Handle primitive values
   if (a === b) return true;
-
-  // Handle null and undefined
   if (a == null || b == null) return a === b;
-
-  // Handle objects and arrays
   if (typeof a === 'object' && typeof b === 'object') {
-    // Check if they are the same type
     if (a.constructor !== b.constructor) return false;
-
-    // Handle arrays
     if (Array.isArray(a) && Array.isArray(b)) {
       if (a.length !== b.length) return false;
       for (let i = 0; i < a.length; i++) {
@@ -41,23 +30,16 @@ function isEqual(a: unknown, b: unknown): boolean {
       }
       return true;
     }
-
-    // Handle objects
     const objA = a as Record<string, unknown>;
     const objB = b as Record<string, unknown>;
     const keysA = Object.keys(objA);
     const keysB = Object.keys(objB);
-
     if (keysA.length !== keysB.length) return false;
-
     for (const key of keysA) {
       if (!keysB.includes(key) || !isEqual(objA[key], objB[key])) return false;
     }
-
     return true;
   }
-
-  // All other cases
   return false;
 }
 

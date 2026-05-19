@@ -4,7 +4,7 @@
  * @module theme/styles/base/typography
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 // ==================== 字体大小样式 ====================
 

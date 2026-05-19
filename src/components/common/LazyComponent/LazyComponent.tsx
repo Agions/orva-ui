@@ -1,7 +1,18 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /**
- * 懒加载组件
- * 提供组件级别的懒加载和代码分割
+ * 懒加载组件 (LazyComponent)
+ * @module components/common/LazyComponent
+ * @description 提供组件级别的懒加载和代码分割，支持加载状态和错误处理
+ * @example
+ * ```tsx
+ * import { LazyComponent } from 'orva-ui';
+ * import HeavyComponent from './HeavyComponent';
+ *
+ * <LazyComponent
+ *   component={() => import('./HeavyComponent')}
+ *   fallback={<Loading>加载中...</Loading>}
+ * />
+ * ```
  */
 
 import React, { Suspense, ComponentType, LazyExoticComponent, memo } from 'react';
@@ -9,7 +20,7 @@ import { View, Text, Button } from '@tarojs/components';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { Loading } from '../../feedback/Loading';
 import type { LazyComponentProps, LazyComponentOptions } from './LazyComponent.types';
-import { createLogger } from '../../../utils/logger';
+import { createLogger } from '@/utils/logger';
 
 // 组件缓存
 const logger = createLogger('Lazy Component');

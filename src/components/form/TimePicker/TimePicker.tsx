@@ -11,7 +11,27 @@ import type { ARIARole } from '@/hooks/ui/useAccessibility';
 /** TimeValue 对象类型的辅助类型 */
 type TimeValueObject = { hours: number; minutes: number; seconds: number };
 
-/** 时间选择器组件 */
+/**
+ * 时间选择器组件 (TimePicker)
+ * @module components/form/TimePicker
+ * @description 用于选择时间的表单组件，支持小时、分钟、秒的选择
+ * @example
+ * ```tsx
+ * import { TimePicker } from 'orva-ui';
+ *
+ * // 基本用法
+ * <TimePicker
+ *   placeholder="请选择时间"
+ *   onChange={(time) => console.log(time)}
+ * />
+ *
+ * // 12小时制
+ * <TimePicker
+ *   format="hh:mm:ss A"
+ *   use12Hours
+ * />
+ * ```
+ */
 export const TimePicker = createComponent<TimePickerProps, TimePickerRef>({
   name: 'TimePicker',
   render: (props, ref) => {

@@ -4,9 +4,9 @@
  */
 
 // 导出组件
-export * from './ErrorBoundary';
-export * from './LazyComponent';
-export * from './VirtualList';
+export { ErrorBoundary } from './ErrorBoundary';
+export { LazyComponent, createLazyComponent, createLazyRoute, createLazyComponents } from './LazyComponent';
+export { VirtualList } from './VirtualList';
 
 // 通用组件工具函数
 export const CommonComponentsUtils = {

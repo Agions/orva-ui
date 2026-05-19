@@ -1,3 +1,15 @@
+/**
+ * 通知提醒组件 (Notification)
+ * @module components/feedback/Notification
+ * @description 用于显示通知提醒的组件，支持多种类型、位置、动画和手动关闭
+ * @example
+ * ```tsx
+ * import { Notification } from 'orva-ui';
+ *
+ * <Notification type="success" title="成功" message="操作已完成" />
+ * ```
+ */
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { View, Text } from '@tarojs/components';
 import type {
@@ -7,12 +19,33 @@ import type {
 } from './Notification.types';
 import { DEFAULT_NOTIFICATION_CONFIG } from './Notification.types';
 import { notificationStyles, notificationStyleHelpers } from './Notification.styles';
-import { cn } from '../../../utils';
+import { cn } from '@/utils';
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 import type { ARIARole } from '@/hooks/ui/useAccessibility';
 import type { ViewStyle } from '@/hooks/ui/useMicroAnimation';
+
+// ==================== 模块级常量 ====================
+
+const NOTIFICATION_ICON_MAP: Record<string, string> = {
+  success: '✓',
+  error: '✕',
+  warning: '⚠',
+  info: 'ℹ',
+};
+
+/**
+ * Notification 通知提醒组件
+ * @module components/feedback/Notification
+ * @description 用于展示通知提醒、全局消息的组件，支持多种类型、自动关闭、位置控制和自定义渲染。
+ *
+ * @example
+ * ```tsx
+ * <Notification type="success" title="成功" content="操作已完成" />
+ * <Notification type="warning" title="警告" duration={5000} />
+ * ```
+ */
 
 /** 通知组件 */
 export const Notification = createComponent<NotificationProps, NotificationRef>({
@@ -122,21 +155,21 @@ export const Notification = createComponent<NotificationProps, NotificationRef>(
       opacity: isClosing ? 0 : 1,
     } as ViewStyle);
 
-    const renderIcon = () => {
+    const renderIcon = useCallback(() => {
       if (!showIcon) return null;
       if (icon) return icon;
-      const iconMap: Record<string, string> = {
-        success: '✓',
-        error: '✕',
-        warning: '⚠',
-        info: 'ℹ',
-      };
       return (
         <View style={{ marginRight: 8, fontSize: 16 }}>
-          <Text>{iconMap[type] || 'ℹ'}</Text>
+          <Text>{NOTIFICATION_ICON_MAP[type] || 'ℹ'}</Text>
         </View>
       );
-    };
+    }, [showIcon, icon, type]);
+
+    const handleCloseClick = useCallback((e: unknown) => {
+      const evt = e as { stopPropagation?: () => void };
+      evt?.stopPropagation?.();
+      handleClose();
+    }, [handleClose]);
 
     return (
       <View
@@ -162,11 +195,7 @@ export const Notification = createComponent<NotificationProps, NotificationRef>(
         {showClose && closable && (
           <View
             style={{ marginLeft: 8, cursor: 'pointer', fontSize: 16 }}
-            onClick={(e: unknown) => {
-              const evt = e as { stopPropagation?: () => void };
-              evt?.stopPropagation?.();
-              handleClose();
-            }}
+            onClick={handleCloseClick}
           >
             <Text>×</Text>
           </View>

@@ -10,7 +10,7 @@ import type { ITouchEvent } from '@tarojs/components';
 import { createLogger } from '../../utils/logger';
 
 /** 交互状态 */
-const logger = createLogger('use Interaction State');
+const logger = createLogger('useInteractionState');
 
 export interface InteractionState {
   /** 悬停状态 */

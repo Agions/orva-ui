@@ -4,7 +4,7 @@
  * @module theme/styles/base/normalize
  */
 
-import type { StyleObject } from '../../../types/style';
+import type { StyleObject } from '@/types/style';
 
 /**
  * 文档标准化

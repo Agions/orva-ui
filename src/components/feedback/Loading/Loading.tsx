@@ -13,7 +13,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text } from '@tarojs/components';
-import { cn } from '../../../utils';
+import { cn } from '@/utils';
 import { LoadingStyles } from './Loading.styles';
 import type { LoadingProps, LoadingRef } from './Loading.types';
 import { createComponent } from '@/utils/createComponent';

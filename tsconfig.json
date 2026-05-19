@@ -21,8 +21,8 @@
     "sourceMap": true,
     "outDir": "./dist",
     "removeComments": false,
-    "incremental": true,
-    "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo",
+    "incremental": false,
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "composite": false,
     "baseUrl": ".",
     "paths": {

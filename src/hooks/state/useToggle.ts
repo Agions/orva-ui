@@ -20,7 +20,7 @@ import { createLogger } from '../../utils/logger';
 /**
  * useToggle Hook 返回类型
  */
-const logger = createLogger('use Toggle');
+const logger = createLogger('useToggle');
 
 export interface UseToggleReturn<T = boolean> {
   /** 当前值 */

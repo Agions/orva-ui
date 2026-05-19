@@ -16,7 +16,17 @@ import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
 
-/** 数字输入框组件 */
+/**
+ * InputNumber 数字输入框组件
+ * @module components/form/InputNumber
+ * @description 用于输入数字的组件，支持步进按钮、最大值/最小值限制、精度控制和格式化。
+ *
+ * @example
+ * ```tsx
+ * <InputNumber value={1} min={0} max={10} onChange={handleChange} />
+ * <InputNumber step={0.1} precision={2} />
+ * ```
+*/
 export const InputNumber = createComponent<InputNumberProps, InputNumberRef>({
   name: 'InputNumber',
   render: (props, ref) => {

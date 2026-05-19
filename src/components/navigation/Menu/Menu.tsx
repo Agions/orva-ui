@@ -1,6 +1,18 @@
 /**
- * Taro-Uno Menu Component
- * 导航菜单组件，支持多种模式、主题和交互功能
+ * 导航菜单组件 (Menu)
+ * @module components/navigation/Menu
+ * @description 用于网站导航的菜单组件，支持多级菜单、主题切换、折叠展开和多种触发方式
+ * @example
+ * ```tsx
+ * import { Menu } from 'orva-ui';
+ *
+ * <Menu mode="horizontal" theme="light">
+ *   <Menu.Item key="home">首页</Menu.Item>
+ *   <Menu.SubMenu key="about" title="关于">
+ *     <Menu.Item key="team">团队</Menu.Item>
+ *   </Menu.SubMenu>
+ * </Menu>
+ * ```
  */
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
@@ -150,7 +162,7 @@ export const Menu = createComponent<MenuProps, MenuRef>({
       [contextMenu, onContextMenu],
     );
 
-    const renderMenuItem = (item: MenuItem, level: number = 0) => {
+    const renderMenuItem = useCallback((item: MenuItem, level: number = 0) => {
       const isSelected = selectedKeys.includes(item.key);
       const isOpen = openKeys.includes(item.key);
 
@@ -192,7 +204,7 @@ export const Menu = createComponent<MenuProps, MenuRef>({
           itemRender={itemRender}
         />
       );
-    };
+    }, [selectedKeys, openKeys, mode, theme, size, trigger, collapsed, inlineIndent, handleSubMenuToggle, handleItemClick, expandIcon, subMenuTitleRender, itemRender]);
 
     React.useImperativeHandle(
       ref,
