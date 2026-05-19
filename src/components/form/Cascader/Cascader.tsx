@@ -499,7 +499,7 @@ export const Cascader = createComponent<CascaderProps, CascaderRef>({
           getOptionValue={getOptionValue}
           getOptionLabel={getOptionLabel}
           hasChildren={hasChildren}
-          isOptionDisabled={_isOptionDisabled} // @ts-expect-error
+          isOptionDisabled={_isOptionDisabled}
           handleOptionClick={handleOptionClick}
           handleInputChange={handleInputChange}
         />

@@ -61,9 +61,9 @@ export function useCascaderOptions(options: CascaderOption[], fieldNames?: Casca
 
   // 检查选项是否有子项
   const hasChildren = useCallback(
-    (option: CascaderOption) => {
-      const children = option[fields.children as keyof typeof option] as CascaderOption[] | undefined;
-      return children && children.length > 0;
+    (option: CascaderOption): boolean => {
+      const children = (option as Record<string, unknown>)[fields.children as string] as CascaderOption[] | undefined;
+      return !!(children && children.length > 0);
     },
     [fields],
   );
