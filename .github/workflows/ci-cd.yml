@@ -28,7 +28,7 @@ jobs:
         run: npm install --legacy-peer-deps --force
 
       - name: Install TypeScript 5.7
-        run: npm install typescript@5.7.2 --save-dev
+        run: npm install typescript@5.7.2 --save-dev --force
 
       - name: Run linter
         run: npm run lint:check || true
