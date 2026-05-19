@@ -10,25 +10,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          node-version: 20
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --force
-
-      - name: Install TypeScript 5.7
-        run: npm install typescript@5.7.2 --save-dev --force
+        run: npm ci --legacy-peer-deps
 
       - name: Run linter
         run: npm run lint:check || true
@@ -50,11 +42,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
-          cache: 'npm'
+          node-version: 20
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --force
+        run: npm ci --legacy-peer-deps
 
       - name: Build library
         run: npm run build
@@ -77,11 +68,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 20
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --force
+        run: npm ci --legacy-peer-deps
 
       - name: Build
         run: npm run build
