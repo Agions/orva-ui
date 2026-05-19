@@ -25,7 +25,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "@/theme/design-tokens.scss";',
+        charset: false,
       },
     },
   },

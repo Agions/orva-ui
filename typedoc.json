@@ -16,6 +16,8 @@
     "Display Components",
     "Feedback Components",
     "Navigation Components",
+    "Hooks",
+    "Utilities",
     "*"
   ],
   "sort": ["kind", "instance-first", "alphabetical"],
@@ -49,7 +51,16 @@
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx",
+    "**/__tests__/**",
     "**/node_modules/**",
-    "**/dist/**"
-  ]
+    "**/dist/**",
+    "**/docs/**"
+  ],
+  "tsconfig": "tsconfig.json",
+  "githubPages": true,
+  "sourceLinkTemplate": "https://github.com/agions/orva-ui/blob/main/{path}#L{line}-{endLine}",
+  "gitRevision": "main",
+  "hideGenerator": true,
+  "pretty": true,
+  "emit": "docs"
 }
