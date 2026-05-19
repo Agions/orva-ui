@@ -1,25 +1,55 @@
-# Avatar
+# Avatar 头像
 
-## 介绍
-
-Avatar 组件
+头像组件用于展示用户头像或标识。支持图片、图标、文字三种形式，可组合使用。
 
 ## 引入
 
 ```tsx
 import { Avatar } from 'orva-ui';
+// 或按需导入
+import { Avatar } from 'orva-ui/display';
+```
+
+## 基本使用
+
+```tsx
+import React from 'react';
+import { Avatar } from 'orva-ui';
+
+export default () => (
+  <Avatar>
+    Content
+  </Avatar>
+);
 ```
 
 ## Props
 
 | 属性名 | 类型 | 默认值 | 说明 |
 |--------|------|--------|------|
-| children | ReactNode | undefined | 子元素 |
+| children | ReactNode | - | 子元素 |
+| className | string | - | 自定义类名 |
+| style | CSSProperties | - | 自定义样式 |
 
 ## 主题定制
 
-你可以通过自定义主题来调整 Avatar 组件的外观。
+通过 `createTheme` 或 `ThemeProvider` 自定义主题变量，可以调整组件的颜色、字体、间距等样式。
+
+```tsx
+import { createTheme, ThemeProvider } from 'orva-ui';
+
+const theme = createTheme({
+  colors: {
+    primary: '#a855f7',
+  },
+});
+```
 
 ## 无障碍支持
 
-Avatar 组件内置了完整的有无障碍支持。
+组件遵循 WAI-ARIA 标准，内置键盘导航和屏幕阅读器支持。
+
+## 注意事项
+
+- 请确保在 `ThemeProvider` 包裹下使用组件以获得完整的主题支持
+- 组件支持服务器端渲染 (SSR)

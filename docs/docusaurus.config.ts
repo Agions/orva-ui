@@ -5,14 +5,14 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Nano-UI UI',
-  tagline: '为 Taro 生态打造的现代化跨平台组件库',
+  title: 'Orva UI',
+  tagline: '为 Taro 生态打造的现代化跨平台 React 组件库',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://agions.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  // For GitHub pages deployment, it's often '/<projectName>/'
   baseUrl: '/orva-ui/',
 
   // GitHub pages deployment config.
@@ -20,11 +20,12 @@ const config: Config = {
   organizationName: 'agions', // Usually your GitHub org/user name.
   projectName: 'orva-ui', // Usually your repo name.
 
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+  // useful metadata like html lang. For example, if you'd want to replace
+  // "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-CN',
     locales: ['zh-CN'],
@@ -48,6 +49,7 @@ const config: Config = {
         showLastUpdateAuthor: false,
       },
     ],
+    '@docusaurus/theme-live-codeblock',
   ],
 
   presets: [
@@ -90,12 +92,17 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
 
+    // Live code block configuration
+    liveCodeBlock: {
+      playgroundPosition: 'bottom',
+    },
+
     // Navbar configuration
     navbar: {
-      title: 'Nano-UI UI',
+      title: 'Orva UI',
       hideOnScroll: true,
       logo: {
-        alt: 'Nano-UI UI Logo',
+        alt: 'Orva UI Logo',
         src: 'img/logo.png',
         srcDark: 'img/logo.png',
       },
@@ -105,6 +112,10 @@ const config: Config = {
           sidebarId: 'componentsSidebar',
           position: 'left',
           label: '组件库',
+        },
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
         },
         {
           href: 'https://github.com/agions/orva-ui',
