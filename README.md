@@ -5,32 +5,11 @@
 [![npm version](https://img.shields.io/npm/v/orva-ui.svg?style=flat-square)](https://www.npmjs.com/package/orva-ui)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=flat-square)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
-[![Tests](https://img.shields.io/badge/tests-613%20passed-brightgreen?style=flat-square)](./)
+[![Tests](https://img.shields.io/badge/tests-381%20passed-brightgreen?style=flat-square)](./)
 
 Orva UI 是一个基于 React/Taro 框架的跨平台 UI 组件库，提供 70+ 组件，支持 Web、微信小程序、支付宝小程序等多端开发。
 
 **设计哲学**：紫罗兰主题 · 类型安全 · 无障碍访问 · 国际化就绪
-
-## ✨ v1.2.0 新特性
-
-### 🔧 测试配置修复
-- 修复 Vitest + Taro 环境配置冲突
-- 补全缺失的工具函数导出（`createBEM`、`createNamespace` 等）
-- 596 个测试全部通过 ✅
-
-### 📦 组件补全
-- 补全 `Input`、`Modal`、`Select` 基础组件的 barrel 导出
-- 补全 `Toast` 反馈组件的 barrel 导出
-- 所有组件均可通过 `import { ComponentName } from 'orva-ui'` 直接使用
-
-### 🎨 主题系统增强
-- 新增 `darkTheme`、`darkDesignTokens` 暗色主题导出
-- 新增 `generateDarkThemeCSSVariables()` CSS 变量生成器
-- 新增 `ThemeVariableGenerator` 工具类
-- 新增 `useThemeSwitcher`、`useTheme`、`ThemeSwitcherProvider` Hook 和 Provider
-- 支持 5 套预设主题：light / dark / high-contrast / warm / cool
-
-详见 [CHANGELOG.md](./CHANGELOG.md)
 
 ## 特性
 
@@ -40,7 +19,7 @@ Orva UI 是一个基于 React/Taro 框架的跨平台 UI 组件库，提供 70+ 
 - **主题系统**：CSS 变量 + Design Tokens，支持暗色/高对比度/冷暖色调
 - **无障碍访问**：WAI-ARIA 支持，键盘导航友好
 - **国际化**：内置 i18n 模块，支持多语言切换
-- **测试覆盖**：596 个单元测试，全部通过
+- **测试覆盖**：381 个单元测试，全部通过
 
 ## 安装
 
