@@ -106,7 +106,7 @@ export class DatePickerStyles {
     const isDisabled = disabled || readOnly;
 
     let borderColor = this.COLOR_MAP.border;
-    if (status === 'error' as any) borderColor = this.COLOR_MAP.borderError;
+    if (status === 'error') borderColor = this.COLOR_MAP.borderError;
     if (status === 'warning') borderColor = this.COLOR_MAP.borderWarning;
     if (status === 'success') borderColor = this.COLOR_MAP.borderSuccess;
 

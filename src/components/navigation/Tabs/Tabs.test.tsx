@@ -35,7 +35,7 @@ describe('Tabs 组件', () => {
 
     it('应该渲染带 activeKey 的标签页', () => {
       const { container } = render(
-        <Tabs items={mockItems} activeKey="2" />
+        <Tabs items={mockItems} activeKey="2" />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -44,7 +44,7 @@ describe('Tabs 组件', () => {
   describe('类型', () => {
     it.each(['line', 'card'] as const)('应该渲染 %s 类型标签页', (type) => {
       const { container } = render(
-        <Tabs items={mockItems} type={type} />
+        <Tabs items={mockItems} type={type} />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -55,10 +55,10 @@ describe('Tabs 组件', () => {
       '应该渲染 %s 位置标签页',
       (position) => {
         const { container } = render(
-          <Tabs items={mockItems} position={position} />
+          <Tabs items={mockItems} position={position} />,
         );
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -67,17 +67,17 @@ describe('Tabs 组件', () => {
       '应该渲染 %s 尺寸标签页',
       (size) => {
         const { container } = render(
-          <Tabs items={mockItems} size={size} />
+          <Tabs items={mockItems} size={size} />,
         );
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
   describe('居中', () => {
     it('应该渲染居中标签页', () => {
       const { container } = render(
-        <Tabs items={mockItems} centered />
+        <Tabs items={mockItems} centered />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -86,14 +86,14 @@ describe('Tabs 组件', () => {
   describe('可编辑', () => {
     it('应该渲染可添加标签页', () => {
       const { container } = render(
-        <Tabs items={mockItems} addable />
+        <Tabs items={mockItems} addable />,
       );
       expect(container.firstChild).toBeTruthy();
     });
 
     it('应该渲染可编辑标签页', () => {
       const { container } = render(
-        <Tabs items={mockItems} editable />
+        <Tabs items={mockItems} editable />,
       );
       expect(container.firstChild).toBeTruthy();
     });

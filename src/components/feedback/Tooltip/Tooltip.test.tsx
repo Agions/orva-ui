@@ -64,7 +64,7 @@ describe('Tooltip 组件', () => {
       const { container } = render(
         <Tooltip title="提示文字">
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(container.firstChild).toBeTruthy();
       expect(screen.getByText('触发元素')).toBeInTheDocument();
@@ -74,7 +74,7 @@ describe('Tooltip 组件', () => {
       render(
         <Tooltip title="提示内容" visible={true}>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(screen.getByText('提示内容')).toBeInTheDocument();
     });
@@ -87,11 +87,11 @@ describe('Tooltip 组件', () => {
         const { container } = render(
           <Tooltip title="提示" placement={placement} visible>
             <span>触发元素</span>
-          </Tooltip>
+          </Tooltip>,
         );
         expect(container.firstChild).toBeTruthy();
         expect(screen.getByText('提示')).toBeInTheDocument();
-      }
+      },
     );
   });
 
@@ -100,7 +100,7 @@ describe('Tooltip 组件', () => {
       render(
         <Tooltip title="受控提示" visible={true}>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(screen.getByText('受控提示')).toBeInTheDocument();
     });
@@ -109,7 +109,7 @@ describe('Tooltip 组件', () => {
       render(
         <Tooltip title="受控提示" visible={false}>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(screen.queryByText('受控提示')).not.toBeInTheDocument();
     });
@@ -120,7 +120,7 @@ describe('Tooltip 组件', () => {
       const { container } = render(
         <Tooltip title="禁用提示" disabled>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -129,7 +129,7 @@ describe('Tooltip 组件', () => {
       render(
         <Tooltip title="禁用提示" disabled>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(screen.queryByText('禁用提示')).not.toBeInTheDocument();
     });
@@ -140,7 +140,7 @@ describe('Tooltip 组件', () => {
       render(
         <Tooltip title="提示">
           <button>点击我</button>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(screen.getByText('点击我')).toBeInTheDocument();
     });
@@ -152,7 +152,7 @@ describe('Tooltip 组件', () => {
             <span>多层</span>
             <span>嵌套</span>
           </div>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(screen.getByText('多层')).toBeInTheDocument();
       expect(screen.getByText('嵌套')).toBeInTheDocument();
@@ -164,7 +164,7 @@ describe('Tooltip 组件', () => {
       const { container } = render(
         <Tooltip title="提示" className="custom-tooltip">
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -173,7 +173,7 @@ describe('Tooltip 组件', () => {
       const { container } = render(
         <Tooltip title="提示" style={{ padding: '8px' }}>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -184,7 +184,7 @@ describe('Tooltip 组件', () => {
       const { container } = render(
         <Tooltip title="带箭头" arrow={true} visible>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(container.firstChild).toBeTruthy();
       expect(screen.getByText('带箭头')).toBeInTheDocument();
@@ -194,7 +194,7 @@ describe('Tooltip 组件', () => {
       const { container } = render(
         <Tooltip title="无箭头" arrow={false} visible>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(container.firstChild).toBeTruthy();
       expect(screen.getByText('无箭头')).toBeInTheDocument();
@@ -204,7 +204,7 @@ describe('Tooltip 组件', () => {
       const { container } = render(
         <Tooltip title="默认箭头" visible>
           <span>触发元素</span>
-        </Tooltip>
+        </Tooltip>,
       );
       expect(container.firstChild).toBeTruthy();
       expect(screen.getByText('默认箭头')).toBeInTheDocument();

@@ -13,7 +13,7 @@ describe('Badge 组件', () => {
       render(
         <Badge count={5}>
           <span data-testid="content">📧</span>
-        </Badge>
+        </Badge>,
       );
       expect(screen.getByTestId('content')).toBeInTheDocument();
       expect(screen.getByText('5')).toBeInTheDocument();
@@ -23,7 +23,7 @@ describe('Badge 组件', () => {
       render(
         <Badge dot>
           <span data-testid="content">🔔</span>
-        </Badge>
+        </Badge>,
       );
       expect(screen.getByTestId('content')).toBeInTheDocument();
     });

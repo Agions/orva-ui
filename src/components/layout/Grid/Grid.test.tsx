@@ -65,7 +65,7 @@ describe('Grid 组件', () => {
       (justify) => {
         const { container } = render(<Grid justify={justify}>test</Grid>);
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -77,7 +77,7 @@ describe('Grid 组件', () => {
 
     it('应该应用自定义 style', () => {
       const { container } = render(
-        <Grid style={{ padding: '10px' }}>test</Grid>
+        <Grid style={{ padding: '10px' }}>test</Grid>,
       );
       expect(container.firstChild.style.padding).toBe('10px');
     });
@@ -88,7 +88,7 @@ describe('Grid 组件', () => {
       const { container } = render(
         <Grid>
           <div data-testid="item">item</div>
-        </Grid>
+        </Grid>,
       );
       expect(container.querySelector('[data-testid="item"]')).toBeTruthy();
     });

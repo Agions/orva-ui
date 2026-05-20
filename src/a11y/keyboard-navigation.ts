@@ -18,7 +18,7 @@ export const useKeyboardNavigation = (
     onArrowRight?: () => void;
     onTab?: () => void;
   },
-  enabled: boolean = true
+  enabled: boolean = true,
 ) => {
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (!enabled) return;
@@ -67,22 +67,24 @@ export const useListNavigation = (
   items: any[],
   selectedIndex: number,
   onSelect: (index: number) => void,
-  enabled: boolean = true
+  enabled: boolean = true,
 ) => {
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (!enabled) return;
 
     switch (event.key) {
-      case 'ArrowUp':
+      case 'ArrowUp': {
         event.preventDefault();
         const prevIndex = selectedIndex > 0 ? selectedIndex - 1 : items.length - 1;
         onSelect(prevIndex);
         break;
-      case 'ArrowDown':
+      }
+      case 'ArrowDown': {
         event.preventDefault();
         const nextIndex = selectedIndex < items.length - 1 ? selectedIndex + 1 : 0;
         onSelect(nextIndex);
         break;
+      }
       case 'Home':
         event.preventDefault();
         onSelect(0);

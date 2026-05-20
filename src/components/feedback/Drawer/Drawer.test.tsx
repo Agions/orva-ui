@@ -58,7 +58,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true}>
           <div>Drawer 内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByText('Drawer 内容')).toBeTruthy();
     });
@@ -67,7 +67,7 @@ describe('Drawer 组件', () => {
       const { container } = render(
         <Drawer visible={false}>
           <div>Drawer 内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.queryByText('Drawer 内容')).toBeNull();
       expect(container.innerHTML).toBe('');
@@ -82,7 +82,7 @@ describe('Drawer 组件', () => {
         render(
           <Drawer visible={true} direction={dir}>
             <div>{dir} 方向内容</div>
-          </Drawer>
+          </Drawer>,
         );
         expect(screen.getByText(`${dir} 方向内容`)).toBeTruthy();
       });
@@ -94,7 +94,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} title="测试标题">
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByText('测试标题')).toBeTruthy();
     });
@@ -103,7 +103,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} showClose={false}>
           <div>无标题内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.queryByText('测试标题')).toBeNull();
     });
@@ -114,7 +114,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true}>
           <div data-testid="child-content">子元素内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByTestId('child-content')).toBeTruthy();
       expect(screen.getByText('子元素内容')).toBeTruthy();
@@ -125,7 +125,7 @@ describe('Drawer 组件', () => {
         <Drawer visible={true}>
           <div>第一个子元素</div>
           <div>第二个子元素</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByText('第一个子元素')).toBeTruthy();
       expect(screen.getByText('第二个子元素')).toBeTruthy();
@@ -137,7 +137,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} showClose={true}>
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByText('×')).toBeTruthy();
     });
@@ -146,7 +146,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} showClose={false}>
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.queryByText('×')).toBeNull();
     });
@@ -156,7 +156,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} showClose={true} onClose={onClose}>
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
 
       fireEvent.click(screen.getByText('×'));
@@ -178,7 +178,7 @@ describe('Drawer 组件', () => {
           onClose={onClose}
         >
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
 
       // 遮罩层是第一个 div（View 渲染为 div）
@@ -202,7 +202,7 @@ describe('Drawer 组件', () => {
           onClose={onClose}
         >
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
 
       const mask = container.querySelector('div');
@@ -220,7 +220,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} width={400}>
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByText('内容')).toBeTruthy();
     });
@@ -229,7 +229,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} height={300} direction="top">
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByText('内容')).toBeTruthy();
     });
@@ -238,7 +238,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} width="80%">
           <div>百分比宽度</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByText('百分比宽度')).toBeTruthy();
     });
@@ -249,7 +249,7 @@ describe('Drawer 组件', () => {
       const { container } = render(
         <Drawer visible={true} className="custom-drawer">
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
 
       const drawerElement = container.querySelector('.custom-drawer');
@@ -260,7 +260,7 @@ describe('Drawer 组件', () => {
       render(
         <Drawer visible={true} style={{ zIndex: 9999 }}>
           <div>内容</div>
-        </Drawer>
+        </Drawer>,
       );
       expect(screen.getByText('内容')).toBeTruthy();
     });
@@ -273,7 +273,7 @@ describe('Drawer 组件', () => {
           style={{ backgroundColor: 'red' }}
         >
           <div>自定义样式内容</div>
-        </Drawer>
+        </Drawer>,
       );
 
       const drawerElement = container.querySelector('.my-drawer');

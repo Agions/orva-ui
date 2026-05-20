@@ -51,7 +51,7 @@ describe('Table 表格组件', () => {
     it('应该接受 onRowClick 回调', () => {
       const handleRowClick = vi.fn();
       const { container } = renderWithProvider(
-        <Table columns={mockColumns} dataSource={mockDataSource} onRowClick={handleRowClick} />
+        <Table columns={mockColumns} dataSource={mockDataSource} onRowClick={handleRowClick} />,
       );
       expect(container.firstChild).toBeTruthy();
     });

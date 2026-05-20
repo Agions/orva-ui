@@ -39,7 +39,7 @@ describe('Container 组件', () => {
       (size) => {
         const { container } = render(<Container size={size}>test</Container>);
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -49,7 +49,7 @@ describe('Container 组件', () => {
       (align) => {
         const { container } = render(<Container align={align}>test</Container>);
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -59,7 +59,7 @@ describe('Container 组件', () => {
       (padding) => {
         const { container } = render(<Container padding={padding}>test</Container>);
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -80,7 +80,7 @@ describe('Container 组件', () => {
       const { container } = render(
         <Container>
           <div data-testid="content">content</div>
-        </Container>
+        </Container>,
       );
       expect(container.querySelector('[data-testid="content"]')).toBeTruthy();
     });

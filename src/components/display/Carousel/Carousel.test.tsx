@@ -19,7 +19,7 @@ describe('Carousel 轮播图组件', () => {
         <Carousel>
           <div>Slide 1</div>
           <div>Slide 2</div>
-        </Carousel>
+        </Carousel>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -30,7 +30,7 @@ describe('Carousel 轮播图组件', () => {
           <div>Slide 1</div>
           <div>Slide 2</div>
           <div>Slide 3</div>
-        </Carousel>
+        </Carousel>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -41,7 +41,7 @@ describe('Carousel 轮播图组件', () => {
       const { container } = renderWithProvider(
         <Carousel autoplay>
           <div>Slide 1</div>
-        </Carousel>
+        </Carousel>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -51,7 +51,7 @@ describe('Carousel 轮播图组件', () => {
         <Carousel showDots>
           <div>Slide 1</div>
           <div>Slide 2</div>
-        </Carousel>
+        </Carousel>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -61,7 +61,7 @@ describe('Carousel 轮播图组件', () => {
         <Carousel showArrows>
           <div>Slide 1</div>
           <div>Slide 2</div>
-        </Carousel>
+        </Carousel>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -74,7 +74,7 @@ describe('Carousel 轮播图组件', () => {
         <Carousel onChange={handleChange}>
           <div>Slide 1</div>
           <div>Slide 2</div>
-        </Carousel>
+        </Carousel>,
       );
       expect(container.firstChild).toBeTruthy();
     });

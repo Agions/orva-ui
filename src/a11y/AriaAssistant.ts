@@ -12,7 +12,7 @@ export class AriaAssistant {
     isDisabled: boolean = false,
     isExpanded: boolean = false,
     label?: string,
-    description?: string
+    description?: string,
   ): AriaAttributes {
     return {
       'aria-disabled': isDisabled,
@@ -29,7 +29,7 @@ export class AriaAssistant {
     hasError: boolean = false,
     isRequired: boolean = false,
     label?: string,
-    errorId?: string
+    errorId?: string,
   ): AriaAttributes & { 'aria-invalid'?: boolean; 'aria-required'?: boolean } {
     return {
       'aria-invalid': hasError,
@@ -45,7 +45,7 @@ export class AriaAssistant {
   static generateModalAria(
     modalId: string,
     titleId: string,
-    isOpen: boolean = false
+    isOpen: boolean = false,
   ): AriaAttributes & { role: string; 'aria-modal': boolean; 'aria-hidden': boolean } {
     return {
       role: 'dialog',
@@ -61,7 +61,7 @@ export class AriaAssistant {
    */
   static generateLabelAria(
     forId: string,
-    isRequired: boolean = false
+    isRequired: boolean = false,
   ): AriaAttributes & { htmlFor: string } {
     return {
       htmlFor: forId,

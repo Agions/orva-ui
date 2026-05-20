@@ -215,7 +215,7 @@ describe('RichText 自定义 className 和 style', () => {
 
   it('同时接受自定义 className 和 style', () => {
     const { container } = render(
-      <RichText className="my-richtext" style={{ lineHeight: '1.8' }} />
+      <RichText className="my-richtext" style={{ lineHeight: '1.8' }} />,
     );
     const element = container.querySelector('.my-richtext') as HTMLElement;
     expect(element).toBeTruthy();

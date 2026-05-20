@@ -131,7 +131,7 @@ describe('Upload 上传组件', () => {
   describe('action 属性', () => {
     test('应该接受 action URL', () => {
       const { container } = render(
-        <Upload action="https://example.com/upload" />
+        <Upload action="https://example.com/upload" />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -162,14 +162,14 @@ describe('Upload 上传组件', () => {
 
     test('应该接受具体的文件类型', () => {
       const { container } = render(
-        <Upload accept=".jpg,.png,.gif" />
+        <Upload accept=".jpg,.png,.gif" />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
 
     test('应该接受多种文件类型', () => {
       const { container } = render(
-        <Upload accept="image/*,video/*,.pdf" />
+        <Upload accept="image/*,video/*,.pdf" />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -210,7 +210,7 @@ describe('Upload 上传组件', () => {
     test('禁用状态下不应触发文件选择', async () => {
       const handleChange = vi.fn();
       const { getByTestId } = render(
-        <Upload disabled onChange={handleChange} />
+        <Upload disabled onChange={handleChange} />,
       );
       const button = getByTestId('upload-button');
 
@@ -382,14 +382,14 @@ describe('Upload 上传组件', () => {
 
     test('应该应用自定义 style', () => {
       const { container } = render(
-        <Upload style={{ marginTop: '10px', width: '400px' }} />
+        <Upload style={{ marginTop: '10px', width: '400px' }} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
 
     test('应该同时应用 className 和 style', () => {
       const { container } = render(
-        <Upload className="custom-class" style={{ padding: '16px' }} />
+        <Upload className="custom-class" style={{ padding: '16px' }} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -403,14 +403,14 @@ describe('Upload 上传组件', () => {
         <Upload
           action="https://example.com/upload"
           accept="image/*"
-        />
+        />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
 
     test('应该同时渲染带 multiple 和 maxCount 的组件', () => {
       const { container } = render(
-        <Upload multiple maxCount={5} accept="image/*" />
+        <Upload multiple maxCount={5} accept="image/*" />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -426,7 +426,7 @@ describe('Upload 上传组件', () => {
       ];
       const handleChange = vi.fn();
       const { container } = render(
-        <Upload fileList={fileList} onChange={handleChange} />
+        <Upload fileList={fileList} onChange={handleChange} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -455,14 +455,14 @@ describe('Upload 上传组件', () => {
           onRemove={handleRemove}
           beforeUpload={beforeUpload}
           listType="picture-card"
-        />
+        />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
 
     test('应该同时渲染带 disabled 和 action 的组件', () => {
       const { container } = render(
-        <Upload disabled action="https://example.com/upload" />
+        <Upload disabled action="https://example.com/upload" />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });

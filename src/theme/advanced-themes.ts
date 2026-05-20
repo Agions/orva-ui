@@ -28,7 +28,7 @@ export const DARK_THEME = {
     accentForeground: '#ffffff',
     border: '#2a2a2a',
     input: '#2a2a2a',
-    ring: '#c084fc'
+    ring: '#c084fc',
   },
   shadows: {
     ...EXTENDED_COLORS.shadows,
@@ -38,7 +38,7 @@ export const DARK_THEME = {
     'md': '0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1)',
     'lg': '0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -4px rgba(255, 255, 255, 0.1)',
     'xl': '0 20px 25px -5px rgba(255, 255, 255, 0.1), 0 8px 10px -6px rgba(255, 255, 255, 0.1)',
-  }
+  },
 };
 
 // 高对比度主题
@@ -63,7 +63,7 @@ export const HIGH_CONTRAST_THEME = {
     accentForeground: '#ffffff',
     border: '#000000',
     input: '#000000',
-    ring: '#000000'
+    ring: '#000000',
   },
   shadows: {
     ...EXTENDED_COLORS.shadows,
@@ -72,7 +72,7 @@ export const HIGH_CONTRAST_THEME = {
     'sm': '0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px -1px rgba(0, 0, 0, 0.5)',
     'md': '0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5)',
     'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5)',
-  }
+  },
 };
 
 // 暖色调主题
@@ -86,8 +86,8 @@ export const WARM_THEME = {
     primaryDark: '#ea580c',
     secondary: '#fbbf24',
     secondaryLight: '#fcd34d',
-    secondaryDark: '#f59e0b'
-  }
+    secondaryDark: '#f59e0b',
+  },
 };
 
 // 冷色调主题
@@ -101,8 +101,8 @@ export const COOL_THEME = {
     primaryDark: '#2563eb',
     secondary: '#06b6d4',
     secondaryLight: '#22d3ee',
-    secondaryDark: '#0891b2'
-  }
+    secondaryDark: '#0891b2',
+  },
 };
 
 // 自然绿色主题
@@ -122,8 +122,8 @@ export const NATURE_THEME = {
     card: '#ffffff',
     border: '#bbf7d0',
     muted: '#dcfce7',
-    accent: '#22c55e'
-  }
+    accent: '#22c55e',
+  },
 };
 
 // 海洋蓝色主题
@@ -143,8 +143,8 @@ export const OCEAN_THEME = {
     card: '#ffffff',
     border: '#a5f3fc',
     muted: '#cffafe',
-    accent: '#06b6d4'
-  }
+    accent: '#06b6d4',
+  },
 };
 
 // 主题列表
@@ -155,7 +155,7 @@ export const THEMES = {
   warm: WARM_THEME,
   cool: COOL_THEME,
   nature: NATURE_THEME,
-  ocean: OCEAN_THEME
+  ocean: OCEAN_THEME,
 } as const;
 
 export type ThemeName = keyof typeof THEMES;

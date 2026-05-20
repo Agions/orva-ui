@@ -180,7 +180,7 @@ describe('icon 自定义', () => {
         title="自定义图标"
         icon={<span data-testid="custom-icon">🚀</span>}
         showIcon={true}
-      />
+      />,
     );
     expect(screen.getByTestId('custom-icon')).toBeTruthy();
     expect(screen.getByText('🚀')).toBeTruthy();
@@ -193,7 +193,7 @@ describe('icon 自定义', () => {
         title="自定义图标覆盖"
         icon={<span data-testid="custom-icon">⭐</span>}
         showIcon={true}
-      />
+      />,
     );
     expect(screen.getByTestId('custom-icon')).toBeTruthy();
     expect(screen.queryByText('✓')).toBeNull();
@@ -203,7 +203,7 @@ describe('icon 自定义', () => {
 describe('自定义 className/style', () => {
   it('自定义 className - 合并到根元素类名中', () => {
     const { container } = render(
-      <Notification title="自定义类名" className="my-custom-class" />
+      <Notification title="自定义类名" className="my-custom-class" />,
     );
     const notificationEl = container.querySelector('.orva-ui-notification');
     expect(notificationEl).toBeTruthy();
@@ -212,7 +212,7 @@ describe('自定义 className/style', () => {
 
   it('自定义 style - 应用到根元素', () => {
     const { container } = render(
-      <Notification title="自定义样式" style={{ marginTop: '20px' } as React.CSSProperties} />
+      <Notification title="自定义样式" style={{ marginTop: '20px' } as React.CSSProperties} />,
     );
     const notificationEl = container.querySelector('.orva-ui-notification') as HTMLElement;
     expect(notificationEl).toBeTruthy();
@@ -222,7 +222,7 @@ describe('自定义 className/style', () => {
 
   it('className 包含基础类名和类型类名', () => {
     const { container } = render(
-      <Notification type="error" title="类名检查" className="extra-class" />
+      <Notification type="error" title="类名检查" className="extra-class" />,
     );
     const notificationEl = container.querySelector('.orva-ui-notification');
     const classAttr = notificationEl?.getAttribute('class') || '';
@@ -259,7 +259,7 @@ describe('onClick 回调', () => {
         showClose={true}
         onClick={onClick}
         onClose={onClose}
-      />
+      />,
     );
 
     const closeBtn = screen.getByText('×');

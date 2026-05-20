@@ -188,7 +188,7 @@ describe('Typography 组件', () => {
       render(
         <Typography className="my-class" style={{ margin: '5px' }}>
           组合样式
-        </Typography>
+        </Typography>,
       );
       expect(screen.getByText('组合样式')).toBeTruthy();
     });

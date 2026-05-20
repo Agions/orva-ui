@@ -172,14 +172,14 @@ describe('Cascader 组件', () => {
 
     test('应该正确设置 defaultValue', () => {
       const { container } = render(
-        <Cascader options={mockOptions} defaultValue={['jiangsu', 'nanjing']} />
+        <Cascader options={mockOptions} defaultValue={['jiangsu', 'nanjing']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
 
     test('应该在重新渲染时更新 value', () => {
       const { rerender, container } = render(
-        <Cascader options={mockOptions} value={['zhejiang', 'hangzhou']} />
+        <Cascader options={mockOptions} value={['zhejiang', 'hangzhou']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
 
@@ -216,7 +216,7 @@ describe('Cascader 组件', () => {
     test('禁用状态下不应触发 onChange', () => {
       const handleChange = vi.fn();
       const { container } = render(
-        <Cascader options={mockOptions} disabled onChange={handleChange} />
+        <Cascader options={mockOptions} disabled onChange={handleChange} />,
       );
       const input = container.querySelector('input');
 
@@ -237,7 +237,7 @@ describe('Cascader 组件', () => {
     test('应该在选择后调用 onChange', () => {
       const handleChange = vi.fn();
       const { container } = render(
-        <Cascader options={mockOptions} onChange={handleChange} />
+        <Cascader options={mockOptions} onChange={handleChange} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -249,7 +249,7 @@ describe('Cascader 组件', () => {
           options={mockOptions}
           value={['zhejiang', 'hangzhou']}
           onChange={handleChange}
-        />
+        />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -266,7 +266,7 @@ describe('Cascader 组件', () => {
 
     test('应该应用自定义 style', () => {
       const { container } = render(
-        <Cascader style={{ marginTop: '10px', width: '300px' }} />
+        <Cascader style={{ marginTop: '10px', width: '300px' }} />,
       );
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveStyle({ marginTop: '10px', width: '300px' });
@@ -274,7 +274,7 @@ describe('Cascader 组件', () => {
 
     test('应该同时应用 className 和 style', () => {
       const { container } = render(
-        <Cascader className="custom-class" style={{ padding: '8px' }} />
+        <Cascader className="custom-class" style={{ padding: '8px' }} />,
       );
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('custom-class');

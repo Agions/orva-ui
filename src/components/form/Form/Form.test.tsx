@@ -49,7 +49,7 @@ vi.mock('@/hooks/ui/useAccessibility', () => ({
 vi.mock('@/utils/createComponent', () => ({
   createComponent: ({ render, name }: any) =>
     React.forwardRef((props: any, ref: any) =>
-      render ? render(props, ref) : null
+      render ? render(props, ref) : null,
     ),
 }));
 
@@ -58,7 +58,7 @@ describe('Form 基础渲染', () => {
     render(
       <Form>
         <div data-testid="form-child">表单内容</div>
-      </Form>
+      </Form>,
     );
     expect(screen.getByTestId('form-child')).toBeTruthy();
     expect(screen.getByText('表单内容')).toBeTruthy();
@@ -74,7 +74,7 @@ describe('Form layout 属性', () => {
     render(
       <Form layout="horizontal">
         <div>水平布局</div>
-      </Form>
+      </Form>,
     );
     expect(screen.getByText('水平布局')).toBeTruthy();
   });
@@ -83,7 +83,7 @@ describe('Form layout 属性', () => {
     render(
       <Form layout="vertical">
         <div>垂直布局</div>
-      </Form>
+      </Form>,
     );
     expect(screen.getByText('垂直布局')).toBeTruthy();
   });
@@ -92,7 +92,7 @@ describe('Form layout 属性', () => {
     render(
       <Form layout="inline">
         <div>行内布局</div>
-      </Form>
+      </Form>,
     );
     expect(screen.getByText('行内布局')).toBeTruthy();
   });
@@ -106,7 +106,7 @@ describe('Form onSubmit 回调', () => {
     render(
       <Form onSubmit={handleSubmit}>
         <button type="submit">提交</button>
-      </Form>
+      </Form>,
     );
 
     const form = screen.getByRole('form') || document.querySelector('form');
@@ -122,7 +122,7 @@ describe('Form disabled 属性', () => {
     render(
       <Form disabled={true}>
         <div>禁用状态</div>
-      </Form>
+      </Form>,
     );
     expect(screen.getByText('禁用状态')).toBeTruthy();
   });
@@ -131,7 +131,7 @@ describe('Form disabled 属性', () => {
     render(
       <Form disabled={false}>
         <div>可用状态</div>
-      </Form>
+      </Form>,
     );
     expect(screen.getByText('可用状态')).toBeTruthy();
   });
@@ -144,7 +144,7 @@ describe('Form.Item 子组件渲染', () => {
         <Form.Item name="username" label="用户名">
           <input data-testid="username-input" />
         </Form.Item>
-      </Form>
+      </Form>,
     );
     expect(screen.getByText('用户名')).toBeTruthy();
     expect(screen.getByTestId('username-input')).toBeTruthy();
@@ -159,7 +159,7 @@ describe('Form.Item 子组件渲染', () => {
         <Form.Item name="password" label="密码">
           <input data-testid="password-input" type="password" />
         </Form.Item>
-      </Form>
+      </Form>,
     );
     expect(screen.getByText('用户名')).toBeTruthy();
     expect(screen.getByText('密码')).toBeTruthy();
@@ -173,7 +173,7 @@ describe('Form 自定义 className 和 style', () => {
     const { container } = render(
       <Form className="custom-form">
         <div>自定义类名</div>
-      </Form>
+      </Form>,
     );
     const formEl = container.querySelector('.custom-form');
     expect(formEl).toBeTruthy();
@@ -183,7 +183,7 @@ describe('Form 自定义 className 和 style', () => {
     const { container } = render(
       <Form style={{ marginTop: '10px' }}>
         <div>自定义样式</div>
-      </Form>
+      </Form>,
     );
     // 验证组件正常渲染
     expect(screen.getByText('自定义样式')).toBeTruthy();
@@ -193,7 +193,7 @@ describe('Form 自定义 className 和 style', () => {
     const { container } = render(
       <Form className="my-form" style={{ padding: '20px' }}>
         <div>组合属性</div>
-      </Form>
+      </Form>,
     );
     const formEl = container.querySelector('.my-form');
     expect(formEl).toBeTruthy();

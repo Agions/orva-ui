@@ -283,7 +283,7 @@ describe('Checkbox 自定义 className 和 style', () => {
 
   it('应该接受自定义 style', () => {
     const { container } = render(
-      <Checkbox style={{ marginTop: '10px' }} label="自定义样式" />
+      <Checkbox style={{ marginTop: '10px' }} label="自定义样式" />,
     );
     expect(screen.getByText('自定义样式')).toBeTruthy();
   });

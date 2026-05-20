@@ -32,7 +32,7 @@ describe('VirtualList 组件', () => {
           itemHeight={50}
           itemKey="id"
           renderItem={(item: any) => <div>{item.title}</div>}
-        />
+        />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -45,7 +45,7 @@ describe('VirtualList 组件', () => {
           itemHeight={50}
           itemKey="id"
           renderItem={(item: any) => <div>{item.title}</div>}
-        />
+        />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -62,7 +62,7 @@ describe('VirtualList 组件', () => {
           renderItem={(item: any) => <div>{item.title}</div>}
           isLoading
           loading={<div data-testid="loading">加载中...</div>}
-        />
+        />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -76,7 +76,7 @@ describe('VirtualList 组件', () => {
           itemKey="id"
           renderItem={(item: any) => <div>{item.title}</div>}
           empty={<div data-testid="empty">暂无数据</div>}
-        />
+        />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -92,7 +92,7 @@ describe('VirtualList 组件', () => {
           itemKey="id"
           renderItem={(item: any) => <div>{item.title}</div>}
           className="custom-list"
-        />
+        />,
       );
       expect(container.firstChild).toBeTruthy();
     });

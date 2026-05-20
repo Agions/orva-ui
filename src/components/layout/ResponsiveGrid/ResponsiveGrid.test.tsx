@@ -27,7 +27,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGrid>
           <div>item</div>
-        </ResponsiveGrid>
+        </ResponsiveGrid>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -37,7 +37,7 @@ describe('ResponsiveGrid 组件', () => {
         <ResponsiveGrid columns={{ xs: 1, md: 2 }}>
           <div>a</div>
           <div>b</div>
-        </ResponsiveGrid>
+        </ResponsiveGrid>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -48,7 +48,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGrid gap="16px">
           <div>item</div>
-        </ResponsiveGrid>
+        </ResponsiveGrid>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -57,7 +57,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGrid rowGap="8px" columnGap="16px">
           <div>item</div>
-        </ResponsiveGrid>
+        </ResponsiveGrid>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -70,10 +70,10 @@ describe('ResponsiveGrid 组件', () => {
         const { container } = render(
           <ResponsiveGrid align={align}>
             <div>item</div>
-          </ResponsiveGrid>
+          </ResponsiveGrid>,
         );
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -82,7 +82,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGridItem span={2}>
           <div>item</div>
-        </ResponsiveGridItem>
+        </ResponsiveGridItem>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -91,7 +91,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGridItem span={2} offset={1}>
           <div>item</div>
-        </ResponsiveGridItem>
+        </ResponsiveGridItem>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -103,7 +103,7 @@ describe('ResponsiveGrid 组件', () => {
         <ResponsiveGridPresets.TwoColumns>
           <div>a</div>
           <div>b</div>
-        </ResponsiveGridPresets.TwoColumns>
+        </ResponsiveGridPresets.TwoColumns>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -112,7 +112,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGridPresets.ThreeColumns>
           <div>a</div>
-        </ResponsiveGridPresets.ThreeColumns>
+        </ResponsiveGridPresets.ThreeColumns>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -121,7 +121,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGridPresets.FourColumns>
           <div>a</div>
-        </ResponsiveGridPresets.FourColumns>
+        </ResponsiveGridPresets.FourColumns>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -130,7 +130,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGridPresets.CardLayout>
           <div>a</div>
-        </ResponsiveGridPresets.CardLayout>
+        </ResponsiveGridPresets.CardLayout>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -139,7 +139,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGridPresets.ListLayout>
           <div>a</div>
-        </ResponsiveGridPresets.ListLayout>
+        </ResponsiveGridPresets.ListLayout>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -148,7 +148,7 @@ describe('ResponsiveGrid 组件', () => {
       const { container } = render(
         <ResponsiveGridPresets.DashboardLayout>
           <div>a</div>
-        </ResponsiveGridPresets.DashboardLayout>
+        </ResponsiveGridPresets.DashboardLayout>,
       );
       expect(container.firstChild).toBeTruthy();
     });

@@ -19,7 +19,7 @@ describe('LazyComponent 组件', () => {
   describe('createLazyComponent', () => {
     it('应该创建懒加载组件', () => {
       const LazyComp = createLazyComponent(() =>
-        Promise.resolve({ default: () => <div>Lazy</div> })
+        Promise.resolve({ default: () => <div>Lazy</div> }),
       );
       expect(LazyComp).toBeDefined();
     });
@@ -27,7 +27,7 @@ describe('LazyComponent 组件', () => {
     it('应该创建预加载组件', () => {
       const LazyComp = createLazyComponent(
         () => Promise.resolve({ default: () => <div>Eager</div> }),
-        { strategy: 'eager' }
+        { strategy: 'eager' },
       );
       expect(LazyComp).toBeDefined();
     });
@@ -35,7 +35,7 @@ describe('LazyComponent 组件', () => {
     it('应该创建预取组件', () => {
       const LazyComp = createLazyComponent(
         () => Promise.resolve({ default: () => <div>Prefetch</div> }),
-        { strategy: 'prefetch' }
+        { strategy: 'prefetch' },
       );
       expect(LazyComp).toBeDefined();
     });

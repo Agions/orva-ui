@@ -27,7 +27,7 @@ describe('Space 组件', () => {
         <Space>
           <span>a</span>
           <span>b</span>
-        </Space>
+        </Space>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -49,7 +49,7 @@ describe('Space 组件', () => {
         <Space direction={direction}>
           <span>a</span>
           <span>b</span>
-        </Space>
+        </Space>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -61,7 +61,7 @@ describe('Space 组件', () => {
         <Space size={size}>
           <span>a</span>
           <span>b</span>
-        </Space>
+        </Space>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -75,10 +75,10 @@ describe('Space 组件', () => {
           <Space align={align}>
             <span>a</span>
             <span>b</span>
-          </Space>
+          </Space>,
         );
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -88,7 +88,7 @@ describe('Space 组件', () => {
         <Space wrap={wrap}>
           <span>a</span>
           <span>b</span>
-        </Space>
+        </Space>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -100,7 +100,7 @@ describe('Space 组件', () => {
         <Space separator="-">
           <span>a</span>
           <span>b</span>
-        </Space>
+        </Space>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -111,7 +111,7 @@ describe('Space 组件', () => {
       const { container } = render(
         <Space className="custom-space">
           <span>a</span>
-        </Space>
+        </Space>,
       );
       expect(container.firstChild).toHaveClass('custom-space');
     });

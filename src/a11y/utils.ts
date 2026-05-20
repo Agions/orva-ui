@@ -48,7 +48,7 @@ export function formatScreenReaderText(
   options: {
     announce?: boolean;
     priority?: 'polite' | 'assertive';
-  } = {}
+  } = {},
 ): void {
   const { announce = true, priority = 'polite' } = options;
 
@@ -73,7 +73,7 @@ export function formatScreenReaderText(
  */
 export function useKeyboardTrap(
   containerId: string,
-  enabled: boolean = true
+  enabled: boolean = true,
 ): void {
   useEffect(() => {
     if (!enabled) return;
@@ -82,11 +82,10 @@ export function useKeyboardTrap(
     if (!container) return;
 
     const focusableElements = container.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    ) as NodeListOf<HTMLElement>;
-
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    const firstElement = focusableElements[0] as HTMLElement | null;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement | null;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Tab') return;

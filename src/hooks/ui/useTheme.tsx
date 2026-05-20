@@ -448,7 +448,7 @@ export function useThemeSafe(): UseThemeReturn {
  */
 export function useThemeColor(
   colorName: keyof ThemeColor,
-  fallback?: string
+  fallback?: string,
 ): string {
   const { theme } = useThemeSafe();
   return theme.colors[colorName] || fallback || '';
@@ -458,7 +458,7 @@ export function useThemeColor(
  * 获取主题间距
  */
 export function useThemeSpacing(
-  spacingName: keyof ThemeSpacing
+  spacingName: keyof ThemeSpacing,
 ): string | number {
   const { theme } = useThemeSafe();
   return theme.spacing[spacingName] as string | number;
@@ -468,7 +468,7 @@ export function useThemeSpacing(
  * 获取主题字体大小
  */
 export function useThemeFontSize(
-  sizeName: keyof ThemeTypography['fontSize']
+  sizeName: keyof ThemeTypography['fontSize'],
 ): string {
   const { theme } = useThemeSafe();
   return theme.typography.fontSize[sizeName];

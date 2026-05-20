@@ -45,10 +45,10 @@ describe('Progress 组件', () => {
       '应该渲染 %s 状态',
       (status) => {
         const { container } = render(
-          <Progress percent={50} status={status as 'normal' | 'success' | 'exception' | 'active'} />
+          <Progress percent={50} status={status as 'normal' | 'success' | 'exception' | 'active'} />,
         );
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 

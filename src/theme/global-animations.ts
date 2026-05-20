@@ -13,7 +13,7 @@ export const animationKeyframes = {
   slideInRight: 'slideInRight',
   slideInLeft: 'slideInLeft',
   slideInUp: 'slideInUp',
-  pulse: 'pulse'
+  pulse: 'pulse',
 };
 
 /* 全局动画样式定义 */
@@ -23,7 +23,7 @@ export const globalAnimations = {
   slideUp: 'slide-up 0.3s ease-out',
   slideDown: 'slide-down 0.3s ease-in',
   bounce: 'bounce 0.6s ease-in-out',
-  pulse: 'pulse 1s infinite'
+  pulse: 'pulse 1s infinite',
 };
 
 /**

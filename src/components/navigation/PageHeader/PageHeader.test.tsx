@@ -49,7 +49,7 @@ describe('PageHeader 组件', () => {
             { title: '列表' },
             { title: '详情' },
           ]}
-        />
+        />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -60,7 +60,7 @@ describe('PageHeader 组件', () => {
       render(
         <PageHeader
           extra={<button data-testid="action">操作</button>}
-        />
+        />,
       );
       expect(screen.getByTestId('action')).toBeInTheDocument();
     });

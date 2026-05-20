@@ -19,7 +19,7 @@ describe('Timeline 时间线组件', () => {
         <Timeline>
           <TimelineItem title="步骤一" />
           <TimelineItem title="步骤二" />
-        </Timeline>
+        </Timeline>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -35,7 +35,7 @@ describe('Timeline 时间线组件', () => {
       const { container } = renderWithProvider(
         <Timeline direction="vertical">
           <TimelineItem title="步骤" />
-        </Timeline>
+        </Timeline>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -44,7 +44,7 @@ describe('Timeline 时间线组件', () => {
       const { container } = renderWithProvider(
         <Timeline direction="horizontal">
           <TimelineItem title="步骤" />
-        </Timeline>
+        </Timeline>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -54,7 +54,7 @@ describe('Timeline 时间线组件', () => {
         <Timeline mode="alternate">
           <TimelineItem title="左" />
           <TimelineItem title="右" />
-        </Timeline>
+        </Timeline>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -63,14 +63,14 @@ describe('Timeline 时间线组件', () => {
   describe('TimelineItem 子组件', () => {
     it('应该渲染时间线项', () => {
       const { container } = renderWithProvider(
-        <TimelineItem title="标题" description="描述" />
+        <TimelineItem title="标题" description="描述" />,
       );
       expect(container.firstChild).toBeTruthy();
     });
 
     it('应该支持自定义颜色', () => {
       const { container } = renderWithProvider(
-        <TimelineItem title="标题" color="green" />
+        <TimelineItem title="标题" color="green" />,
       );
       expect(container.firstChild).toBeTruthy();
     });

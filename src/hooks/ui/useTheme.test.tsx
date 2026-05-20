@@ -175,7 +175,7 @@ describe('useTheme Hook', () => {
           wrapper: ({ children }) => (
             <ThemeProvider>{children}</ThemeProvider>
           ),
-        }
+        },
       );
       
       expect(result.current.theme).toBeDefined();
@@ -202,7 +202,7 @@ describe('useTheme Hook', () => {
               {children}
             </ThemeProvider>
           ),
-        }
+        },
       );
       
       expect(result.current.theme.colors.primary).toBe('#ff0000');

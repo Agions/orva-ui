@@ -20,7 +20,7 @@ export const useFocusManager = () => {
     const container = document.getElementById(containerId);
     if (container) {
       const firstFocusable = container.querySelector(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       ) as HTMLElement;
       if (firstFocusable) {
         firstFocusable.focus();
@@ -39,7 +39,7 @@ export const useFocusManager = () => {
  */
 export const useKeyboardNavigation = (
   keys: Record<string, () => void>,
-  enabled: boolean = true
+  enabled: boolean = true,
 ) => {
   useEffect(() => {
     if (!enabled) return;

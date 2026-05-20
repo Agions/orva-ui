@@ -29,7 +29,7 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
 export const I18nProvider: React.FC<I18nProviderProps> = ({ 
   children, 
-  initialLocale = 'zh-CN' 
+  initialLocale = 'zh-CN', 
 }) => {
   const [locale, setLocaleState] = useState<Locale>(initialLocale as Locale);
 

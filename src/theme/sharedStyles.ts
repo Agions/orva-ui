@@ -19,7 +19,7 @@ export const createBaseStyles = (overrides?: Partial<CSSProperties>): CSSPropert
  */
 export const createSpacingStyles = (
   padding?: number | string,
-  margin?: number | string
+  margin?: number | string,
 ): CSSProperties => ({
   padding: padding ?? 0,
   margin: margin ?? 0,
@@ -111,7 +111,7 @@ export const createResponsiveStyles = (
     md?: Partial<CSSProperties>;
     lg?: Partial<CSSProperties>;
     xl?: Partial<CSSProperties>;
-  }
+  },
 ): CSSProperties => ({
   ...baseStyles,
   ...(breakpoints?.sm ?? {}),

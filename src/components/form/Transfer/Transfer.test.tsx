@@ -184,7 +184,7 @@ describe('Transfer 穿梭框组件', () => {
         { key: '3', title: '选项 3' },
       ];
       const { container } = render(
-        <Transfer dataSource={dataSource} targetKeys={['1', '2']} />
+        <Transfer dataSource={dataSource} targetKeys={['1', '2']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -200,7 +200,7 @@ describe('Transfer 穿梭框组件', () => {
         { key: '2', title: '选项 2' },
       ];
       const { container } = render(
-        <Transfer dataSource={dataSource} defaultTargetKeys={['1']} />
+        <Transfer dataSource={dataSource} defaultTargetKeys={['1']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -219,14 +219,14 @@ describe('Transfer 穿梭框组件', () => {
   describe('titles 属性', () => {
     test('应该正确显示自定义 titles', () => {
       const { container } = render(
-        <Transfer titles={['可选项', '已选项']} />
+        <Transfer titles={['可选项', '已选项']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
 
     test('应该支持中文 titles', () => {
       const { container } = render(
-        <Transfer titles={['源数据', '目标数据']} />
+        <Transfer titles={['源数据', '目标数据']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -238,7 +238,7 @@ describe('Transfer 穿梭框组件', () => {
 
     test('应该支持英文 titles', () => {
       const { container } = render(
-        <Transfer titles={['Available', 'Selected']} />
+        <Transfer titles={['Available', 'Selected']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -249,7 +249,7 @@ describe('Transfer 穿梭框组件', () => {
   describe('operations 属性', () => {
     test('应该正确显示自定义 operations', () => {
       const { container } = render(
-        <Transfer operations={['添加', '移除']} />
+        <Transfer operations={['添加', '移除']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -261,14 +261,14 @@ describe('Transfer 穿梭框组件', () => {
 
     test('应该支持英文 operations', () => {
       const { container } = render(
-        <Transfer operations={['Add', 'Remove']} />
+        <Transfer operations={['Add', 'Remove']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
 
     test('应该支持箭头符号 operations', () => {
       const { container } = render(
-        <Transfer operations={['>', '<']} />
+        <Transfer operations={['>', '<']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -283,7 +283,7 @@ describe('Transfer 穿梭框组件', () => {
         { key: '2', title: '选项 2' },
       ];
       const { container } = render(
-        <Transfer dataSource={dataSource} disabled />
+        <Transfer dataSource={dataSource} disabled />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -291,7 +291,7 @@ describe('Transfer 穿梭框组件', () => {
     test('禁用状态下不应触发 onChange', () => {
       const handleChange = vi.fn();
       const { container } = render(
-        <Transfer disabled onChange={handleChange} />
+        <Transfer disabled onChange={handleChange} />,
       );
       expect(container.firstChild).toBeInTheDocument();
       expect(handleChange).not.toHaveBeenCalled();
@@ -304,7 +304,7 @@ describe('Transfer 穿梭框组件', () => {
 
     test('禁用状态下应传递 disabled 给子组件', () => {
       const { container } = render(
-        <Transfer disabled dataSource={[{ key: '1', title: '选项 1' }]} />
+        <Transfer disabled dataSource={[{ key: '1', title: '选项 1' }]} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -316,7 +316,7 @@ describe('Transfer 穿梭框组件', () => {
     test('应该支持 onChange 回调', () => {
       const handleChange = vi.fn();
       const { container } = render(
-        <Transfer onChange={handleChange} />
+        <Transfer onChange={handleChange} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -324,7 +324,7 @@ describe('Transfer 穿梭框组件', () => {
     test('应该支持 onSelectChange 回调', () => {
       const handleSelectChange = vi.fn();
       const { container } = render(
-        <Transfer onSelectChange={handleSelectChange} />
+        <Transfer onSelectChange={handleSelectChange} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -332,7 +332,7 @@ describe('Transfer 穿梭框组件', () => {
     test('应该支持 onSearch 回调', () => {
       const handleSearch = vi.fn();
       const { container } = render(
-        <Transfer onSearch={handleSearch} />
+        <Transfer onSearch={handleSearch} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -348,14 +348,14 @@ describe('Transfer 穿梭框组件', () => {
 
     test('应该应用自定义 style', () => {
       const { container } = render(
-        <Transfer style={{ marginTop: '10px', width: '600px' }} />
+        <Transfer style={{ marginTop: '10px', width: '600px' }} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
 
     test('应该同时应用 className 和 style', () => {
       const { container } = render(
-        <Transfer className="custom-class" style={{ padding: '16px' }} />
+        <Transfer className="custom-class" style={{ padding: '16px' }} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -375,7 +375,7 @@ describe('Transfer 穿梭框组件', () => {
           dataSource={dataSource}
           targetKeys={['1']}
           titles={['源', '目标']}
-        />
+        />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -386,7 +386,7 @@ describe('Transfer 穿梭框组件', () => {
         { key: '2', title: '选项 2' },
       ];
       const { container } = render(
-        <Transfer dataSource={dataSource} disabled operations={['>>', '<<']} />
+        <Transfer dataSource={dataSource} disabled operations={['>>', '<<']} />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });
@@ -407,7 +407,7 @@ describe('Transfer 穿梭框组件', () => {
           showSearch
           showSelectAll
           onChange={handleChange}
-        />
+        />,
       );
       expect(container.firstChild).toBeInTheDocument();
     });

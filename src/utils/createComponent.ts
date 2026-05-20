@@ -206,7 +206,7 @@ export function useComponentPrefix(): string {
  */
 function mergeDefaultProps<P extends BaseProps>(
   defaultProps: Partial<P> | undefined,
-  props: P
+  props: P,
 ): P {
   if (!defaultProps) return props;
   return { ...defaultProps, ...props } as P;
@@ -218,7 +218,7 @@ function mergeDefaultProps<P extends BaseProps>(
 export function generateComponentClassName(
   componentName: string,
   className?: string,
-  prefix?: string
+  prefix?: string,
 ): string {
   const componentPrefix = prefix || 'orva-ui';
   const baseName = `${componentPrefix}-${componentName.toLowerCase()}`;
@@ -272,7 +272,7 @@ export function createComponent<
   P extends BaseProps = BaseProps,
   R = unknown
 >(
-  options: CreateComponentOptions<P, R>
+  options: CreateComponentOptions<P, R>,
 ): ComponentFactoryReturn<P, R> {
   const {
     name,
@@ -288,9 +288,8 @@ export function createComponent<
     // 合并默认 Props
     const mergedProps = mergeDefaultProps(defaultProps, props as P);
 
-    // 注入组件上下文（used for theme/platform injection）
-    const _context = useComponentContext();
-    void _context;
+    // 注入组件上下文，确保主题/平台上下文可用并触发重渲染
+    useComponentContext();
 
     // 调用渲染函数
     return render(mergedProps as any as Parameters<typeof render>[0], ref);
@@ -327,7 +326,7 @@ export function createComponent<
 export function createComponentNoRef<P extends BaseProps = BaseProps>(
   options: Omit<CreateComponentOptions<P, never>, 'render'> & {
     render: (props: P) => ReactNode;
-  }
+  },
 ): ComponentFactoryReturnNoRef<P> {
   const { name, render, defaultProps, meta } = options;
 
@@ -354,7 +353,7 @@ export function createStyledComponent<
 >(
   options: CreateComponentOptions<P, R> & {
     defaultStyles?: React.CSSProperties;
-  }
+  },
 ): ComponentFactoryReturn<P, R> {
   const { defaultStyles, ...rest } = options;
 
@@ -362,7 +361,7 @@ export function createStyledComponent<
     const { style, ...restProps } = props;
     const mergedStyle = useMemo(
       () => ({ ...defaultStyles, ...style }),
-      [defaultStyles, style]
+      [defaultStyles, style],
     );
 
     return rest.render({ ...restProps, style: mergedStyle } as P, ref);
@@ -378,7 +377,7 @@ export function createStyledComponent<
  * 获取组件元数据
  */
 export function getComponentMeta<T extends ForwardRefExoticComponent<any>>(
-  component: T
+  component: T,
 ): ComponentMeta | undefined {
   return (component as Record<string, unknown>).__orva_meta__ as ComponentMeta | undefined;
 }
@@ -387,7 +386,7 @@ export function getComponentMeta<T extends ForwardRefExoticComponent<any>>(
  * 检查组件是否为 Orva UI 组件
  */
 export function isOrvaUIComponent<T extends ComponentType<any>>(
-  component: T
+  component: T,
 ): component is T & { __orva_meta__?: ComponentMeta } {
   return '__orva_meta__' in component;
 }

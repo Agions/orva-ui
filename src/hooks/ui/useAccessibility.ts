@@ -251,7 +251,7 @@ export const ARIA_LABELS = {
  * 可访问性 Hook
  */
 export function useAccessibility(
-  props: AccessibilityProps = {}
+  props: AccessibilityProps = {},
 ): UseAccessibilityReturn {
   const {
     'aria-label': ariaLabelProp,
@@ -327,7 +327,7 @@ export function useAccessibility(
       // 调用用户自定义的键盘处理函数
       keyboardHandlers?.onKeyDown?.(event);
     },
-    [disableKeyboardNav, keyboardHandlers]
+    [disableKeyboardNav, keyboardHandlers],
   );
 
   // 获取 ARIA 属性
@@ -392,7 +392,7 @@ export function useAccessibility(
  * 创建按钮的可访问性配置
  */
 export function useButtonAccessibility(
-  props: Omit<AccessibilityProps, 'role'> = {}
+  props: Omit<AccessibilityProps, 'role'> = {},
 ): UseAccessibilityReturn {
   return useAccessibility({
     ...props,
@@ -404,7 +404,7 @@ export function useButtonAccessibility(
  * 创建链接的可访问性配置
  */
 export function useLinkAccessibility(
-  props: Omit<AccessibilityProps, 'role'> = {}
+  props: Omit<AccessibilityProps, 'role'> = {},
 ): UseAccessibilityReturn {
   return useAccessibility({
     ...props,
@@ -420,7 +420,7 @@ export function useFormControlAccessibility(
     invalid?: boolean;
     required?: boolean;
     readonly?: boolean;
-  } = {}
+  } = {},
 ): UseAccessibilityReturn {
   const { invalid, required, readonly, ...rest } = props;
 

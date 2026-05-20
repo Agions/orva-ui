@@ -79,7 +79,7 @@ export interface AutoCompleteConfig {
 }
 
 // 自动完成属性
-export interface AutoCompleteProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'onSelect'> {
+export interface AutoCompleteProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'onSelect' | 'onInput'> {
   // 自动完成配置
   config?: AutoCompleteConfig;
   // 选项列表

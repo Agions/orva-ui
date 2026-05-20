@@ -141,7 +141,7 @@ const DEFAULT_RETRY_DELAY = 1000;
  */
 export function useLazyLoad<T>(
   contentRenderer: () => T,
-  options: LazyLoadOptions = {}
+  options: LazyLoadOptions = {},
 ): UseLazyLoadReturn & { content: T | null } {
   const {
     rootMargin = DEFAULT_ROOT_MARGIN,
@@ -194,7 +194,7 @@ export function useLazyLoad<T>(
         onError?.(err);
       }
     },
-    [retryCount, retryDelay, onError]
+    [retryCount, retryDelay, onError],
   );
 
   // 加载内容
@@ -256,7 +256,7 @@ export function useLazyLoad<T>(
       {
         rootMargin,
         threshold,
-      }
+      },
     );
 
     observer.observe(ref.current);
@@ -291,7 +291,7 @@ export function useLazyLoad<T>(
  */
 export function useLazyImage(
   src: string,
-  options: Omit<LazyLoadOptions, 'placeholderContent' | 'errorContent' | 'loadingContent'> = {}
+  options: Omit<LazyLoadOptions, 'placeholderContent' | 'errorContent' | 'loadingContent'> = {},
 ) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'loaded' | 'error'>('idle');

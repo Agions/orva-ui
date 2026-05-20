@@ -47,17 +47,17 @@ describe('Menu 组件', () => {
       '应该渲染 %s 模式菜单',
       (mode) => {
         const { container } = render(
-          <Menu items={mockItems} mode={mode} />
+          <Menu items={mockItems} mode={mode} />,
         );
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
   describe('主题', () => {
     it.each(['light', 'dark'] as const)('应该渲染 %s 主题菜单', (theme) => {
       const { container } = render(
-        <Menu items={mockItems} theme={theme} />
+        <Menu items={mockItems} theme={theme} />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -68,17 +68,17 @@ describe('Menu 组件', () => {
       '应该渲染 %s 尺寸菜单',
       (size) => {
         const { container } = render(
-          <Menu items={mockItems} size={size} />
+          <Menu items={mockItems} size={size} />,
         );
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
   describe('手风琴模式', () => {
     it('应该渲染手风琴模式菜单', () => {
       const { container } = render(
-        <Menu items={mockItems} accordion />
+        <Menu items={mockItems} accordion />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -87,14 +87,14 @@ describe('Menu 组件', () => {
   describe('折叠', () => {
     it('应该渲染可折叠菜单', () => {
       const { container } = render(
-        <Menu items={mockItems} collapsible />
+        <Menu items={mockItems} collapsible />,
       );
       expect(container.firstChild).toBeTruthy();
     });
 
     it('应该渲染已折叠菜单', () => {
       const { container } = render(
-        <Menu items={mockItems} collapsible collapsed />
+        <Menu items={mockItems} collapsible collapsed />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -103,14 +103,14 @@ describe('Menu 组件', () => {
   describe('选中键', () => {
     it('应该渲染带默认选中键的菜单', () => {
       const { container } = render(
-        <Menu items={mockItems} defaultSelectedKeys={['home']} />
+        <Menu items={mockItems} defaultSelectedKeys={['home']} />,
       );
       expect(container.firstChild).toBeTruthy();
     });
 
     it('应该渲染带受控选中键的菜单', () => {
       const { container } = render(
-        <Menu items={mockItems} selectedKeys={['about']} />
+        <Menu items={mockItems} selectedKeys={['about']} />,
       );
       expect(container.firstChild).toBeTruthy();
     });

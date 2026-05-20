@@ -64,10 +64,10 @@ describe('Select 组件', () => {
       '应该渲染 %s 状态',
       (status) => {
         const { container } = render(
-          <Select options={mockOptions} status={status as 'normal' | 'error'} />
+          <Select options={mockOptions} status={status as 'normal' | 'error'} />,
         );
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -83,14 +83,14 @@ describe('Select 组件', () => {
 
     it('应该显示清除按钮', () => {
       const { container } = render(
-        <Select options={mockOptions} allowClear value="a" />
+        <Select options={mockOptions} allowClear value="a" />,
       );
       expect(container.firstChild).toBeTruthy();
     });
 
     it('应该支持搜索功能', () => {
       const { container } = render(
-        <Select options={mockOptions} showSearch />
+        <Select options={mockOptions} showSearch />,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -98,7 +98,7 @@ describe('Select 组件', () => {
     it('应该支持多选模式', () => {
       const handleChange = vi.fn();
       const { container } = render(
-        <Select options={mockOptions} mode="multiple" onChange={handleChange} />
+        <Select options={mockOptions} mode="multiple" onChange={handleChange} />,
       );
       expect(container.firstChild).toBeTruthy();
     });

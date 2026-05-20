@@ -44,7 +44,7 @@ export const Badge = createComponent<BadgeProps, BadgeRef>({
         )}
       </View>
     );
-  }
+  },
 });
 
 export default Badge;

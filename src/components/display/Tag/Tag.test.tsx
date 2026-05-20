@@ -46,7 +46,7 @@ describe('Tag 标签组件', () => {
     it('应该接受 onClose 回调', () => {
       const handleClose = vi.fn();
       const { container } = renderWithProvider(
-        <Tag closable onClose={handleClose}>标签</Tag>
+        <Tag closable onClose={handleClose}>标签</Tag>,
       );
       expect(container.firstChild).toBeTruthy();
     });

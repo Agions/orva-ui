@@ -13,12 +13,12 @@ export interface BadgeProps extends BaseProps {
   offset?: [number, number];
   title?: string;
   children?: React.ReactNode;
-  style?: any;
+  style?: CSSProperties;
   className?: string;
 }
 
 export interface BadgeRef {
-  element: any;
+  element: HTMLElement | null;
   getCount: () => number | undefined;
   isDot: () => boolean;
   isVisible: () => boolean;

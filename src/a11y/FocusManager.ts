@@ -70,7 +70,7 @@ export class FocusManager {
       'select:not([disabled])',
       'textarea:not([disabled])',
       '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable]:not([contenteditable="false"])'
+      '[contenteditable]:not([contenteditable="false"])',
     ].join(', ');
 
     return Array.from(container.querySelectorAll(selectors))

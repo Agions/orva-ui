@@ -137,7 +137,7 @@ const DEFAULT_MIN_ITEM_HEIGHT = 30;
  */
 export function useVirtualList<T>(
   items: T[],
-  options: UseVirtualListOptions = {}
+  options: UseVirtualListOptions = {},
 ): UseVirtualListReturn<T> {
   const {
     itemHeight: itemHeightOption = DEFAULT_ITEM_HEIGHT,
@@ -160,7 +160,7 @@ export function useVirtualList<T>(
       }
       return itemHeightOption;
     },
-    [itemHeightOption]
+    [itemHeightOption],
   );
 
   // 更新动态高度
@@ -200,7 +200,7 @@ export function useVirtualList<T>(
       startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - bufferCount);
       endIndex = Math.min(
         items.length - 1,
-        Math.ceil((scrollTop + viewportHeight) / itemHeight) + bufferCount
+        Math.ceil((scrollTop + viewportHeight) / itemHeight) + bufferCount,
       );
     }
 
@@ -268,7 +268,7 @@ export function useVirtualList<T>(
         behavior,
       });
     },
-    [items.length, dynamicHeight, getItemHeight]
+    [items.length, dynamicHeight, getItemHeight],
   );
 
   // 滚动到指定位置
@@ -280,7 +280,7 @@ export function useVirtualList<T>(
         behavior,
       });
     },
-    []
+    [],
   );
 
   // 测量动态高度

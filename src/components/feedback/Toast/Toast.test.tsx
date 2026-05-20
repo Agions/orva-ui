@@ -39,7 +39,7 @@ describe('Toast 组件', () => {
       (type) => {
         const { container } = render(<Toast message="提示" type={type} visible />);
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 

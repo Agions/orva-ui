@@ -230,7 +230,7 @@ describe('Text 组件', () => {
       const { container } = render(
         <Text className="custom-class" style={{ color: 'blue' }}>
           组合样式
-        </Text>
+        </Text>,
       );
       expect(screen.getByText('组合样式')).toBeTruthy();
     });

@@ -50,7 +50,7 @@ describe('Popconfirm 基础渲染', () => {
     render(
       <Popconfirm visible={true} title="确认删除？">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText('确认删除？')).toBeTruthy();
   });
@@ -59,7 +59,7 @@ describe('Popconfirm 基础渲染', () => {
     render(
       <Popconfirm visible={false} title="确认删除？">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.queryByText('确认删除？')).toBeNull();
   });
@@ -70,7 +70,7 @@ describe('Popconfirm title 和 content 属性', () => {
     render(
       <Popconfirm visible={true} title="警告">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText('警告')).toBeTruthy();
   });
@@ -79,7 +79,7 @@ describe('Popconfirm title 和 content 属性', () => {
     render(
       <Popconfirm visible={true} title="标题" content="这是一段确认内容">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText('这是一段确认内容')).toBeTruthy();
   });
@@ -88,7 +88,7 @@ describe('Popconfirm title 和 content 属性', () => {
     render(
       <Popconfirm visible={true} title="确认操作" content="此操作不可撤销，是否继续？">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText('确认操作')).toBeTruthy();
     expect(screen.getByText('此操作不可撤销，是否继续？')).toBeTruthy();
@@ -100,7 +100,7 @@ describe('Popconfirm okText 和 cancelText', () => {
     render(
       <Popconfirm visible={true} title="标题">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText('确认')).toBeTruthy();
     expect(screen.getByText('取消')).toBeTruthy();
@@ -110,7 +110,7 @@ describe('Popconfirm okText 和 cancelText', () => {
     render(
       <Popconfirm visible={true} title="标题" okText="删除">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText('删除')).toBeTruthy();
   });
@@ -119,7 +119,7 @@ describe('Popconfirm okText 和 cancelText', () => {
     render(
       <Popconfirm visible={true} title="标题" cancelText="返回">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText('返回')).toBeTruthy();
   });
@@ -131,7 +131,7 @@ describe('Popconfirm onConfirm 回调', () => {
     render(
       <Popconfirm visible={true} title="标题" onConfirm={onConfirm}>
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
 
     const confirmBtn = screen.getByText('确认');
@@ -144,7 +144,7 @@ describe('Popconfirm onConfirm 回调', () => {
     render(
       <Popconfirm visible={true} title="标题" okText="提交" onConfirm={onConfirm}>
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
 
     fireEvent.click(screen.getByText('提交'));
@@ -158,7 +158,7 @@ describe('Popconfirm onCancel 回调', () => {
     render(
       <Popconfirm visible={true} title="标题" onCancel={onCancel}>
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
 
     const cancelBtn = screen.getByText('取消');
@@ -171,7 +171,7 @@ describe('Popconfirm onCancel 回调', () => {
     render(
       <Popconfirm visible={true} title="标题" cancelText="放弃" onCancel={onCancel}>
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
 
     fireEvent.click(screen.getByText('放弃'));
@@ -184,7 +184,7 @@ describe('Popconfirm okType 和 cancelType', () => {
     render(
       <Popconfirm visible={true} title="标题" okType="danger">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     const confirmBtn = screen.getByText('确认');
     expect(confirmBtn).toBeTruthy();
@@ -194,7 +194,7 @@ describe('Popconfirm okType 和 cancelType', () => {
     render(
       <Popconfirm visible={true} title="标题" okType="success">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     const confirmBtn = screen.getByText('确认');
     expect(confirmBtn).toBeTruthy();
@@ -204,7 +204,7 @@ describe('Popconfirm okType 和 cancelType', () => {
     render(
       <Popconfirm visible={true} title="标题" cancelType="primary">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     const cancelBtn = screen.getByText('取消');
     expect(cancelBtn).toBeTruthy();
@@ -217,7 +217,7 @@ describe('Popconfirm icon 自定义', () => {
     render(
       <Popconfirm visible={true} title="警告" icon={icon}>
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByTestId('custom-icon')).toBeTruthy();
     expect(screen.getByText('⚠️')).toBeTruthy();
@@ -228,7 +228,7 @@ describe('Popconfirm icon 自定义', () => {
     render(
       <Popconfirm visible={true} title="注意" icon={icon}>
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByTestId('warn-icon')).toBeTruthy();
     expect(screen.getByText('注意')).toBeTruthy();
@@ -240,7 +240,7 @@ describe('Popconfirm disabled 状态', () => {
     render(
       <Popconfirm visible={true} title="标题" disabled={true}>
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText('标题')).toBeTruthy();
   });
@@ -250,7 +250,7 @@ describe('Popconfirm disabled 状态', () => {
     render(
       <Popconfirm visible={true} title="标题" disabled={true} onConfirm={onConfirm}>
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
 
     const confirmBtn = screen.getByText('确认');
@@ -267,7 +267,7 @@ describe('Popconfirm 自定义 className 和 style', () => {
     render(
       <Popconfirm visible={true} title="标题" className="custom-popconfirm">
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     const titleEl = screen.getByText('标题');
     // 弹窗容器应包含自定义 className
@@ -283,7 +283,7 @@ describe('Popconfirm 自定义 className 和 style', () => {
         style={{ backgroundColor: 'red' }}
       >
         <div>触发元素</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     const titleEl = screen.getByText('标题');
     // 向上查找包含自定义样式的元素

@@ -24,7 +24,7 @@ describe('useThrottle 节流 Hook', () => {
     it('应该节流更新值', async () => {
       const { result, rerender } = renderHook(
         ({ value, delay }) => useThrottle(value, delay),
-        { initialProps: { value: 'initial', delay: 500 } }
+        { initialProps: { value: 'initial', delay: 500 } },
       );
 
       expect(result.current).toBe('initial');

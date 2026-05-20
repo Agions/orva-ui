@@ -34,7 +34,7 @@ describe('ErrorBoundary 组件', () => {
       render(
         <ErrorBoundary>
           <div data-testid="child">正常内容</div>
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
       expect(screen.getByTestId('child')).toBeInTheDocument();
     });
@@ -46,7 +46,7 @@ describe('ErrorBoundary 组件', () => {
             <span>多层</span>
             <span>嵌套</span>
           </div>
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
       expect(screen.getByText('多层')).toBeInTheDocument();
     });
@@ -57,7 +57,7 @@ describe('ErrorBoundary 组件', () => {
       render(
         <ErrorBoundary>
           <ThrowError />
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
       expect(screen.getByText('出错了')).toBeInTheDocument();
     });
@@ -66,7 +66,7 @@ describe('ErrorBoundary 组件', () => {
       render(
         <ErrorBoundary fallback={<div data-testid="custom-fallback">自定义错误</div>}>
           <ThrowError />
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
       expect(screen.getByTestId('custom-fallback')).toBeInTheDocument();
     });
@@ -75,7 +75,7 @@ describe('ErrorBoundary 组件', () => {
       render(
         <ErrorBoundary>
           <ThrowError />
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
       expect(screen.getByText(/Test error|应用遇到了一个错误/)).toBeInTheDocument();
     });
@@ -86,7 +86,7 @@ describe('ErrorBoundary 组件', () => {
       render(
         <ErrorBoundary>
           <ThrowError />
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
       expect(screen.getByText('重试')).toBeInTheDocument();
     });
@@ -95,7 +95,7 @@ describe('ErrorBoundary 组件', () => {
       render(
         <ErrorBoundary>
           <ThrowError />
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
       fireEvent.click(screen.getByText('重试'));
       // 重置后，由于 ThrowError 会再次抛出错误，错误 UI 仍然存在
@@ -110,7 +110,7 @@ describe('ErrorBoundary 组件', () => {
       render(
         <ErrorBoundary onError={handleError}>
           <ThrowError />
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
       expect(handleError).toHaveBeenCalled();
     });

@@ -41,7 +41,7 @@ export class NumberFormatter {
   currency(currency: string = 'USD'): string {
     return this.format({
       style: 'currency',
-      currency: currency
+      currency: currency,
     });
   }
 }

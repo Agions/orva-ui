@@ -20,7 +20,7 @@ import React, { useMemo, useCallback, useRef, useEffect, useState } from 'react'
  */
 export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
-  delay: number
+  delay: number,
 ): (...args: Parameters<T>) => void {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
   
@@ -42,7 +42,7 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
  */
 export function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
-  limit: number
+  limit: number,
 ): (...args: Parameters<T>) => void {
   let inThrottle = false;
   
@@ -98,7 +98,7 @@ export function useThrottle<T>(value: T, limit: number): T {
  * 记忆化 Hook - 用于昂贵的计算
  */
 export function useMemoizedFn<T extends (...args: unknown[]) => unknown>(
-  fn: T
+  fn: T,
 ): T {
   const fnRef = useRef<T>(fn);
   
@@ -111,14 +111,48 @@ export function useMemoizedFn<T extends (...args: unknown[]) => unknown>(
 }
 
 /**
+ * 简单深度比较函数
+ * 替代 JSON.stringify 比较，避免属性顺序问题，支持 Date 等类型
+ */
+function deepEqual(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (typeof a !== typeof b) return false;
+
+  if (a instanceof Date && b instanceof Date) {
+    return a.getTime() === b.getTime();
+  }
+
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false;
+    return a.every((val, i) => deepEqual(val, b[i]));
+  }
+
+  if (typeof a === 'object' && typeof b === 'object') {
+    const keysA = Object.keys(a as Record<string, unknown>);
+    const keysB = Object.keys(b as Record<string, unknown>);
+    if (keysA.length !== keysB.length) return false;
+    return keysA.every((key) =>
+      deepEqual(
+        (a as Record<string, unknown>)[key],
+        (b as Record<string, unknown>)[key],
+      ),
+    );
+  }
+
+  return false;
+}
+
+/**
  * 深层记忆化 Hook
+ * 使用深度比较替代 JSON.stringify，避免属性顺序问题
  */
 export function useDeepMemo<T>(value: T, equalityFn?: (a: T, b: T) => boolean): T {
   const ref = useRef<T>(value);
   
   if (!equalityFn) {
-    // 默认使用 JSON 比较
-    if (JSON.stringify(ref.current) !== JSON.stringify(value)) {
+    // 默认使用深度比较（非 JSON.stringify）
+    if (!deepEqual(ref.current, value)) {
       ref.current = value;
     }
   } else {
@@ -139,7 +173,7 @@ export function useVirtualList<T>(
     containerHeight: number;
     itemHeight: number;
     overscan?: number;
-  }
+  },
 ): {
   visibleItems: Array<{ item: T; index: number; top: number }>;
   totalHeight: number;

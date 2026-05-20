@@ -93,7 +93,7 @@ export const Select = createComponent<SelectProps & AccessibilityProps, SelectRe
     const filteredOptions = useMemo(() => {
       if (!searchQuery) return options;
       return options.filter(opt => 
-        opt.label.toLowerCase().includes(searchQuery.toLowerCase())
+        opt.label.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }, [options, searchQuery]);
 
@@ -151,7 +151,7 @@ export const Select = createComponent<SelectProps & AccessibilityProps, SelectRe
     const displayLabel = useMemo(() => {
       if (multiple) {
         const selected = (displayValue as string[]).map(v => 
-          options.find(opt => opt.value === v)?.label
+          options.find(opt => opt.value === v)?.label,
         ).filter(Boolean);
         return selected.length > 0 ? selected.join(', ') : placeholder;
       }

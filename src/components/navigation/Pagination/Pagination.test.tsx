@@ -51,7 +51,7 @@ describe('Pagination 组件', () => {
       (size) => {
         const { container } = render(<Pagination total={50} size={size} />);
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 
@@ -66,7 +66,7 @@ describe('Pagination 组件', () => {
         <Pagination
           total={100}
           showTotal={(total) => `总共 ${total} 条`}
-        />
+        />,
       );
       expect(screen.getByText('总共 100 条')).toBeInTheDocument();
     });

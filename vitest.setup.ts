@@ -141,3 +141,17 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: vi.fn(),
   })),
 });
+
+// Mock localStorage (needed by ThemeProvider persistency)
+Object.defineProperty(window, 'localStorage', {
+  writable: true,
+  configurable: true,
+  value: {
+    getItem: vi.fn(() => null),
+    setItem: vi.fn(),
+    removeItem: vi.fn(),
+    clear: vi.fn(),
+    key: vi.fn(() => null),
+    get length() { return 0; },
+  },
+});

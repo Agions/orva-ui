@@ -19,7 +19,7 @@ describe('List 列表组件', () => {
         <List>
           <ListItem>Item 1</ListItem>
           <ListItem>Item 2</ListItem>
-        </List>
+        </List>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -36,7 +36,7 @@ describe('List 列表组件', () => {
         <List divider>
           <ListItem>Item 1</ListItem>
           <ListItem>Item 2</ListItem>
-        </List>
+        </List>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -45,7 +45,7 @@ describe('List 列表组件', () => {
       const { container } = renderWithProvider(
         <List size="small">
           <ListItem>Item 1</ListItem>
-        </List>
+        </List>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -54,14 +54,14 @@ describe('List 列表组件', () => {
   describe('ListItem 子组件', () => {
     it('应该渲染列表项', () => {
       const { container } = renderWithProvider(
-        <ListItem title="标题" description="描述" />
+        <ListItem title="标题" description="描述" />,
       );
       expect(container.firstChild).toBeTruthy();
     });
 
     it('应该支持带图标的列表项', () => {
       const { container } = renderWithProvider(
-        <ListItem title="标题" thumb={<div>IMG</div>} />
+        <ListItem title="标题" thumb={<div>IMG</div>} />,
       );
       expect(container.firstChild).toBeTruthy();
     });

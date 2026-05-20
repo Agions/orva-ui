@@ -46,7 +46,7 @@ describe('Layout 组件', () => {
 
     it('应该应用自定义 style', () => {
       const { container } = render(
-        <Layout style={{ backgroundColor: 'red' }}>test</Layout>
+        <Layout style={{ backgroundColor: 'red' }}>test</Layout>,
       );
       expect(container.firstChild.style.backgroundColor).toBe('red');
     });
@@ -57,7 +57,7 @@ describe('Layout 组件', () => {
       const { container } = render(
         <Layout>
           <div data-testid="child">child</div>
-        </Layout>
+        </Layout>,
       );
       expect(container.querySelector('[data-testid="child"]')).toBeTruthy();
     });

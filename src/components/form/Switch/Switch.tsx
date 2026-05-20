@@ -124,7 +124,7 @@ export const Switch = createComponent<SwitchProps, SwitchRef>({
     const isControlled = controlledValue !== undefined;
     const value = isControlled ? controlledValue : internalValue;
 
-    const animation = useMicroAnimation({ type: 'micro' as any, enabled: !disabled && !readonly && !loading });
+    const animation = useMicroAnimation({ type: 'micro', enabled: !disabled && !readonly && !loading });
     const a11y = useAccessibility({
       role: ARIA_ROLES.switch,
       'aria-checked': value,

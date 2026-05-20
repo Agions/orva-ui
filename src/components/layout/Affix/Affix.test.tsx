@@ -43,7 +43,7 @@ describe('Affix 组件', () => {
       const { container } = render(
         <Affix offsetTop={0}>
           <div data-testid="affixed">content</div>
-        </Affix>
+        </Affix>,
       );
       expect(container.querySelector('[data-testid="affixed"]')).toBeTruthy();
     });
@@ -52,7 +52,7 @@ describe('Affix 组件', () => {
   describe('自定义属性', () => {
     it('应该应用自定义 className', () => {
       const { container } = render(
-        <Affix className="custom-affix">test</Affix>
+        <Affix className="custom-affix">test</Affix>,
       );
       // Affix wraps in a container, so the outer div gets the class
       expect(container.firstChild).toBeTruthy();

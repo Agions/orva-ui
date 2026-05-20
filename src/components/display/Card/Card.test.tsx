@@ -177,7 +177,7 @@ describe('Card 子区域渲染（header / children / footer）', () => {
         footer={<div data-testid="card-footer">底部</div>}
       >
         <div data-testid="card-body">主体内容</div>
-      </Card>
+      </Card>,
     );
     expect(screen.getByTestId('card-header')).toBeTruthy();
     expect(screen.getByTestId('card-body')).toBeTruthy();
@@ -211,7 +211,7 @@ describe('Card 自定义 className 和 style', () => {
     const { container } = render(
       <Card className="my-card" style={{ marginTop: '10px' }}>
         内容
-      </Card>
+      </Card>,
     );
     const cardElement = container.querySelector('.my-card') as HTMLElement;
     expect(cardElement).toBeTruthy();

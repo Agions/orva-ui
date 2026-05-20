@@ -46,7 +46,7 @@ describe('Row 组件', () => {
       (justify) => {
         const { container } = render(<Row justify={justify}>test</Row>);
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
   });
 

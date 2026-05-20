@@ -30,7 +30,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer>
           <div>content</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -39,7 +39,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer>
           <div data-testid="child">child</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.querySelector('[data-testid="child"]')).toBeTruthy();
     });
@@ -50,7 +50,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer safeArea>
           <div>content</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -61,7 +61,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer className="custom-container">
           <div>content</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -70,7 +70,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer padding="20px">
           <div>content</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -79,7 +79,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer margin="10px">
           <div>content</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -88,7 +88,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer maxWidth="800px">
           <div>content</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -97,7 +97,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer backgroundColor="#fff">
           <div>content</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.firstChild).toBeTruthy();
     });
@@ -106,7 +106,7 @@ describe('ResponsiveContainer 组件', () => {
       const { container } = render(
         <ResponsiveContainer borderRadius="8px">
           <div>content</div>
-        </ResponsiveContainer>
+        </ResponsiveContainer>,
       );
       expect(container.firstChild).toBeTruthy();
     });

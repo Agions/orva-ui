@@ -48,22 +48,22 @@ export class ThemeVariableGenerator {
    * @returns 完整的 CSS 字符串，包含 :root 变量和 .orva-ui-theme-* 类选择器
    */
   static generateCompleteCSS(): string {
-    let cssContent = `:root {\n`;
+    let cssContent = ':root {\n';
     
     // 生成所有主题的变量
     Object.entries(THEMES).forEach(([themeName, _theme]) => {
       cssContent += `  /* Theme: ${themeName} */\n`;
 
       const variables = this.generateCSSVariables(themeName as ThemeName);
-      cssContent += variables + "\n\n\n";
+      cssContent += variables + '\n\n\n';
     });
 
     // 生成主题类选择器
-    cssContent += `/* Theme classes */\n`;
+    cssContent += '/* Theme classes */\n';
     Object.entries(THEMES).forEach(([themeName, _theme]) => {
       cssContent += `.orva-ui-theme-${themeName} {\n`;
       const variables = this.generateCSSVariables(themeName as ThemeName);
-      cssContent += variables + "\n\n\n";
+      cssContent += variables + '\n\n\n';
     });
 
     return cssContent;
@@ -137,14 +137,15 @@ export type ThemeName = 'light' | 'dark' | 'high-contrast' | 'warm' | 'cool';
    * 生成 SCSS 变量文件（包含 $themes 映射和 apply-theme 混入）
    * @returns SCSS 变量文件的字符串内容
    */
-  static generateSCSSVariables(): string {
+static generateSCSSVariables(): string {
+    const DOLLAR = '$';
     let scssContent = `/**
  * 自动生成的 SCSS 变量文件
  * 基于 THEMES 配置生成
  */
 
 // 主题映射
-\$themes: (\n`;
+${DOLLAR}themes: (\n`;
 
     Object.entries(THEMES).forEach(([themeName]) => {
       scssContent += `  '${themeName}': (\n`;
@@ -154,20 +155,20 @@ export type ThemeName = 'light' | 'dark' | 'high-contrast' | 'warm' | 'cool';
         scssContent += `    '${key}': '${value}',\n`;
       }
 
-      scssContent += `) \n`;
+      scssContent += ') \n';
     });
 
-    scssContent += `);\n\n`;
+    scssContent += ');\n\n';
 
     // 生成混入宏
-    scssContent += `@mixin apply-theme(\$theme-name) {\n` +
+    scssContent += `@mixin apply-theme(${DOLLAR}theme-name) {\n` +
       Object.keys(THEMES).map(themeName => `
-  @if \$theme-name == '${themeName}' {
-    @each \$key, \$value in map-get(\$themes, '${themeName}') {
-      --\#{str-replace(\$key, '-', '_')}: \$value;
+  @if ${DOLLAR}theme-name == '${themeName}' {
+    @each ${DOLLAR}key, ${DOLLAR}value in map-get(${DOLLAR}themes, '${themeName}') {
+      --#{str-replace(${DOLLAR}key, '-', '_')}: ${DOLLAR}value;
     }
   }`).join('') +
-    `\n}\n`;
+    '\n}\n';
 
     return scssContent;
   }
@@ -185,12 +186,12 @@ export type ThemeName = 'light' | 'dark' | 'high-contrast' | 'warm' | 'cool';
           colors: t.colors,
           fontFamily: t.fontFamily,
           fontSize: t.fontSize,
-          fontWeight: t.fontWeight
+          fontWeight: t.fontWeight,
         };
         return acc;
       }, {} as Record<string, any>),
       version: '1.0.0',
-      generatedAt: new Date().toISOString()
+      generatedAt: new Date().toISOString(),
     }, null, 2);
   }
 }

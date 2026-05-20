@@ -86,11 +86,11 @@ describe('Message 组件', () => {
       '应该渲染 %s 类型的 Message',
       (type) => {
         const { container } = render(
-          <Message type={type} content={`${type} 消息`} />
+          <Message type={type} content={`${type} 消息`} />,
         );
         expect(screen.getByText(`${type} 消息`)).toBeTruthy();
         expect(container.firstChild).toBeTruthy();
-      }
+      },
     );
 
     it('应该默认渲染 info 类型', () => {
@@ -115,14 +115,14 @@ describe('Message 组件', () => {
   describe('closable 属性', () => {
     it('closable 为 true 时应该显示关闭按钮', () => {
       const { container } = render(
-        <Message content="可关闭的消息" closable />
+        <Message content="可关闭的消息" closable />,
       );
       expect(screen.getByText('✕')).toBeTruthy();
     });
 
     it('closable 为 false 时不应该显示关闭按钮', () => {
       const { container } = render(
-        <Message content="不可关闭" closable={false} />
+        <Message content="不可关闭" closable={false} />,
       );
       expect(screen.queryByText('✕')).toBeNull();
     });
@@ -137,7 +137,7 @@ describe('Message 组件', () => {
     it('点击关闭按钮应该触发 onClose 回调', () => {
       const handleClose = vi.fn();
       render(
-        <Message content="关闭测试" closable onClose={handleClose} />
+        <Message content="关闭测试" closable onClose={handleClose} />,
       );
 
       fireEvent.click(screen.getByText('✕'));
@@ -146,7 +146,7 @@ describe('Message 组件', () => {
 
     it('关闭后组件应该不可见', () => {
       const { container } = render(
-        <Message content="关闭后隐藏" closable />
+        <Message content="关闭后隐藏" closable />,
       );
 
       expect(screen.getByText('关闭后隐藏')).toBeTruthy();
@@ -161,7 +161,7 @@ describe('Message 组件', () => {
     it('应该渲染自定义图标', () => {
       const customIcon = <span data-testid="custom-icon">🎉</span>;
       const { container } = render(
-        <Message content="带图标的消息" icon={customIcon} />
+        <Message content="带图标的消息" icon={customIcon} />,
       );
       expect(container.querySelector('[data-testid="custom-icon"]')).toBeTruthy();
     });
@@ -175,7 +175,7 @@ describe('Message 组件', () => {
   describe('自定义 className/style', () => {
     it('应该应用自定义 className', () => {
       const { container } = render(
-        <Message content="自定义类名" className="my-custom-class" />
+        <Message content="自定义类名" className="my-custom-class" />,
       );
       expect(container.firstChild).toHaveClass('my-custom-class');
     });
@@ -183,7 +183,7 @@ describe('Message 组件', () => {
     it('应该应用自定义 style', () => {
       const customStyle = { marginTop: '20px', opacity: 0.8 };
       const { container } = render(
-        <Message content="自定义样式" style={customStyle} />
+        <Message content="自定义样式" style={customStyle} />,
       );
       expect(container.firstChild).toHaveStyle({
         marginTop: '20px',

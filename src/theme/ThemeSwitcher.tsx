@@ -31,13 +31,13 @@ export function useThemeSwitcher(config: ThemeSwitcherConfig = {}) {
     defaultTheme = 'light',
     enableSystem = true,
     persistKey = SYSTEM_THEME_KEY,
-    respectPrefersColorScheme = true
+    respectPrefersColorScheme = true,
   } = config;
 
   const [themeState, setThemeState] = useState<ThemeState>({
     theme: defaultTheme,
     colorScheme: 'auto',
-    isLoaded: false
+    isLoaded: false,
   });
 
   // 获取当前系统主题
@@ -56,7 +56,7 @@ export function useThemeSwitcher(config: ThemeSwitcherConfig = {}) {
       localStorage.setItem(persistKey, JSON.stringify({
         theme: newTheme,
         colorScheme: newColorScheme,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       }));
     }
   };
@@ -78,7 +78,7 @@ export function useThemeSwitcher(config: ThemeSwitcherConfig = {}) {
         setThemeState({
           theme,
           colorScheme,
-          isLoaded: true
+          isLoaded: true,
         });
       } else {
         setThemeState(prev => ({ ...prev, isLoaded: true }));
@@ -93,7 +93,7 @@ export function useThemeSwitcher(config: ThemeSwitcherConfig = {}) {
   const setTheme = (newTheme: ThemeName) => {
     setThemeState(prev => ({
       ...prev,
-      theme: newTheme
+      theme: newTheme,
     }));
     saveTheme(newTheme);
   };
@@ -102,7 +102,7 @@ export function useThemeSwitcher(config: ThemeSwitcherConfig = {}) {
   const setColorScheme = (newColorScheme: ColorScheme) => {
     setThemeState(prev => ({
       ...prev,
-      colorScheme: newColorScheme
+      colorScheme: newColorScheme,
     }));
     
     // 根据配色方案和当前主题计算最终主题
@@ -196,7 +196,7 @@ export function useThemeSwitcher(config: ThemeSwitcherConfig = {}) {
     setTheme,
     setColorScheme,
     availableThemes: Object.keys(THEMES) as ThemeName[],
-    currentTheme: THEMES[themeState.theme]
+    currentTheme: THEMES[themeState.theme],
   };
 }
 
@@ -205,7 +205,7 @@ export const ThemeContext = React.createContext<ReturnType<typeof useThemeSwitch
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode; config?: ThemeSwitcherConfig }> = ({ 
   children, 
-  config 
+  config, 
 }) => {
   const themeValue = useThemeSwitcher(config);
 
