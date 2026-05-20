@@ -77,7 +77,7 @@ displayed_sidebar: docsSidebar
 | 组件 | 描述 | 文档链接 |
 | --- | --- | --- |
 | Menu | 菜单组件 | [查看文档](/components/navigation/menu) |
-| NavBar | 导航栏组件 | [查看文档](/components/navigation/navbar) |
+| NavBar | 导航栏组件 | [查看文档](/components/navigation/nav-bar) |
 | Tabs | 标签页组件 | [查看文档](/components/navigation/tabs) |
 | Steps | 步骤条组件 | [查看文档](/components/navigation/steps) |
 | Pagination | 分页组件 | [查看文档](/components/navigation/pagination) |
