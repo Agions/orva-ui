@@ -102,7 +102,7 @@ const sidebars: SidebarsConfig = {
       label: '导航组件 Navigation',
       items: [
         { type: 'doc', id: 'components/navigation/menu', label: 'Menu 菜单' },
-        { type: 'doc', id: 'components/navigation/navbar', label: 'NavBar 导航栏' },
+        { type: 'doc', id: 'components/navigation/nav-bar', label: 'NavBar 导航栏' },
         { type: 'doc', id: 'components/navigation/tabs', label: 'Tabs 标签页' },
         { type: 'doc', id: 'components/navigation/steps', label: 'Steps 步骤条' },
         { type: 'doc', id: 'components/navigation/pagination', label: 'Pagination 分页' },

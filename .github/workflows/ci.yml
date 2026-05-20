@@ -27,7 +27,7 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Run tests
-        run: npx vitest run --reporter=verbose
+        run: npm run test:ci -- --reporter=verbose
 
       - name: Upload coverage
         if: always()

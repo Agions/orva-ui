@@ -32,23 +32,6 @@ const config: Config = {
   },
 
   plugins: [
-    [
-      require.resolve('@docusaurus/plugin-content-docs'),
-      {
-        id: 'docs',
-        path: 'docs/docs',
-        routeBasePath: '/',
-        include: ['**/*.md', '**/*.mdx'],
-        exclude: ['**/*.test.{js,jsx,ts,tsx}', '**/__tests__/**'],
-        remarkPlugins: [],
-        rehypePlugins: [],
-        beforeDefaultRemarkPlugins: [],
-        beforeDefaultRehypePlugins: [],
-        editUrl: 'https://github.com/agions/orva-ui/edit/main/docs/',
-        showLastUpdateTime: false,
-        showLastUpdateAuthor: false,
-      },
-    ],
     '@docusaurus/theme-live-codeblock',
   ],
 
