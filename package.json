@@ -77,7 +77,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:ci": "vitest run --pool forks",
+    "test:ci": "vitest run --pool forks --maxForks 4 --reporter=verbose --no-coverage",
     "test:coverage": "vitest run --coverage",
     "test:coverage:debug": "vitest run --coverage --reporter=verbose",
     "test:watch": "vitest watch",

@@ -24,21 +24,27 @@ export default defineConfig({
     mockReset: true,
     restoreMocks: true,
     clearMocks: true,
-    // Performance optimizations - fewer threads to reduce memory usage
-    pool: 'threads',
+    // Performance optimizations - use forks for better isolation and speed
+    pool: 'forks',
     poolOptions: {
-      threads: {
-        singleThread: false,
-        minThreads: 1,
-        maxThreads: 2,
+      forks: {
+        singleFork: false,
+        minForks: 1,
+        maxForks: 4,
       },
     },
     // Reduce environment setup overhead
     environmentOptions: {
       jsdom: {
         resources: 'usable',
+        pretendToBeVisual: true,
       },
     },
+    // Parallel execution optimization
+    poolMatchGlobs: [
+      ['**/tests/**/*.{test,spec}.{js,ts,jsx,tsx}', 'forks'],
+      ['**/src/**/*.{test,spec}.{js,ts,jsx,tsx}', 'forks'],
+    ],
     // Coverage configuration (disabled by default for speed)
     coverage: {
       enabled: false,
