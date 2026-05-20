@@ -676,6 +676,6 @@ function PlatformExample() {
 
 ## 下一步
 
-- [查看组件文档](./components/basic/button)
-- [阅读开发指南](./guides/installation)
-- [探索 API 参考](./api)
+- [查看组件文档](../components/basic/button)
+- [阅读开发指南](../guides/installation)
+- [探索 API 参考](../api)

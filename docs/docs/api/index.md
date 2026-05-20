@@ -25,7 +25,7 @@ displayed_sidebar: docsSidebar
 
 | 组件 | 描述 | 文档链接 |
 | --- | --- | --- |
-| Form | 表单容器，支持表单验证 | [查看文档](/components/form/form) |
+| Form | 表单容器，支持表单验证 | [查看文档](/components/form/) |
 | Input | 输入框组件 | [查看文档](/components/form/input) |
 | Textarea | 多行文本输入 | [查看文档](/components/form/textarea) |
 | Select | 选择器组件 | [查看文档](/components/form/select) |
@@ -69,7 +69,7 @@ displayed_sidebar: docsSidebar
 | Grid | 栅格系统 | [查看文档](/components/layout/grid) |
 | Row | 行组件 | [查看文档](/components/layout/row) |
 | Col | 列组件 | [查看文档](/components/layout/col) |
-| Layout | 布局组件 | [查看文档](/components/layout/layout) |
+| Layout | 布局组件 | [查看文档](/components/layout/) |
 | Space | 间距组件 | [查看文档](/components/layout/space) |
 
 ### 导航组件

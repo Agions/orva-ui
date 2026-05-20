@@ -299,7 +299,7 @@ export default CheckboxExample;
 
 ## 相关组件
 
-- [CheckboxGroup 组件](#/components/form/checkbox) - 用于分组管理复选框
-- [Radio 组件](#/components/form/radio) - 用于单选操作
-- [Switch 组件](#/components/form/switch) - 用于开关切换
-- [Form 组件](#/components/form/form) - 用于表单管理
+- [CheckboxGroup 组件](/components/form/checkbox) - 用于分组管理复选框
+- [Radio 组件](/components/form/radio) - 用于单选操作
+- [Switch 组件](/components/form/switch) - 用于开关切换
+- [Form 组件](/components/form/) - 用于表单管理

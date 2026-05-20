@@ -256,6 +256,6 @@ export default DatePickerExample;
 
 ## 相关组件
 
-- [TimePicker 组件](#/components/form/time-picker) - 用于选择时间
-- [Select 组件](#/components/form/select) - 用于普通选择器
-- [Form 组件](#/components/form/form) - 用于表单管理
+- [TimePicker 组件](/components/form/time-picker) - 用于选择时间
+- [Select 组件](/components/form/select) - 用于普通选择器
+- [Form 组件](/components/form/) - 用于表单管理

@@ -282,6 +282,6 @@ export default CascaderExample;
 
 ## 相关组件
 
-- [Select 组件](#/components/form/select) - 用于普通选择器
-- [Tree 组件](#/components/data-display/tree) - 用于树形结构展示
-- [Form 组件](#/components/form/form) - 用于表单管理
+- [Select 组件](/components/form/select) - 用于普通选择器
+- [Table 组件](/components/display/table) - 用于数据表格展示
+- [Form 组件](/components/form/) - 用于表单管理

@@ -392,8 +392,8 @@ export default FormExample;
 
 ## 相关组件
 
-- [Input 组件](#/components/form/input) - 用于文本输入
-- [Select 组件](#/components/form/select) - 用于选择列表项
-- [Checkbox 组件](#/components/form/checkbox) - 用于多选操作
-- [Radio 组件](#/components/form/radio) - 用于单选操作
-- [Switch 组件](#/components/form/switch) - 用于开关切换
+- [Input 组件](/components/form/input) - 用于文本输入
+- [Select 组件](/components/form/select) - 用于选择列表项
+- [Checkbox 组件](/components/form/checkbox) - 用于多选操作
+- [Radio 组件](/components/form/radio) - 用于单选操作
+- [Switch 组件](/components/form/switch) - 用于开关切换

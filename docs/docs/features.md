@@ -349,5 +349,5 @@ const a11y = useAccessibility({
 
 - [查看组件文档](./components/basic/button) 了解所有可用组件
 - [阅读开发指南](./guides/installation) 深入学习使用技巧
-- [探索 Hooks 文档](./hooks/index) 了解自定义 Hooks
+- [探索 Hooks 文档](./hooks/) 了解自定义 Hooks
 - [查看 API 参考](./api) 了解详细的 API 文档

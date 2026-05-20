@@ -339,8 +339,8 @@ export default SelectExample;
 
 ## 相关组件
 
-- [Input 组件](#/components/form/input) - 用于文本输入
-- [Radio 组件](#/components/form/radio) - 用于单选操作
-- [Checkbox 组件](#/components/form/checkbox) - 用于多选操作
-- [Cascader 组件](#/components/form/cascader) - 用于级联选择
-- [Form 组件](#/components/form/form) - 用于表单管理
+- [Input 组件](/components/form/input) - 用于文本输入
+- [Radio 组件](/components/form/radio) - 用于单选操作
+- [Checkbox 组件](/components/form/checkbox) - 用于多选操作
+- [Cascader 组件](/components/form/cascader) - 用于级联选择
+- [Form 组件](/components/form/) - 用于表单管理

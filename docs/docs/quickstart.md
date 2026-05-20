@@ -229,7 +229,7 @@ npm run dev:weapp
 - [查看组件库](./components/basic/button) 了解所有可用组件
 - [阅读开发指南](./guides/installation) 深入学习使用技巧
 - [探索核心功能](./features) 了解组件库的强大特性
-- [查看 Hooks 文档](./hooks/index) 学习自定义 Hooks
+- [查看 Hooks 文档](./hooks/) 学习自定义 Hooks
 
 ## 💡 常见问题
 
