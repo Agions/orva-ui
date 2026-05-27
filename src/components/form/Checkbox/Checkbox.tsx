@@ -134,7 +134,7 @@ export const Checkbox = createComponent<CheckboxProps, CheckboxRef>({
       disabledHover: disabled,
     });
 
-    const checkboxAnimation = useMicroAnimation({ type: 'micro' as any, enabled: !disabled && !readonly });
+    const checkboxAnimation = useMicroAnimation({ type: 'micro', enabled: !disabled && !readonly });
 
     const [internalChecked, setInternalChecked] = React.useState(defaultChecked);
     const [internalStatus, setInternalStatus] = React.useState<CheckboxStatus>(propStatus);

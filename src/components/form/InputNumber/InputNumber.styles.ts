@@ -24,7 +24,10 @@ export class InputNumberStyles {
       sm: { fontSize: 24, padding: '8px 12px', height: 64, borderRadius: 6, lineHeight: 1.4 },
       md: { fontSize: 28, padding: '12px 16px', height: 80, borderRadius: 8, lineHeight: 1.5 },
       lg: { fontSize: 32, padding: '16px 20px', height: 96, borderRadius: 10, lineHeight: 1.6 },
-    } as any;
+    } as unknown as Record<
+      InputNumberSize,
+      { fontSize: number; padding: string; height: number; borderRadius: number; lineHeight: number }
+    >;
 
   /** 变体样式映射 */
   static readonly VARIANT_STYLES: Record<
@@ -403,7 +406,7 @@ export class InputNumberStyles {
         sm: { fontSize: 24, padding: '8px 12px', height: 64, borderRadius: 6, lineHeight: 1.4 },
         md: { fontSize: 28, padding: '12px 16px', height: 80, borderRadius: 8, lineHeight: 1.5 },
         lg: { fontSize: 32, padding: '16px 20px', height: 96, borderRadius: 10, lineHeight: 1.6 },
-      } as any,
+      } as unknown as Record<InputNumberSize, CSSProperties>,
       variants: {
         outlined: { backgroundColor: 'transparent', borderColor: '#e5e7eb', borderWidth: 1 },
         filled: { backgroundColor: '#f9fafb', borderColor: '#e5e7eb', borderWidth: 1 },
@@ -416,7 +419,7 @@ export class InputNumberStyles {
         warning: { color: '#f59e0b', borderColor: '#f59e0b', backgroundColor: '#fffbeb' },
         success: { color: '#22c55e', borderColor: '#22c55e', backgroundColor: '#f0fdf4' },
         disabled: { color: '#9ca3af', borderColor: '#e5e7eb', backgroundColor: '#f9fafb' },
-      } as any,
+      } as unknown as Record<InputNumberStatus, CSSProperties>,
       prefix: {
         position: 'absolute',
         display: 'flex',

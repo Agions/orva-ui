@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Input as TaroInput, View, Text } from '@tarojs/components';
-import type { ITouchEvent } from '@tarojs/components';
+import type { ITouchEvent, InputProps as TaroInputProps } from '@tarojs/components';
 import { inputNumberStyles } from './InputNumber.styles';
 import type {
   InputNumberProps,
@@ -255,9 +255,9 @@ export const InputNumber = createComponent<InputNumberProps, InputNumberRef>({
             placeholder={placeholder}
             disabled={internalDisabled || internalReadonly}
             type="digit"
-            onFocus={handleFocus as any}
-            onBlur={handleBlur as any}
-            onInput={(e) => handleTextChange(e.detail.value, e as any)}
+            onFocus={handleFocus as unknown as TaroInputProps['onFocus']}
+            onBlur={handleBlur as unknown as TaroInputProps['onBlur']}
+            onInput={(e) => handleTextChange(e.detail.value, e as unknown as ITouchEvent)}
             {...restProps}
           />
           {suffix && (

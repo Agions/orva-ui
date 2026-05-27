@@ -4,15 +4,33 @@
  *
  * @module components
  * @description 导出所有 UI 组件
- *
- * 注意：form 目录下的 Input/Select/Modal 是增强版（带动画/验证等），
- * 与 basic 目录下的同名组件冲突时，优先导出 form 版本。
- * basic 版本可通过路径导入：import { Input } from 'orva-ui/basic'
  */
 
-// ==================== 表单组件（优先导出，覆盖 basic 同名组件） ====================
+// ==================== 表单组件 ====================
 export * from './form';
-export { Button, Ripple, Divider, Icon, Text, Typography, Video } from './basic';
+
+// ==================== 基础组件 ====================
+export {
+  Button,
+  Ripple,
+  Divider,
+  Icon,
+  Text,
+  Typography,
+  Video,
+  BaseInput,
+  BaseSelect,
+  BaseModal,
+} from './basic';
+export type {
+  BaseInputProps,
+  BaseInputRef,
+  BaseSelectProps,
+  BaseSelectRef,
+  BaseSelectOption,
+  BaseModalProps,
+  BaseModalRef,
+} from './basic';
 
 // ==================== 展示组件 ====================
 export * from './display';

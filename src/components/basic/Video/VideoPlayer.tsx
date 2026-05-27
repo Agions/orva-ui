@@ -99,12 +99,12 @@ export const VideoPlayer = createComponent<VideoPlayerProps, HTMLVideoElement>({
     return (
       <View style={{ position: 'relative', width: '100%', height: '100%' }} {...a11y.getAriaAttributes()}>
         <TaroVideo
-          ref={ref as any}
+          ref={ref as unknown as React.Ref<HTMLVideoElement>}
           src={src}
           poster={poster}
           muted={muted}
           loop={loop}
-          {...({ preload } as any)}
+          {...({ preload } as Record<string, unknown>)}
           style={{
             width: '100%',
             height: '100%',
@@ -112,15 +112,15 @@ export const VideoPlayer = createComponent<VideoPlayerProps, HTMLVideoElement>({
             ...videoStyle,
           }}
           className={videoClassName}
-          onLoadedMetaData={handleLoadedMetadata}
+          onLoadedMetaData={handleLoadedMetadata as unknown as never}
           onPlay={handlePlay}
           onPause={handlePause}
           onEnded={handleEnded}
           onWaiting={handleWaiting}
-          onTimeUpdate={handleTimeUpdate}
-          onError={handleError}
-          onFullscreenChange={handleFullscreenChange}
-          onFullScreenChange={handleFullscreenChange}
+          onTimeUpdate={handleTimeUpdate as unknown as never}
+          onError={handleError as unknown as never}
+          onFullscreenChange={handleFullscreenChange as unknown as never}
+          onFullScreenChange={handleFullscreenChange as unknown as never}
           onEnterPictureInPicture={handleEnterPiP}
           onLeavePictureInPicture={handleLeavePiP}
         />

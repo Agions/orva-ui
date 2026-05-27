@@ -1,51 +1,271 @@
+/* ============================================
+   Orva UI - 组件演示页样式
+   ============================================ */
+
 .components {
   min-height: 100vh;
-  background: #f5f7fa;
+  background: var(--background-color);
+  transition: background-color var(--transition-normal);
 
   &__content {
     height: calc(100vh - 88px);
     padding: 24px;
+    padding-bottom: 48px;
   }
 }
 
+/* ------------------------------------------
+   Demo Section 卡片
+   ------------------------------------------ */
 .demo-section {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 32px;
+  background: var(--background-color-card);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
   margin-bottom: 24px;
+  border: 1px solid var(--border-color-light);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* 最后一个不要底部间距 */
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
+/* ------------------------------------------
+   Demo 标题
+   ------------------------------------------ */
 .demo-title {
   font-size: 30px;
-  font-weight: 600;
-  color: #1e293b;
+  font-weight: 700;
+  color: var(--text-color);
   margin-bottom: 24px;
   display: block;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-color-light);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 48px;
+    height: 2px;
+    background: var(--primary-gradient);
+    border-radius: 1px;
+  }
 }
 
+/* ------------------------------------------
+   Demo 值显示
+   ------------------------------------------ */
 .demo-value {
   font-size: 24px;
-  color: #64748b;
+  color: var(--text-color-secondary);
   margin-top: 16px;
   display: block;
+  padding: 12px 16px;
+  background: var(--background-color-page);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--primary-color);
 }
 
+/* ------------------------------------------
+   Demo Box (用于 Space 等展示)
+   ------------------------------------------ */
 .demo-box {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
-  border-radius: 12px;
+  background: var(--primary-gradient);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+  }
 }
 
+/* ------------------------------------------
+   Badge 演示盒子
+   ------------------------------------------ */
 .demo-badge-box {
   width: 80px;
   height: 80px;
-  background: #e2e8f0;
-  border-radius: 12px;
+  background: var(--background-color-page);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+
+  &:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+/* ------------------------------------------
+   分组标题 (Divider 样式增强)
+   ------------------------------------------ */
+.demo-group {
+  margin-top: 24px;
+  margin-bottom: 16px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.demo-group-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text-color-secondary);
+  display: block;
+  margin-bottom: 16px;
+  padding-left: 12px;
+  border-left: 3px solid var(--primary-color);
+}
+
+/* ------------------------------------------
+   代码展示区域
+   ------------------------------------------ */
+.demo-code {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: #1e1e2e;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+
+  &__text {
+    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace;
+    font-size: 21px;
+    color: #cdd6f4;
+    line-height: 1.6;
+    white-space: pre;
+  }
+
+  &__keyword {
+    color: #cba6f7;
+  }
+
+  &__string {
+    color: #a6e3a1;
+  }
+
+  &__tag {
+    color: #f38ba8;
+  }
+
+  &__attr {
+    color: #89b4fa;
+  }
+}
+
+/* ------------------------------------------
+   状态指示器
+   ------------------------------------------ */
+.demo-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 22px;
+  font-weight: 500;
+
+  &--success {
+    background: var(--success-light);
+    color: var(--success-color);
+  }
+
+  &--warning {
+    background: var(--warning-light);
+    color: var(--warning-color);
+  }
+
+  &--error {
+    background: var(--error-light);
+    color: var(--error-color);
+  }
+
+  &--info {
+    background: var(--info-light);
+    color: var(--info-color);
+  }
+}
+
+/* ------------------------------------------
+   属性标签
+   ------------------------------------------ */
+.demo-props {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.demo-prop-tag {
+  padding: 4px 12px;
+  background: var(--primary-lighter);
+  color: var(--primary-color);
+  border-radius: var(--radius-sm);
+  font-size: 20px;
+  font-weight: 500;
+  border: 1px solid rgba(139, 92, 246, 0.12);
+}
+
+/* ------------------------------------------
+   分隔区域
+   ------------------------------------------ */
+.demo-divider-area {
+  margin: 24px 0;
+}
+
+/* ------------------------------------------
+   加载状态展示
+   ------------------------------------------ */
+.demo-loading-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 16px 0;
+}
+
+.demo-loading-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.demo-loading-label {
+  font-size: 20px;
+  color: var(--text-color-tertiary);
+}
+
+/* ------------------------------------------
+   响应式
+   ------------------------------------------ */
+@media (min-width: 768px) {
+  .components {
+    &__content {
+      padding: 32px 48px;
+    }
+  }
+
+  .demo-section {
+    padding: 40px 36px;
+  }
 }

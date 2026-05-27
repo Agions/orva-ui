@@ -15,7 +15,7 @@ export type { BadgeProps, BadgeRef } from './Badge/Badge.types';
 // 导出 Card 组件
 export { Card } from './Card';
 export type { CardProps, CardRef } from './Card/Card.types';
-export { CardStyles as cardStyles } from './Card/Card.styles';
+export { cardSubStyles as cardStyles } from './Card/Card.styles';
 
 // 导出 List 组件
 export { List } from './List';

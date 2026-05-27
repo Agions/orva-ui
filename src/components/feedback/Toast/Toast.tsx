@@ -13,7 +13,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { View, Text } from '@tarojs/components';
 import { toastStyles } from './Toast.styles';
-import type { ToastProps, ToastRef, ToastMethodConfig } from './Toast.types';
+import type { ToastProps, ToastRef, ToastMethodConfig, ToastStatic } from './Toast.types';
 import { createComponent } from '@/utils/createComponent';
 import { useMicroAnimation } from '@/hooks/ui/useMicroAnimation';
 import { useAccessibility, ARIA_ROLES } from '@/hooks/ui/useAccessibility';
@@ -199,100 +199,94 @@ const getIconText = (type: string) => TOAST_ICON_MAP[type] || 'ℹ';
 
 const getTypeColor = (type: string) => TOAST_TYPE_COLORS[type] || TOAST_TYPE_COLORS.info;
 
-// 静态方法
-type ToastComponent = typeof Toast & {
-  show: (config: ToastMethodConfig | string) => { element: HTMLElement | null; hide: () => void } | undefined;
-  info: (config: ToastMethodConfig | string) => void;
-  success: (config: ToastMethodConfig | string) => void;
-  warning: (config: ToastMethodConfig | string) => void;
-  error: (config: ToastMethodConfig | string) => void;
-  loading: (config: ToastMethodConfig | string) => void;
-  hide: () => void;
-};
+// ---- Imperative API (Toast.show / Toast.success / etc.) ----
 
-const ToastWithStatic = Toast as ToastComponent;
+const imperativeApi: ToastStatic = {
+  show: (config: ToastMethodConfig | string) => {
+    const container = createGlobalToastContainer();
+    if (!container) return undefined as unknown as ToastRef;
+    const props = typeof config === 'string' ? { message: config } : config;
 
-ToastWithStatic.show = (config: ToastMethodConfig | string) => {
-  const container = createGlobalToastContainer();
-  if (!container) return;
-  const props = typeof config === 'string' ? { message: config } : config;
+    const toastElement = document.createElement('div');
+    toastElement.style.cssText = `
+      position: fixed;
+      top: ${props.position === 'top' ? '80px' : props.position === 'bottom' ? 'auto' : '50%'};
+      bottom: ${props.position === 'bottom' ? '80px' : 'auto'};
+      left: 50%;
+      transform: translateX(-50%) ${props.position === 'center' ? 'translateY(-50%)' : ''};
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background-color: ${getTypeColor(props.type || 'info')};
+      color: white;
+      font-size: 14px;
+      max-width: 80%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    `;
 
-  const toastElement = document.createElement('div');
-  toastElement.style.cssText = `
-    position: fixed;
-    top: ${props.position === 'top' ? '80px' : props.position === 'bottom' ? 'auto' : '50%'};
-    bottom: ${props.position === 'bottom' ? '80px' : 'auto'};
-    left: 50%;
-    transform: translateX(-50%) ${props.position === 'center' ? 'translateY(-50%)' : ''};
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    border-radius: 8px;
-    background-color: ${getTypeColor(props.type || 'info')};
-    color: white;
-    font-size: 14px;
-    max-width: 80%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: opacity 0.3s ease;
-    opacity: 0;
-  `;
+    if (props.showIcon !== false) {
+      const iconElement = document.createElement('span');
+      iconElement.style.cssText = 'margin-right: 8px; font-size: 16px;';
+      iconElement.textContent = getIconText(props.type || 'info');
+      toastElement.appendChild(iconElement);
+    }
 
-  if (props.showIcon !== false) {
-    const iconElement = document.createElement('span');
-    iconElement.style.cssText = 'margin-right: 8px; font-size: 16px;';
-    iconElement.textContent = getIconText(props.type || 'info');
-    toastElement.appendChild(iconElement);
-  }
+    const messageElement = document.createElement('span');
+    messageElement.textContent = String(props.message || '');
+    toastElement.appendChild(messageElement);
+    container.appendChild(toastElement);
 
-  const messageElement = document.createElement('span');
-  messageElement.textContent = String(props.message || '');
-  toastElement.appendChild(messageElement);
-  container.appendChild(toastElement);
+    setTimeout(() => { toastElement.style.opacity = '1'; }, 10);
 
-  setTimeout(() => { toastElement.style.opacity = '1'; }, 10);
-
-  const duration = props.duration || 3000;
-  const hideTimer = setTimeout(() => {
-    toastElement.style.opacity = '0';
-    setTimeout(() => {
-      if (toastElement.parentNode) toastElement.parentNode.removeChild(toastElement);
-    }, 300);
-  }, duration);
-
-  globalToastInstance = {
-    element: toastElement,
-    hide: () => {
-      clearTimeout(hideTimer);
+    const duration = props.duration || 3000;
+    const hideTimer = setTimeout(() => {
       toastElement.style.opacity = '0';
       setTimeout(() => {
         if (toastElement.parentNode) toastElement.parentNode.removeChild(toastElement);
       }, 300);
-    },
-  };
-  return globalToastInstance;
+    }, duration);
+
+    globalToastInstance = {
+      element: toastElement,
+      hide: () => {
+        clearTimeout(hideTimer);
+        toastElement.style.opacity = '0';
+        setTimeout(() => {
+          if (toastElement.parentNode) toastElement.parentNode.removeChild(toastElement);
+        }, 300);
+      },
+    };
+    return globalToastInstance as unknown as ToastRef;
+  },
+
+  info: (config: ToastMethodConfig | string) =>
+    imperativeApi.show(typeof config === 'string' ? { message: config, type: 'info' } : { ...config, type: 'info' }),
+
+  success: (config: ToastMethodConfig | string) =>
+    imperativeApi.show(typeof config === 'string' ? { message: config, type: 'success' } : { ...config, type: 'success' }),
+
+  warning: (config: ToastMethodConfig | string) =>
+    imperativeApi.show(typeof config === 'string' ? { message: config, type: 'warning' } : { ...config, type: 'warning' }),
+
+  error: (config: ToastMethodConfig | string) =>
+    imperativeApi.show(typeof config === 'string' ? { message: config, type: 'error' } : { ...config, type: 'error' }),
+
+  loading: (config: ToastMethodConfig | string) =>
+    imperativeApi.show(typeof config === 'string' ? { message: config, type: 'loading', duration: 0 } : { ...config, type: 'loading', duration: 0 }),
+
+  hide: () => {
+    if (globalToastInstance) {
+      globalToastInstance.hide();
+      globalToastInstance = null;
+    }
+  },
 };
 
-ToastWithStatic.info = (config: ToastMethodConfig | string) =>
-  ToastWithStatic.show(typeof config === 'string' ? { message: config, type: 'info' } : { ...config, type: 'info' });
-
-ToastWithStatic.success = (config: ToastMethodConfig | string) =>
-  ToastWithStatic.show(typeof config === 'string' ? { message: config, type: 'success' } : { ...config, type: 'success' });
-
-ToastWithStatic.warning = (config: ToastMethodConfig | string) =>
-  ToastWithStatic.show(typeof config === 'string' ? { message: config, type: 'warning' } : { ...config, type: 'warning' });
-
-ToastWithStatic.error = (config: ToastMethodConfig | string) =>
-  ToastWithStatic.show(typeof config === 'string' ? { message: config, type: 'error' } : { ...config, type: 'error' });
-
-ToastWithStatic.loading = (config: ToastMethodConfig | string) =>
-  ToastWithStatic.show(typeof config === 'string' ? { message: config, type: 'loading', duration: 0 } : { ...config, type: 'loading', duration: 0 });
-
-ToastWithStatic.hide = () => {
-  if (globalToastInstance) {
-    globalToastInstance.hide();
-    globalToastInstance = null;
-  }
-};
+// Attach static methods to the component
+Object.assign(Toast, imperativeApi);
 
 export default Toast;

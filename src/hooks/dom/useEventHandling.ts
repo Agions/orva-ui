@@ -48,7 +48,7 @@ export function useDebounce<T extends (...args: unknown[]) => unknown>(
       );
     } as T;
 
-    (debounced as any as { cancel: () => void }).cancel = () => {
+    (debounced as unknown as { cancel: () => void }).cancel = () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;
@@ -97,7 +97,7 @@ export function useThrottle<T extends (...args: unknown[]) => unknown>(
       }
     } as T;
 
-    (throttled as any as { cancel: () => void }).cancel = () => {
+    (throttled as unknown as { cancel: () => void }).cancel = () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;

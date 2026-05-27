@@ -27,9 +27,9 @@ export interface CardProps extends BaseProps {
 	/** 长按事件 */
   onLongPress?: (_event: React.MouseEvent | any) => void;
 	/** 卡片变体 */
-  variant?: 'default' | 'outlined' | 'elevated' | 'filled';
+  variant?: 'default' | 'outlined' | 'elevated' | 'flat';
 	/** 卡片尺寸 */
-  size?: 'small' | 'medium' | 'large' | 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
 	/** 是否可点击（别名） */
   clickable?: boolean;
 	/** 点击事件 */

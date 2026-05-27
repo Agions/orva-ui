@@ -1,10 +1,13 @@
 # Divider 分割线
 
-Divider 组件用于在内容之间创建视觉分隔。支持水平/垂直方向、不同样式、带文字的分割线。
+**Related Components:** [Space](./space), [Layout](./layout)
+
+
+Divider 组件用于在内容之间创建视觉分隔。支持水平、垂直、带文字等。
 
 ## 引入
 
-```tsx
+```tsx live-codeblock
 import { Divider } from 'orva-ui';
 // 或按需导入
 import { Divider } from 'orva-ui/basic';
@@ -12,62 +15,168 @@ import { Divider } from 'orva-ui/basic';
 
 ## 基本使用
 
-```tsx
+```tsx live-codeblock
 import React from 'react';
 import { Divider } from 'orva-ui';
 
-export default () => (
-  <Divider>
-    Content
-  </Divider>
-);
+export default () => {
+  return (
+    <>
+      <div>内容 1</div>
+      <Divider />
+      <div>内容 2</div>
+    </>
+  );
+};
 ```
 
 ## 使用示例
 
-### 水平分割线
+### 基础分割线
 
-```tsx
-<Divider />
-<Divider type="dashed">带文字</Divider>
-<Divider orientation="left">左对齐</Divider>
+```tsx live-codeblock
+import React from 'react';
+import { Divider } from 'orva-ui';
+
+export default () => {
+  return (
+    <>
+      <div>内容 1</div>
+      <Divider />
+      <div>内容 2</div>
+    </>
+  );
+};
+```
+
+### 带文字
+
+```tsx live-codeblock
+import React from 'react';
+import { Divider } from 'orva-ui';
+
+export default () => {
+  return (
+    <>
+      <div>内容 1</div>
+      <Divider text="分隔线" />
+      <div>内容 2</div>
+    </>
+  );
+};
 ```
 
 ### 垂直分割线
 
-```tsx
-<Divider direction="vertical" />
+```tsx live-codeblock
+import React from 'react';
+import { Divider } from 'orva-ui';
+
+export default () => {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <span>项目 1</span>
+      <Divider vertical />
+      <span>项目 2</span>
+      <Divider vertical />
+      <span>项目 3</span>
+    </div>
+  );
+};
+```
+
+### 虚线
+
+```tsx live-codeblock
+import React from 'react';
+import { Divider } from 'orva-ui';
+
+export default () => {
+  return (
+    <>
+      <div>内容 1</div>
+      <Divider dashed />
+      <div>内容 2</div>
+    </>
+  );
+};
+```
+
+### 自定义颜色
+
+```tsx live-codeblock
+import React from 'react';
+import { Divider } from 'orva-ui';
+
+export default () => {
+  return (
+    <>
+      <div>内容 1</div>
+      <Divider color="#3b82f6" />
+      <div>内容 2</div>
+    </>
+  );
+};
+```
+
+### 带位置
+
+```tsx live-codeblock
+import React from 'react';
+import { Divider } from 'orva-ui';
+
+export default () => {
+  return (
+    <>
+      <div>内容 1</div>
+      <Divider text="左对齐" textPosition="left" />
+      <Divider text="居中对齐" textPosition="center" />
+      <Divider text="右对齐" textPosition="right" />
+      <div>内容 2</div>
+    </>
+  );
+};
+```
+
+### 自定义样式
+
+```tsx live-codeblock
+import React from 'react';
+import { Divider } from 'orva-ui';
+
+export default () => {
+  return (
+    <>
+      <div>内容 1</div>
+      <Divider style={{ borderColor: '#3b82f6', borderWidth: 2 }} />
+      <div>内容 2</div>
+    </>
+  );
+};
 ```
 
 ## Props
 
 | 属性名 | 类型 | 默认值 | 说明 |
 |--------|------|--------|------|
-| direction | 'horizontal' | 'vertical' | 'horizontal' | 分割线方向 |
-| type | 'solid' | 'dashed' | 'dotted' | 'solid' | 分割线样式 |
-| orientation | 'left' | 'center' | 'right' | 'center' | 文字位置 |
-| children | ReactNode | - | 分割线中的文字 |
+| text | ReactNode | - | 分割线文字 |
+| textPosition | `'left' \| 'center' \| 'right'` | `'center'` | 文字位置 |
+| vertical | boolean | `false` | 是否垂直 |
+| dashed | boolean | `false` | 是否虚线 |
+| color | string | - | 颜色 |
 | className | string | - | 自定义类名 |
-
-## 主题定制
-
-通过 `createTheme` 或 `ThemeProvider` 自定义主题变量，可以调整组件的颜色、字体、间距等样式。
-
-```tsx
-import { createTheme, ThemeProvider } from 'orva-ui';
-
-const theme = createTheme({
-  colors: {
-    primary: '#a855f7',
-  },
-});
-```
-
-## 无障碍支持
-
-组件遵循 WAI-ARIA 标准，内置键盘导航和屏幕阅读器支持。
+| style | CSSProperties | - | 自定义样式 |
 
 ## 注意事项
 
 - 请确保在 `ThemeProvider` 包裹下使用组件以获得完整的主题支持
-- 组件支持服务器端渲染 (SSR)
+- `vertical` 为 `true` 时文字位置无效
+- `textPosition` 仅在 `text` 存在时生效
+## 相关组件
+
+以下是与当前组件相关的其他组件，可能在使用时搭配使用：
+
+| 组件 | 说明 |
+|------|------|
+| [Space](space) | 间距控制 |
+| [Layout](layout) | 页面布局 |

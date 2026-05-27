@@ -48,7 +48,7 @@ export const Tabs = createComponent<TabsProps, TabsRef>({
       ...restProps
     } = props;
 
-    const tabsRef = useRef<any>(null);
+    const tabsRef = useRef<HTMLDivElement>(null);
     const [internalItems, setInternalItems] = useState<TabItem[]>(items || []);
     const [activeKey, setActiveKey] = useState<string>(defaultActiveKey || items?.[0]?.key || '');
     const [internalPosition, setInternalPosition] = useState<TabPosition>(position);
@@ -166,8 +166,8 @@ export const Tabs = createComponent<TabsProps, TabsRef>({
       );
     }, [internalPosition, animated, internalItems, activeKey, destroyInactiveTabPane, forceRender, renderContent]);
 
-    const tabsStyle = tabsStyles['getBaseStyle']({ position: internalPosition, type: internalType, size: internalSize, centered, style: style || {} } as any);
-    const tabsClassName = tabsStyles['getClassName']({ position: internalPosition, type: internalType, size: internalSize, centered, className: className || '' } as any);
+    const tabsStyle = tabsStyles['getBaseStyle']({ position: internalPosition, type: internalType, size: internalSize, centered, style: style || {} });
+    const tabsClassName = tabsStyles['getClassName']({ position: internalPosition, type: internalType, size: internalSize, centered, className: className || '' });
 
     React.useImperativeHandle(
       ref,

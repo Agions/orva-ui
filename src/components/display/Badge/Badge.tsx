@@ -13,6 +13,10 @@
 
 import { View, Text } from '@tarojs/components';
 import { createNamespace, createComponent } from '@/utils/createComponent';
+import {
+  getBadgeIndicatorClassName,
+  getBadgeCountClassName,
+} from './Badge.styles';
 import type { BadgeProps, BadgeRef } from './Badge.types';
 
 const { bem } = createNamespace('badge');
@@ -28,18 +32,37 @@ const { bem } = createNamespace('badge');
 export const Badge = createComponent<BadgeProps, BadgeRef>({
   name: 'Badge',
   render: (props, ref) => {
-    const { count, dot = false, overflowCount = 99, showZero = false, children, style, className, ...rest } = props;
+    const {
+      count,
+      dot = false,
+      overflowCount = 99,
+      showZero = false,
+      type = 'default',
+      size = 'md',
+      children,
+      style,
+      className,
+      ...rest
+    } = props;
 
     const displayCount = count !== undefined && count > overflowCount ? `${overflowCount}+` : count;
 
     const shouldShowBadge = dot || (count !== undefined && (count > 0 || showZero));
 
+    const indicatorClassName = getBadgeIndicatorClassName({
+      type,
+      size,
+      dot,
+    });
+
+    const countClassName = getBadgeCountClassName({ size });
+
     return (
       <View ref={ref} className={`${bem('wrapper')} ${className || ''}`.trim()} style={style} {...rest}>
         {children}
         {shouldShowBadge && (
-          <View className={`${bem('badge')} ${dot ? bem('dot') : ''}`.trim()}>
-            {dot ? null : <Text className={bem('count')}>{displayCount}</Text>}
+          <View className={indicatorClassName}>
+            {dot ? null : <Text className={countClassName}>{displayCount}</Text>}
           </View>
         )}
       </View>

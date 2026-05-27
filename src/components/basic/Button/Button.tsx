@@ -22,161 +22,9 @@ import { useInteractionState } from '@/hooks/ui/useInteractionState';
 import { useAccessibility, ARIA_ROLES, type AccessibilityProps } from '@/hooks/ui/useAccessibility';
 import { Ripple } from '../Ripple';
 import type { ButtonProps, ButtonRef } from './Button.types';
+import { buttonVariants } from './Button.styles';
 
 // ==================== 工具函数 ====================
-
-/**
- * 计算按钮样式
- * @description 根据按钮类型、尺寸、变体、状态和交互状态计算最终的 CSS 样式
- *
- * @param type - 按钮类型，默认为 'default'
- * @param size - 按钮尺寸，默认为 'md'
- * @param variant - 按钮变体，默认为 'solid'
- * @param disabled - 是否禁用
- * @param loading - 是否加载中
- * @param block - 是否块级（全宽）
- * @param flat - 是否平面风格（无阴影）
- * @param theme - 当前主题对象
- * @param isHovered - 是否悬停
- * @param isFocused - 是否聚焦
- * @param isPressed - 是否按下
- * @returns 计算后的 React CSSProperties 对象
- *
- * @example
- * ```ts
- * const style = computeButtonStyles('primary', 'md', 'solid', false, false, false, false, theme, false, false, false);
- * ```
- */
-function computeButtonStyles(
-  type: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info',
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
-  variant: 'solid' | 'outline' | 'ghost' | 'text' | 'soft',
-  disabled: boolean,
-  loading: boolean,
-  block: boolean,
-  flat: boolean,
-  theme: ReturnType<typeof useTheme>['theme'],
-  isHovered: boolean,
-  isFocused: boolean,
-  isPressed: boolean,
-): React.CSSProperties {
-  // 基础尺寸
-  const sizeMap: Record<string, React.CSSProperties> = {
-    xs: { padding: '4px 10px', fontSize: 12, height: 24, minWidth: 24 },
-    sm: { padding: '6px 12px', fontSize: 14, height: 28, minWidth: 28 },
-    md: { padding: '8px 16px', fontSize: 16, height: 34, minWidth: 34 },
-    lg: { padding: '10px 20px', fontSize: 18, height: 40, minWidth: 40 },
-    xl: { padding: '12px 24px', fontSize: 20, height: 48, minWidth: 48 },
-  };
-  const sizeStyle = sizeMap[size] || sizeMap['md'];
-
-  // 颜色映射
-  const colorMap: Record<string, string> = {
-    default: '#1f2937',
-    primary: theme.colors.primary as string,
-    success: theme.colors.success as string,
-    warning: theme.colors.warning as string,
-    danger: theme.colors.error as string,
-    info: theme.colors.info as string,
-  };
-  const mainColor = colorMap[type] || colorMap['default'];
-
-  // 变体样式
-  let variantStyle: React.CSSProperties = {};
-  switch (variant) {
-    case 'solid':
-      variantStyle = {
-        backgroundColor: mainColor,
-        color: type === 'default' ? '#1f2937' : '#ffffff',
-        borderColor: mainColor,
-        borderWidth: 1,
-        borderStyle: 'solid',
-      };
-      break;
-    case 'outline':
-      variantStyle = {
-        backgroundColor: 'transparent',
-        color: mainColor,
-        borderColor: mainColor,
-        borderWidth: 1,
-        borderStyle: 'solid',
-      };
-      break;
-    case 'ghost':
-      variantStyle = {
-        backgroundColor: 'transparent',
-        color: mainColor,
-        borderColor: 'transparent',
-      };
-      break;
-    case 'text':
-      variantStyle = {
-        backgroundColor: 'transparent',
-        color: mainColor,
-        borderColor: 'transparent',
-        padding: '0',
-      };
-      break;
-    case 'soft':
-      variantStyle = {
-        backgroundColor: `${mainColor}15`,
-        color: mainColor,
-        borderColor: 'transparent',
-      };
-      break;
-  }
-
-  // 交互状态样式
-  let interactionStyle: React.CSSProperties = {};
-  if (!disabled && !loading) {
-    if (isPressed) {
-      interactionStyle = { transform: 'scale(0.96)', filter: 'brightness(0.95)' };
-    } else if (isHovered) {
-      interactionStyle = { filter: 'brightness(1.05)' };
-    }
-    if (isFocused) {
-      interactionStyle = {
-        ...interactionStyle,
-        boxShadow: `0 0 0 3px ${mainColor}33`,
-      };
-    }
-  }
-
-  // 禁用/加载状态
-  const stateStyle: React.CSSProperties = {};
-  if (disabled || loading) {
-    stateStyle.opacity = 0.5;
-    stateStyle.pointerEvents = 'none';
-  }
-
-  // 阴影
-  const shadowStyle: React.CSSProperties = {};
-  if (!flat && variant === 'solid' && !disabled) {
-    if (isPressed) {
-      shadowStyle.boxShadow = '0 1px 2px rgba(0,0,0,0.1)';
-    } else if (isHovered) {
-      shadowStyle.boxShadow = `0 4px 12px ${mainColor}40`;
-    } else {
-      shadowStyle.boxShadow = `0 2px 6px ${mainColor}30`;
-    }
-  }
-
-  return {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 6,
-    fontWeight: 500,
-    cursor: disabled || loading ? 'not-allowed' : 'pointer',
-    width: block ? '100%' : 'auto',
-    transition: 'all 150ms ease',
-    ...sizeStyle,
-    ...variantStyle,
-    ...interactionStyle,
-    ...stateStyle,
-    ...shadowStyle,
-  };
-}
 
 /**
  * Loading Spinner 加载动画组件
@@ -282,9 +130,21 @@ export const Button = createComponent<ButtonProps & AccessibilityProps, ButtonRe
       role: ARIA_ROLES.button,
     });
 
-    const buttonStyle = useMemo(
+    // Color mapping for dynamic inline styles (shadow, focus ring)
+    const colorMap: Record<string, string> = {
+      default: '#1f2937',
+      primary: theme.colors.primary as string,
+      success: theme.colors.success as string,
+      warning: theme.colors.warning as string,
+      danger: theme.colors.error as string,
+      info: theme.colors.info as string,
+    };
+    const mainColor = colorMap[type] || colorMap['default'];
+
+    // CVA class names for static variant styles
+    const cvaClassName = useMemo(
       () =>
-        computeButtonStyles(
+        buttonVariants({
           type,
           size,
           variant,
@@ -292,13 +152,40 @@ export const Button = createComponent<ButtonProps & AccessibilityProps, ButtonRe
           loading,
           block,
           flat,
-          theme,
-          interactionState.isHovered,
-          interactionState.isFocused,
-          interactionState.isPressed,
-        ),
-      [type, size, variant, disabled, loading, block, flat, theme, interactionState],
+          shape,
+        }),
+      [type, size, variant, disabled, loading, block, flat, shape],
     );
+
+    // Dynamic inline styles for interaction states (hover, press, focus, shadow)
+    const dynamicStyle = useMemo((): React.CSSProperties => {
+      const style: React.CSSProperties = {};
+
+      if (!disabled && !loading) {
+        if (interactionState.isPressed) {
+          style.transform = 'scale(0.96)';
+          style.filter = 'brightness(0.95)';
+        } else if (interactionState.isHovered) {
+          style.filter = 'brightness(1.05)';
+        }
+        if (interactionState.isFocused) {
+          style.boxShadow = `0 0 0 3px ${mainColor}33`;
+        }
+      }
+
+      // Shadow based on hover/press state (only for solid, non-flat, non-disabled)
+      if (!flat && variant === 'solid' && !disabled && !loading) {
+        if (interactionState.isPressed) {
+          style.boxShadow = '0 1px 2px rgba(0,0,0,0.1)';
+        } else if (interactionState.isHovered) {
+          style.boxShadow = `0 4px 12px ${mainColor}40`;
+        } else {
+          style.boxShadow = `0 2px 6px ${mainColor}30`;
+        }
+      }
+
+      return style;
+    }, [disabled, loading, interactionState.isPressed, interactionState.isHovered, interactionState.isFocused, flat, variant, mainColor]);
 
     const handleClick = useCallback(
       (event: ITouchEvent) => {
@@ -317,12 +204,18 @@ export const Button = createComponent<ButtonProps & AccessibilityProps, ButtonRe
       emphasisStyle.textDecoration = 'underline';
     }
 
+    // Determine spinner color based on variant/type
+    const spinnerColor = variant === 'solid' && type !== 'default' ? '#ffffff' : mainColor;
+    // Determine spinner size based on button size
+    const spinnerSizeMap: Record<string, number> = { xs: 12, sm: 14, md: 16, lg: 18, xl: 20 };
+    const spinnerSize = spinnerSizeMap[size] || 16;
+
     const content = (
       <>
         {loading && (
           <LoadingSpinner
-            color={variant === 'solid' && type !== 'default' ? '#ffffff' : (buttonStyle.color as string) || '#1f2937'}
-            size={typeof buttonStyle.fontSize === 'number' ? buttonStyle.fontSize * 0.6 : 10}
+            color={spinnerColor}
+            size={spinnerSize}
           />
         )}
         {!loading && icon && iconPosition === 'left' && (
@@ -345,8 +238,8 @@ export const Button = createComponent<ButtonProps & AccessibilityProps, ButtonRe
         type={type === 'primary' ? 'primary' : 'default'}
         size={size === 'sm' || size === 'xs' ? 'mini' : 'default'}
         disabled={disabled || loading}
-        style={{ ...buttonStyle, ...(style || {}), ...emphasisStyle }}
-        className={className}
+        style={{ ...dynamicStyle, ...(style || {}), ...emphasisStyle }}
+        className={`${cvaClassName} ${className}`.trim()}
         onClick={handleClick}
         {...handlers}
         {...(rest as Record<string, unknown>)}

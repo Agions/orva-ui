@@ -277,7 +277,7 @@ export const Cascader = createComponent<CascaderProps, CascaderRef>({
 
         setFocused(true);
         setOpen(true);
-        onFocus?.(event as any);
+        onFocus?.(event as ITouchEvent);
       },
       [internalDisabled, internalReadonly, setOpen, onFocus],
     );
@@ -286,7 +286,7 @@ export const Cascader = createComponent<CascaderProps, CascaderRef>({
     const handleBlur = useCallback(
       (event: Parameters<Required<InputProps>['onBlur']>[0]) => {
         setFocused(false);
-        onBlur?.(event as any);
+        onBlur?.(event as ITouchEvent);
       },
       [onBlur],
     );

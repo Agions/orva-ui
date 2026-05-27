@@ -91,13 +91,13 @@ export const containerStyles = {
     const justifyContent = center ? 'center' : containerStyles['ALIGN_MAP'][align] || 'stretch';
 
     // 计算滚动样式
-    const overflow = scrollable
+    const overflow: React.CSSProperties = scrollable
       ? {
-        overflowX: (scrollDirection === 'horizontal' || scrollDirection === 'both' ? 'auto' : 'hidden') as any,
-        overflowY: (scrollDirection === 'vertical' || scrollDirection === 'both' ? 'auto' : 'hidden') as any,
+        overflowX: scrollDirection === 'horizontal' || scrollDirection === 'both' ? 'auto' : 'hidden',
+        overflowY: scrollDirection === 'vertical' || scrollDirection === 'both' ? 'auto' : 'hidden',
       }
       : {
-        overflow: 'visible' as any,
+        overflow: 'visible',
       };
 
     return {

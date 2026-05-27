@@ -126,8 +126,8 @@ export class MenuUtils {
    */
   static sortItems(items: MenuItem[], sortBy: string = 'label'): MenuItem[] {
     return [...items].sort((a, b) => {
-      const aValue = String((a as any)[sortBy] || a.label).toLowerCase();
-      const bValue = String((b as any)[sortBy] || b.label).toLowerCase();
+      const aValue = String((a as unknown as Record<string, unknown>)[sortBy] ?? a.label).toLowerCase();
+      const bValue = String((b as unknown as Record<string, unknown>)[sortBy] ?? b.label).toLowerCase();
       return aValue.localeCompare(bValue);
     });
   }

@@ -1,6 +1,13 @@
 import type * as React from 'react';
 import type { BaseProps } from '@/types/component';
 
+export interface TaroTempFile {
+  path: string;
+  size?: number;
+  name?: string;
+  type?: string;
+}
+
 export interface UploadFile {
 	/** 文件唯一标识 */
   uid?: string;
@@ -50,7 +57,7 @@ export interface UploadRequestOptions {
 export interface UploadRef {
   getFileList: () => UploadFile[];
   clearFileList: () => void;
-  upload: (file: any, tempFilePath?: string) => void;
+  upload: (file: TaroTempFile, tempFilePath?: string) => void;
   abort: (file: UploadFile) => void;
 }
 

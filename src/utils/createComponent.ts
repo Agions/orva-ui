@@ -292,7 +292,7 @@ export function createComponent<
     useComponentContext();
 
     // 调用渲染函数
-    return render(mergedProps as any as Parameters<typeof render>[0], ref);
+    return render(mergedProps as unknown as Parameters<typeof render>[0], ref);
   });
 
   // 设置 displayName

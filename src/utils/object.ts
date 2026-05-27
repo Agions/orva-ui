@@ -244,6 +244,23 @@ export function get<T = unknown>(
 }
 
 /**
+ * 根据点分隔路径获取嵌套属性值（getValueByPath 别名）
+ *
+ * @example
+ * ```typescript
+ * getValueByPath({ a: { b: { c: 1 } } }, 'a.b.c') // => 1
+ * getValueByPath({ a: { b: { c: 1 } } }, 'a.b.d', 'default') // => 'default'
+ * ```
+ */
+export function getValueByPath(
+  obj: Record<string, unknown>,
+  path: string,
+  defaultValue?: unknown,
+): unknown {
+  return get(obj, path, defaultValue);
+}
+
+/**
  * 安全设置嵌套属性值
  *
  * @example
@@ -357,15 +374,15 @@ export function deepClone<T>(value: T): T {
   }
 
   if (value instanceof Date) {
-    return new Date(value.getTime()) as any as T;
+    return new Date(value.getTime()) as unknown as T;
   }
 
   if (value instanceof RegExp) {
-    return new RegExp(value.source, value.flags) as any as T;
+    return new RegExp(value.source, value.flags) as unknown as T;
   }
 
   if (isArray(value)) {
-    return value.map(item => deepClone(item)) as any as T;
+    return value.map(item => deepClone(item)) as unknown as T;
   }
 
   if (isPlainObject(value)) {
@@ -631,6 +648,7 @@ export default {
   pickBy,
   omitBy,
   get,
+  getValueByPath,
   set,
   has,
   unset,

@@ -110,7 +110,7 @@ export const ListItem = createComponent<ListItemProps>({
       ...rest
     } = props;
     const { theme } = useTheme();
-    const animation = useMicroAnimation({ type: 'micro', enabled: clickable as any && !disabled });
+    const animation = useMicroAnimation({ type: 'micro', enabled: (clickable as unknown as boolean) && !disabled });
     const a11y = useAccessibility({
       role: ARIA_ROLES.button,
       focusable: clickable && !disabled,

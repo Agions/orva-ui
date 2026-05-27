@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { View, Text } from '@tarojs/components';
 import type { ITouchEvent } from '@tarojs/components';
-import type { SliderProps, SliderRef } from './Slider.types';
+import type { SliderProps, SliderRef, SliderTooltipConfig } from './Slider.types';
 
 import { createComponent } from '@/utils/createComponent';
 import { useInteractionState } from '@/hooks/ui/useInteractionState';
@@ -140,7 +140,7 @@ export const Slider = createComponent<SliderProps, SliderRef>({
       (event: ITouchEvent) => {
         if (internalDisabled) return;
 
-        const rect = (event.currentTarget as any).getBoundingClientRect();
+        const rect = (event.currentTarget as unknown as Element).getBoundingClientRect();
         const clientX = event.detail?.x || 0;
         const clientY = event.detail?.y || 0;
 
@@ -173,7 +173,7 @@ export const Slider = createComponent<SliderProps, SliderRef>({
       (event: ITouchEvent) => {
         if (!dragging || internalDisabled) return;
 
-        const rect = (event.currentTarget as any).getBoundingClientRect();
+        const rect = (event.currentTarget as unknown as Element).getBoundingClientRect();
         const clientX = event.detail?.x || 0;
         const clientY = event.detail?.y || 0;
 
@@ -338,7 +338,7 @@ export const Slider = createComponent<SliderProps, SliderRef>({
         ref={containerRef}
         style={containerStyle}
         onClick={handleClick}
-        onTouchMove={(e) => handleDrag(e as any as ITouchEvent)}
+        onTouchMove={(e: ITouchEvent) => handleDrag(e)}
         onTouchEnd={() => handleDragEnd()}
         {...a11y.getAriaAttributes()}
         {...restProps}
@@ -350,12 +350,12 @@ export const Slider = createComponent<SliderProps, SliderRef>({
             ...handleStyle,
             backgroundColor: dragging ? '#2563eb' : '#3b82f6',
           }}
-          onTouchStart={(e) => handleDragStart(e as any as ITouchEvent)}
+          onTouchStart={(e: ITouchEvent) => handleDragStart(e)}
         >
           {tooltip !== false && (
             <View style={tooltipStyle}>
               <Text style={{ color: '#ffffff', fontSize: 12 }}>
-                {typeof tooltip === 'object' && (tooltip as any).formatter ? (tooltip as any).formatter(currentValue) : currentValue}
+                {typeof tooltip === 'object' && tooltip.formatter ? tooltip.formatter(currentValue) : currentValue}
               </Text>
             </View>
           )}

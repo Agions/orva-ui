@@ -196,7 +196,7 @@ const DEFAULT_LIGHT_THEME: ThemeConfig = {
     background: '#ffffff',
     backgroundSecondary: '#f9fafb',
     border: '#e5e7eb',
-  } as any,
+  } as ThemeColor,
   spacing: {
     xs: '0.25rem',
     sm: '0.5rem',
@@ -289,7 +289,7 @@ const DARK_THEME_OVERRIDE: Partial<ThemeConfig> = {
     background: '#111827',
     backgroundSecondary: '#1f2937',
     border: '#374151',
-  } as any,
+  } as ThemeColor,
 };
 
 // ==================== 上下文 ====================

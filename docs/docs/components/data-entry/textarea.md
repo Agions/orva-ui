@@ -1,234 +1,260 @@
-# Textarea 组件
+# Textarea 文本域
 
-Textarea 组件是一个多行文本输入框组件，用于接收用户输入的多行文本信息，支持自动高度、计数、清除按钮等功能。
+**Related Components:** [Input](./input), [Form](./form)
+
+
+Textarea 组件用于多行文本输入。支持字数统计、自动高度、禁用等。
+
+## 引入
+
+```tsx live-codeblock
+import { Textarea } from 'orva-ui';
+// 或按需导入
+import { Textarea } from 'orva-ui/data-entry';
+```
 
 ## 基本使用
 
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea } from 'orva-ui';
+
+export default () => {
+  const [value, setValue] = useState('');
+  
+  return (
+    <Textarea 
+      value={value} 
+      onChange={(e) => setValue(e.target.value)} 
+      placeholder="请输入内容"
+    />
+  );
+};
+```
+
+## 使用示例
+
 ### 基础文本域
 
-```tsx
-<Textarea placeholder="请输入内容" />
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea } from 'orva-ui';
+
+export default () => {
+  const [value, setValue] = useState('');
+  
+  return (
+    <Textarea 
+      value={value} 
+      onChange={(e) => setValue(e.target.value)} 
+      placeholder="请输入多行文本"
+      rows={4}
+    />
+  );
+};
 ```
 
-### 带清除按钮
+### 带字数统计
 
-```tsx
-<Textarea placeholder="带清除按钮" clearable />
-```
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea } from 'orva-ui';
 
-### 带计数
-
-```tsx
-<Textarea 
-  placeholder="带计数" 
-  maxLength={100} 
-  showCount 
-/>
+export default () => {
+  const [value, setValue] = useState('');
+  
+  return (
+    <Textarea 
+      value={value} 
+      onChange={(e) => setValue(e.target.value)} 
+      placeholder="请输入内容（最多 500 字）"
+      rows={4}
+      maxLength={500}
+      showCount
+    />
+  );
+};
 ```
 
 ### 自动高度
 
-```tsx
-<Textarea 
-  placeholder="自动高度" 
-  autoHeight 
-/>
-```
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea } from 'orva-ui';
 
-### 固定高度
-
-```tsx
-<Textarea 
-  placeholder="固定高度" 
-  rows={4} 
-/>
+export default () => {
+  const [value, setValue] = useState('');
+  
+  return (
+    <Textarea 
+      value={value} 
+      onChange={(e) => setValue(e.target.value)} 
+      placeholder="输入时自动调整高度"
+      autoSize
+      maxRows={6}
+      minRows={2}
+    />
+  );
+};
 ```
 
 ### 禁用状态
 
-```tsx
-<Textarea placeholder="禁用状态" disabled />
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea } from 'orva-ui';
+
+export default () => (
+  <Textarea 
+    disabled 
+    placeholder="禁用状态"
+    defaultValue="不可编辑的内容"
+    rows={4}
+  />
+);
 ```
 
 ### 只读状态
 
-```tsx
-<Textarea placeholder="只读状态" readOnly value="只读内容" />
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea } from 'orva-ui';
+
+export default () => (
+  <Textarea 
+    readOnly 
+    placeholder="只读状态"
+    defaultValue="不可编辑但可选择的内容"
+    rows={4}
+  />
+);
 ```
 
-### 受控模式
+### 带前缀/后缀
 
-```tsx
-<Textarea 
-  placeholder="受控模式" 
-  value={value} 
-  onChange={(e) => setValue(e.detail.value)} 
-/>
-```
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea, Icon } from 'orva-ui';
 
-## 属性说明
-
-| 属性 | 类型 | 默认值 | 描述 |
-| --- | --- | --- | --- |
-| value | `string` | - | 文本域的值（受控模式） |
-| defaultValue | `string` | - | 文本域的默认值（非受控模式） |
-| placeholder | `string` | - | 占位文本 |
-| placeholderStyle | `React.CSSProperties` | - | 占位文本样式 |
-| rows | `number` | 2 | 行数 |
-| maxLength | `number` | - | 最大输入长度 |
-| autoHeight | `boolean` | `false` | 是否自动高度 |
-| showCount | `boolean` | `false` | 是否显示计数 |
-| clearable | `boolean` | `false` | 是否显示清除按钮 |
-| disabled | `boolean` | `false` | 是否禁用 |
-| readOnly | `boolean` | `false` | 是否只读 |
-| className | `string` | - | 自定义类名 |
-| style | `React.CSSProperties` | - | 自定义样式 |
-| onFocus | `(e: any) => void` | - | 聚焦回调 |
-| onBlur | `(e: any) => void` | - | 失焦回调 |
-| onChange | `(e: any) => void` | - | 输入变化回调 |
-| onClear | `() => void` | - | 清除按钮点击回调 |
-| onInput | `(e: any) => void` | - | 输入事件回调 |
-| onKeyDown | `(e: any) => void` | - | 键盘按下回调 |
-| onKeyUp | `(e: any) => void` | - | 键盘抬起回调 |
-| onLineChange | `(e: any) => void` | - | 行数变化回调 |
-
-## 类型定义
-
-```tsx
-// Textarea 组件属性接口
-export interface TextareaProps {
-  value?: string;
-  defaultValue?: string;
-  placeholder?: string;
-  placeholderStyle?: React.CSSProperties;
-  rows?: number;
-  maxLength?: number;
-  autoHeight?: boolean;
-  showCount?: boolean;
-  clearable?: boolean;
-  disabled?: boolean;
-  readOnly?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
-  onFocus?: (e: any) => void;
-  onBlur?: (e: any) => void;
-  onChange?: (e: any) => void;
-  onClear?: () => void;
-  onInput?: (e: any) => void;
-  onKeyDown?: (e: any) => void;
-  onKeyUp?: (e: any) => void;
-  onLineChange?: (e: any) => void;
-}
-```
-
-## 示例代码
-
-### 完整示例
-
-```tsx
-import { Textarea, Space, View, Text, Button } from 'orva-ui';
-import { useState } from 'react';
-
-const TextareaExample = () => {
-  // 受控模式状态
+export default () => {
   const [value, setValue] = useState('');
-
+  
   return (
-    <View>
-      <Text style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '12px', display: 'block' }}>基础文本域</Text>
-      <Space direction="vertical" size="large" style={{ marginBottom: '20px', width: '100%' }}>
-        <Textarea placeholder="请输入内容" />
-        <Textarea placeholder="带清除按钮" clearable />
-        <Textarea placeholder="禁用状态" disabled />
-        <Textarea placeholder="只读状态" readOnly value="只读内容" />
-      </Space>
-
-      <Text style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '12px', display: 'block', marginTop: '20px' }}>带计数</Text>
-      <Space direction="vertical" size="large" style={{ marginBottom: '20px', width: '100%' }}>
-        <Textarea 
-          placeholder="带计数" 
-          maxLength={100} 
-          showCount 
-        />
-        <Textarea 
-          placeholder="带计数和清除按钮" 
-          maxLength={100} 
-          showCount 
-          clearable 
-        />
-      </Space>
-
-      <Text style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '12px', display: 'block', marginTop: '20px' }}>高度设置</Text>
-      <Space direction="vertical" size="large" style={{ marginBottom: '20px', width: '100%' }}>
-        <Textarea 
-          placeholder="自动高度" 
-          autoHeight 
-        />
-        <Textarea 
-          placeholder="固定高度 - 3行" 
-          rows={3} 
-        />
-        <Textarea 
-          placeholder="固定高度 - 5行" 
-          rows={5} 
-        />
-      </Space>
-
-      <Text style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '12px', display: 'block', marginTop: '20px' }}>受控模式</Text>
-      <Space direction="vertical" size="large" style={{ marginBottom: '20px', width: '100%' }}>
-        <Textarea 
-          placeholder="受控模式" 
-          value={value} 
-          onChange={(e) => setValue(e.detail.value)} 
-          clearable 
-          showCount 
-          maxLength={100} 
-        />
-        <Button 
-          type="primary" 
-          onClick={() => setValue('')} 
-        >
-          清空输入
-        </Button>
-        <Button 
-          type="default" 
-          onClick={() => setValue('这是一段预设的多行文本内容\n\n这是第二行\n这是第三行')} 
-        >
-          设置预设内容
-        </Button>
-      </Space>
-    </View>
+    <Textarea 
+      value={value} 
+      onChange={(e) => setValue(e.target.value)} 
+      placeholder="请输入内容"
+      prefix={<Icon name="mdi:comment" />}
+      suffix={<Icon name="mdi:information" />}
+      rows={4}
+    />
   );
 };
-
-export default TextareaExample;
 ```
 
-## 平台支持
+### 尺寸
 
-| 平台 | 支持状态 | 注意事项 |
-| --- | --- | --- |
-| 微信小程序 | ✅ 完全支持 | - |
-| H5 | ✅ 完全支持 | - |
-| React Native | ✅ 部分支持 | 部分样式可能存在差异 |
-| 支付宝小程序 | ✅ 部分支持 | 部分样式可能存在差异 |
-| 百度小程序 | ✅ 部分支持 | 部分样式可能存在差异 |
-| 字节跳动小程序 | ✅ 部分支持 | 部分样式可能存在差异 |
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea } from 'orva-ui';
+
+export default () => {
+  const [value1, setValue1] = useState('');
+  const [value2, setValue2] = useState('');
+  const [value3, setValue3] = useState('');
+  
+  return (
+    <>
+      <Textarea 
+        size="sm"
+        value={value1} 
+        onChange={(e) => setValue1(e.target.value)} 
+        placeholder="小尺寸"
+        rows={3}
+      />
+      <Textarea 
+        size="md"
+        value={value2} 
+        onChange={(e) => setValue2(e.target.value)} 
+        placeholder="中尺寸"
+        rows={4}
+      />
+      <Textarea 
+        size="lg"
+        value={value3} 
+        onChange={(e) => setValue3(e.target.value)} 
+        placeholder="大尺寸"
+        rows={5}
+      />
+    </>
+  );
+};
+```
+
+### 错误状态
+
+```tsx live-codeblock
+import React, { useState } from 'react';
+import { Textarea } from 'orva-ui';
+
+export default () => {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState(false);
+  
+  return (
+    <>
+      <Textarea 
+        value={value} 
+        onChange={(e) => {
+          setValue(e.target.value);
+          setError(e.target.value.length < 10);
+        }} 
+        placeholder="至少 10 个字符"
+        rows={4}
+        status={error ? 'error' : undefined}
+        help={error ? '内容过短' : ''}
+      />
+    </>
+  );
+};
+```
+
+## Props
+
+| 属性名 | 类型 | 默认值 | 说明 |
+|--------|------|--------|------|
+| value | string | - | 值（受控） |
+| defaultValue | string | - | 默认值 |
+| placeholder | string | - | 占位符 |
+| rows | number | `4` | 行数 |
+| autoSize | boolean | `false` | 是否自动调整高度 |
+| minRows | number | `2` | 最小行数 |
+| maxRows | number | `6` | 最大行数 |
+| maxLength | number | - | 最大字符数 |
+| showCount | boolean | `false` | 是否显示字数统计 |
+| disabled | boolean | `false` | 是否禁用 |
+| readOnly | boolean | `false` | 是否只读 |
+| prefix | ReactNode | - | 前缀内容 |
+| suffix | ReactNode | - | 后缀内容 |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` | 尺寸 |
+| status | `'error' \| 'warning'` | - | 状态 |
+| help | ReactNode | - | 帮助文本 |
+| onChange | `(e: ChangeEvent) => void` | - | 值变化回调 |
+| onFocus | `(e: FocusEvent) => void` | - | 聚焦回调 |
+| onBlur | `(e: FocusEvent) => void` | - | 失焦回调 |
+| className | string | - | 自定义类名 |
+| style | CSSProperties | - | 自定义样式 |
 
 ## 注意事项
 
-1. **多行输入**：用于需要用户输入较多文本的场景，如评论、描述、反馈等。
-2. **自动高度**：设置 autoHeight 为 true 时，文本域会根据内容自动调整高度。
-3. **计数功能**：设置 showCount 和 maxLength 属性时，文本域会显示字符计数。
-4. **清除按钮**：设置 clearable 为 true 时，文本域会显示清除按钮，点击可清空输入内容。
-5. **受控模式**：推荐使用受控模式，通过 value 和 onChange 属性来控制文本域的值。
-6. **性能优化**：文本域组件使用了 memo 优化，避免不必要的重渲染。
-7. **无障碍支持**：默认添加了适当的 aria 属性，提高可访问性。
-
+- 请确保在 `ThemeProvider` 包裹下使用组件以获得完整的主题支持
+- `autoSize` 为 `true` 时忽略 `rows` 属性
+- 受控组件请使用 `value` + `onChange`
 ## 相关组件
 
-- [Input 组件](/components/form/input) - 用于单行文本输入
-- [Select 组件](/components/form/select) - 用于选择列表项
-- [Switch 组件](/components/form/switch) - 用于开关切换
-- [Checkbox 组件](/components/form/checkbox) - 用于多选操作
-- [Radio 组件](/components/form/radio) - 用于单选操作
+以下是与当前组件相关的其他组件，可能在使用时搭配使用：
+
+| 组件 | 说明 |
+|------|------|
+| [Input](input) | 文本输入 |
+| [Form](form) | 表单容器 |

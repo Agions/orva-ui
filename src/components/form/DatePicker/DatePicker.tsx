@@ -175,7 +175,7 @@ export const DatePicker = createComponent<DatePickerProps, DatePickerRef>({
     // 同步外部值变化
     useEffect(() => {
       if (value !== undefined) {
-        setInternalValue(value as any);
+        setInternalValue(value as Date | null);
       }
     }, [value]);
 

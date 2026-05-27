@@ -23,7 +23,7 @@ export interface DynamicThemeOptions {
   /**
    * 自定义字体覆盖
    */
-  typographyOverrides?: Partial<Record<keyof ThemeConfig['typography'], any>>;
+  typographyOverrides?: Partial<Record<keyof ThemeConfig['typography'], unknown>>;
 }
 
 export interface UseDynamicThemeReturn {
@@ -40,12 +40,12 @@ export interface UseDynamicThemeReturn {
 }
 
 /** 深度合并工具 */
-function deepMerge<T extends Record<string, any>>(target: T, source: Partial<T>): T {
+function deepMerge<T extends object>(target: T, source: Partial<T>): T {
   const result = { ...target };
   for (const key of Object.keys(source) as Array<keyof T>) {
     const val = source[key];
     if (val && typeof val === 'object' && !Array.isArray(val) && typeof result[key] === 'object') {
-      result[key] = deepMerge(result[key] as any, val as any) as T[keyof T];
+      result[key] = deepMerge(result[key] as object, val as object) as T[keyof T];
     } else if (val !== undefined) {
       result[key] = val as T[keyof T];
     }
@@ -64,7 +64,7 @@ function buildTheme(options: Required<DynamicThemeOptions>): ThemeConfig {
     typography: { ...defaultDesignTokens.typography, ...baseTheme.typography, ...typographyOverrides } as ThemeConfig['typography'],
     borderRadius: { ...defaultDesignTokens.effects.borderRadius },
     shadow: { ...defaultDesignTokens.effects.boxShadow, ...baseTheme.shadow },
-  } as any as ThemeConfig;
+  } as unknown as ThemeConfig;
 }
 
 export function useDynamicTheme(options: DynamicThemeOptions = {}): UseDynamicThemeReturn {

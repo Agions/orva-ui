@@ -120,7 +120,7 @@ class WeappAdapter implements PlatformAdapter {
   getPlatformInfo(): PlatformInfo {
     const system = Taro.getSystemInfoSync();
     const accountInfo = Taro.getAccountInfoSync();
-    const miniProgram = accountInfo.miniProgram as any as Record<string, unknown>;
+    const miniProgram = accountInfo.miniProgram as unknown as Record<string, unknown>;
 
     return {
       type: 'weapp',
@@ -256,7 +256,7 @@ class WeappAdapter implements PlatformAdapter {
   camera = {
     async takePhoto(options?: MiniProgramTakePhotoOptions): Promise<MiniProgramTakePhotoResult> {
       return new Promise((resolve, reject) => {
-        const taroWithCamera = Taro as any as {
+        const taroWithCamera = Taro as unknown as {
           cameraTakePhoto: (opts: {
             quality?: string;
             success?: (result: MiniProgramTakePhotoResult) => void;
@@ -311,7 +311,7 @@ class WeappAdapter implements PlatformAdapter {
   share = {
     async shareAppMessage(options?: MiniProgramShareOptions): Promise<void> {
       return new Promise((resolve, reject) => {
-        const taroWithShare = Taro as any as {
+        const taroWithShare = Taro as unknown as {
           shareAppMessage: (opts: {
             title?: string;
             path?: string;
@@ -334,7 +334,7 @@ class WeappAdapter implements PlatformAdapter {
 
     async shareToTimeline(options?: MiniProgramShareTimelineOptions): Promise<void> {
       return new Promise((resolve, reject) => {
-        const taroWithShare = Taro as any as {
+        const taroWithShare = Taro as unknown as {
           shareToTimeline: (opts: {
             title?: string;
             query?: string;
@@ -434,7 +434,7 @@ class WeappAdapter implements PlatformAdapter {
 
     async vibrate(): Promise<void> {
       return new Promise((resolve, reject) => {
-        const taroWithVibrate = Taro as any as {
+        const taroWithVibrate = Taro as unknown as {
           vibrate: (opts: {
             success?: () => void;
             fail?: (error: unknown) => void;

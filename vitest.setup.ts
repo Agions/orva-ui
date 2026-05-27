@@ -143,15 +143,17 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock localStorage (needed by ThemeProvider persistency)
+// Use a proper in-memory implementation so setItem/getItem actually work
+const localStorageStore: Record<string, string> = {};
 Object.defineProperty(window, 'localStorage', {
   writable: true,
   configurable: true,
   value: {
-    getItem: vi.fn(() => null),
-    setItem: vi.fn(),
-    removeItem: vi.fn(),
-    clear: vi.fn(),
-    key: vi.fn(() => null),
-    get length() { return 0; },
+    getItem: vi.fn((key: string) => localStorageStore[key] ?? null),
+    setItem: vi.fn((key: string, value: string) => { localStorageStore[key] = value; }),
+    removeItem: vi.fn((key: string) => { delete localStorageStore[key]; }),
+    clear: vi.fn(() => { Object.keys(localStorageStore).forEach(k => delete localStorageStore[k]); }),
+    key: vi.fn((index: number) => Object.keys(localStorageStore)[index] ?? null),
+    get length() { return Object.keys(localStorageStore).length; },
   },
 });

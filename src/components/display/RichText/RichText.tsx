@@ -49,7 +49,7 @@ const handleLinkClick = (href: string, type: 'internal' | 'external' = 'external
     if (shouldPrevent) return;
   }
   if (type === 'external') {
-    if (typeof Taro !== 'undefined' && typeof (Taro as any as { openUrl: (opts: { url: string }) => void }).openUrl === 'function') (Taro as any as { openUrl: (opts: { url: string }) => void }).openUrl({ url: href });
+    if (typeof Taro !== 'undefined' && typeof (Taro as unknown as { openUrl: (opts: { url: string }) => void }).openUrl === 'function') (Taro as unknown as { openUrl: (opts: { url: string }) => void }).openUrl({ url: href });
     else if (typeof Taro !== 'undefined') Taro.navigateTo({ url: href } as Parameters<typeof Taro.navigateTo>[0]);
     else window.open(href, '_blank');
   } else {

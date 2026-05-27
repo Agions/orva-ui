@@ -266,12 +266,15 @@ export const Pagination = createComponent<PaginationProps, PaginationRef>({
       );
     };
 
+    const styleProps: Pick<PaginationProps, 'align' | 'style'> = { align, style: style || {} };
+    const classNameProps: Pick<PaginationProps, 'size' | 'position' | 'align' | 'disabled' | 'simple' | 'className'> = { size, position, align, disabled, simple, className };
+
     if (simple) {
       return (
         <View
           ref={paginationRef}
-          className={paginationStyles['getClassName']({ size, position, align, disabled, simple, className } as any)}
-          style={paginationStyles['getBaseStyle']({ size, position, align, style } as any)}
+          className={paginationStyles['getClassName'](classNameProps)}
+          style={paginationStyles['getBaseStyle'](styleProps)}
           {...a11y.getAriaAttributes()}
           {...restProps}
         >
@@ -282,8 +285,8 @@ export const Pagination = createComponent<PaginationProps, PaginationRef>({
       );
     }
 
-    const paginationStyle = paginationStyles['getBaseStyle']({ size, position, align, style: style || {} } as any);
-    const paginationClassName = paginationStyles['getClassName']({ size, position, align, disabled, simple, className } as any);
+    const paginationStyle = paginationStyles['getBaseStyle'](styleProps);
+    const paginationClassName = paginationStyles['getClassName'](classNameProps);
 
     React.useImperativeHandle(
       ref,

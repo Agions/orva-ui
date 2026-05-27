@@ -116,8 +116,8 @@ export function useInputNumberState(params: UseInputNumberStateParams): UseInput
       }
 
       // 验证必填
-      if (rules?.some((rule: any) => rule.required && inputValue === null)) {
-        const requiredRule = rules.find((rule: any) => rule.required);
+      if (rules?.some((rule: InputNumberRule) => rule.required && inputValue === null)) {
+        const requiredRule = rules.find((rule: InputNumberRule) => rule.required);
         return {
           valid: false,
           message: requiredRule?.message || '此字段为必填项',
@@ -153,7 +153,7 @@ export function useInputNumberState(params: UseInputNumberStateParams): UseInput
       // 验证规则
       if (rules) {
         for (let i = 0; i < rules.length; i++) {
-          const rule = rules[i] as any;
+          const rule = rules[i] as InputNumberRule;
           if (rule.min !== undefined && inputValue < rule.min) {
             return {
               valid: false,

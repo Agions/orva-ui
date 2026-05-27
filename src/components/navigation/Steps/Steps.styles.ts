@@ -131,7 +131,7 @@ export const getStepIconStyle = (
   ...stepsStyles.stepIcon,
   ...(status === 'process' && stepsStyles.stepIconProcess),
   ...(status === 'finish' && stepsStyles.stepIconFinish),
-  ...(status === 'error' as any && stepsStyles.stepIconError),
+  ...(status === 'error' && stepsStyles.stepIconError),
   ...(size === 'small' && stepsStyles.stepIconSmall),
   ...customStyle,
 });
@@ -148,7 +148,7 @@ export const getStepTitleStyle = (
   ...stepsStyles.stepTitle,
   ...(status === 'process' && stepsStyles.stepTitleProcess),
   ...(status === 'finish' && stepsStyles.stepTitleFinish),
-  ...(status === 'error' as any && stepsStyles.stepTitleError),
+  ...(status === 'error' && stepsStyles.stepTitleError),
   ...customStyle,
 });
 

@@ -22,7 +22,7 @@ import React, { useRef, useMemo } from 'react';
 import { Form as TaroForm } from '@tarojs/components';
 import type { ITouchEvent } from '@tarojs/components';
 import { formStyles } from './Form.styles';
-import type { FormProps, FormRef, FormErrors, FormContext } from './Form.types';
+import type { FormProps, FormRef, FormErrors, FormContext, FormStatus, FormFieldInfo, FormRule } from './Form.types';
 import { useFormLogic } from './useFormLogic';
 import { FormContextProvider } from './FormContext';
 import { FormItem } from './FormItem';
@@ -52,7 +52,7 @@ export const Form = createComponent<FormProps, FormRef & { Item: typeof FormItem
   render: (props, ref) => {
     const { layout = 'horizontal', size = 'md', className, style, children, onFinish, onFinishFailed, onSubmit, ...restProps } = props;
 
-    const formRef = useRef<any>(null);
+    const formRef = useRef<HTMLFormElement | null>(null);
 
     const {
       formInstance,
@@ -106,7 +106,7 @@ export const Form = createComponent<FormProps, FormRef & { Item: typeof FormItem
             onFinishFailed?.(errors, formInstance.values);
             throw errors;
           }
-          await onSubmit?.(formInstance.values, {} as ITouchEvent);
+          await onSubmit?.(formInstance.values, {} as unknown as ITouchEvent);
         },
         validate: async (fields?: string[]) => {
           const fieldNames = fields || Object.keys(formInstance.fields);
@@ -143,7 +143,7 @@ export const Form = createComponent<FormProps, FormRef & { Item: typeof FormItem
         setErrors: (errors: FormErrors) => updateFormInstance({ errors: { ...formInstance.errors, ...errors } }),
         getFieldError: (name: string) => getFieldError(name),
         getErrors: () => formInstance.errors,
-        setFields: (fields: any[]) => {
+        setFields: (fields: FormFieldInfo[]) => {
           fields.forEach((field) => {
             if (field.name) updateField(field.name, field);
           });
@@ -156,7 +156,7 @@ export const Form = createComponent<FormProps, FormRef & { Item: typeof FormItem
         setFieldsValidating: (validating: Record<string, boolean>) => {
           Object.keys(validating).forEach((name) => setFieldValidating(name, validating[name]));
         },
-        addFieldRules: (name: string, newRules: any[]) => {
+        addFieldRules: (name: string, newRules: FormRule[]) => {
           updateFormInstance({
             rules: { ...formInstance.rules, [name]: [...(formInstance.rules[name] || []), ...newRules] },
             fields: {
@@ -181,13 +181,13 @@ export const Form = createComponent<FormProps, FormRef & { Item: typeof FormItem
           });
         },
         getFieldRules: (name: string) => formInstance.rules[name] || [],
-        setStatus: (status: string) => updateFormInstance({ status }),
-        getStatus: () => formInstance.status as any,
+        setStatus: (status: FormStatus) => updateFormInstance({ status }),
+        getStatus: () => formInstance.status as FormStatus,
         setDisabled: (disabled: boolean) => updateFormInstance({ disabled }),
         setReadonly: (readonly: boolean) => updateFormInstance({ readonly }),
         scrollToField: (_name: string) => { /* scroll logic */ },
         getFormInstance: () => formInstance,
-      } as any),
+      } as unknown as FormRef & { Item: typeof FormItem }),
       [formInstance, validateField, setFieldValue, updateField, updateFormInstance, onSubmit, onFinishFailed, setFieldError, getFieldError, setFieldTouched, setFieldValidating, resetField],
     );
 
@@ -216,6 +216,6 @@ export const Form = createComponent<FormProps, FormRef & { Item: typeof FormItem
   },
 });
 
-(Form as any).Item = FormItem;
+(Form as unknown as { Item: typeof FormItem }).Item = FormItem;
 
 export default Form;

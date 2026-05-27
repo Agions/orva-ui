@@ -98,12 +98,12 @@ export const Text = createComponent<TextProps, TextRef>({
 
     const { sanitizeInput } = useSecurity();
     const { isDark } = useTheme();
-    const textRef = useRef<HTMLParagraphElement | HTMLSpanElement>(null);
+    const textRef = useRef<HTMLElement>(null);
     const [internalStatus, setInternalStatus] = useState(status);
     const [internalLoading, setInternalLoading] = useState(loading);
     const [internalDisabled, setInternalDisabled] = useState(disabled);
     const [isCopied, setIsCopied] = useState(false);
-    const animation = useMicroAnimation({ type: 'micro', enabled: clickable as any && !disabled });
+    const animation = useMicroAnimation({ type: 'micro', enabled: clickable && !disabled });
     const a11y = useAccessibility({
       role: href ? ARIA_ROLES.link : ARIA_ROLES.text,
       focusable: clickable && !disabled,
@@ -217,8 +217,7 @@ export const Text = createComponent<TextProps, TextRef>({
         highlight, ellipsis, wrap, breakWord, className: className ?? '',
       }) + ` ${isDark ? 'dark' : 'light'}`;
 
-    // 选择渲染元素
-    const TextElement = href ? 'a' : block ? 'div' : inlineBlock ? 'span' : TaroText;
+    // Render element type is selected in renderTextElement below
 
     // 暴露给外部的引用方法
     React.useImperativeHandle(
@@ -277,23 +276,63 @@ export const Text = createComponent<TextProps, TextRef>({
 
     const mergedStyle = animation.getMergedStyle(textStyle);
 
+    const textElementProps = {
+      className: textClassName,
+      style: mergedStyle,
+      onClick: handleClick,
+      selectable,
+      ariaLabel: ariaLabel,
+      role,
+      ...a11y.getAriaAttributes(),
+      ...linkProps,
+      ...restProps,
+    } as Record<string, unknown>;
+
+    const renderTextElement = () => {
+      if (href) {
+        return (
+          <a
+            ref={textRef as unknown as React.Ref<HTMLAnchorElement>}
+            {...textElementProps}
+          >
+            {sanitizedChildren}
+          </a>
+        );
+      }
+      if (block) {
+        return (
+          <div
+            ref={textRef as unknown as React.Ref<HTMLDivElement>}
+            {...textElementProps}
+          >
+            {sanitizedChildren}
+          </div>
+        );
+      }
+      if (inlineBlock) {
+        return (
+          <span
+            ref={textRef as unknown as React.Ref<HTMLSpanElement>}
+            {...textElementProps}
+          >
+            {sanitizedChildren}
+          </span>
+        );
+      }
+      return (
+        <TaroText
+          ref={textRef as unknown as React.Ref<typeof TaroText>}
+          {...textElementProps}
+        >
+          {sanitizedChildren}
+        </TaroText>
+      );
+    };
+
     return (
       <View className="orva-ui-text-wrapper" style={{ display: 'flex', alignItems: 'center' }}>
         {internalLoading && renderLoading()}
-        <TextElement
-          ref={textRef as any}
-          className={textClassName}
-          style={mergedStyle}
-          onClick={handleClick}
-          selectable={selectable}
-          aria-label={ariaLabel}
-          role={role}
-          {...a11y.getAriaAttributes()}
-          {...linkProps}
-          {...restProps}
-        >
-          {sanitizedChildren}
-        </TextElement>
+        {renderTextElement()}
         {renderCopyButton()}
       </View>
     );

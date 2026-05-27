@@ -292,7 +292,7 @@ export const Textarea = createComponent<TextareaProps, TextareaRef>({
         setStatus: (newStatus: TextareaStatus) => setInternalStatus(newStatus),
         getStatus: () => finalStatus,
         validate: async () => { const result = await validateInput(value as string); setValidationResult(result); setInternalStatus(result.valid ? 'normal' : 'error'); onValidate?.(result); return result; },
-        clear: () => handleClear({} as any),
+        clear: () => handleClear({} as unknown as Event),
         reset: () => { if (!isControlled) setInternalValue(defaultValue); setValidationResult(null); setInternalStatus('normal'); },
         adjustHeight: adjustTextareaHeight,
         getHeight: () => currentHeight,

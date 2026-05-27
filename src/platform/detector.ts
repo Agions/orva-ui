@@ -169,7 +169,7 @@ function getSDKVersion(platformType: PlatformType): string | undefined {
   try {
     if (platformType === 'weapp') {
       const accountInfo = Taro.getAccountInfoSync();
-      const miniProgram = accountInfo.miniProgram as any as Record<string, unknown>;
+      const miniProgram = accountInfo.miniProgram as unknown as Record<string, unknown>;
       return miniProgram['sdkVersion'] as string;
     }
     // 其他小程序平台的 SDK 版本获取方式可能不同

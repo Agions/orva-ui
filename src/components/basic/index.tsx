@@ -22,8 +22,12 @@ export type { TypographyProps } from './Typography';
 export { Video } from './Video';
 export type { VideoProps } from './Video';
 
-// ==================== 以下组件已有实现，但为避免与 form 同名组件冲突，
-// 不在此 barrel 中导出。如需使用，请直接从子路径导入：
-//   import { Input } from 'orva-ui/src/components/basic/Input/Input'
-//   import { Modal } from 'orva-ui/src/components/basic/Modal/Modal'
-//   import { Select } from 'orva-ui/src/components/basic/Select/Select'
+// ==================== 与 form 同名的基础组件，以 Base 前缀导出 ====================
+export { Input as BaseInput } from './Input';
+export type { InputProps as BaseInputProps, InputRef as BaseInputRef } from './Input/Input.types';
+
+export { Select as BaseSelect } from './Select';
+export type { SelectProps as BaseSelectProps, SelectRef as BaseSelectRef, SelectOption as BaseSelectOption } from './Select/Select.types';
+
+export { Modal as BaseModal } from './Modal';
+export type { ModalProps as BaseModalProps, ModalRef as BaseModalRef } from './Modal/Modal.types';

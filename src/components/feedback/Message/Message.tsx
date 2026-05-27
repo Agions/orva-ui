@@ -39,7 +39,7 @@ export const Message = createComponent<MessageProps, MessageRef>({
     const messageRef = useRef<any>(null);
     const animation = useMicroAnimation({ type: 'micro', enabled: closable });
     const a11y = useAccessibility({
-      role: (ARIA_ROLES as any).alert || 'alert',
+      role: ARIA_ROLES.alert,
       label: title || content || 'Message',
     });
 

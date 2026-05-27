@@ -245,7 +245,7 @@ export const PageHeader = createComponent<PageHeaderProps, PageHeaderRef>({
     useEffect(() => {
       if (ref && typeof ref === 'function') {
         ref({
-          getConfig: () => mergedConfig as any,
+          getConfig: () => mergedConfig as unknown as Record<string, unknown>,
           reset: () => {
             setBackConfig({ show: true, ...(typeof props.back === 'object' ? props.back : {}) });
             setBreadcrumbConfig({ show: true, ...(typeof props.breadcrumb === 'object' ? props.breadcrumb : {}) });

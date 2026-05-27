@@ -45,7 +45,7 @@ export const VideoAd = createComponent<VideoAdProps, HTMLDivElement>({
     const timerRef = useRef<NodeJS.Timeout | null>(null);
     const theme = useTheme();
     const a11y = useAccessibility({
-      role: (ARIA_ROLES as any).alert || 'alert',
+      role: ARIA_ROLES.alert,
       label: ARIA_LABELS.videoAd,
     });
 

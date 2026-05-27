@@ -22,7 +22,7 @@ export const tabsStyles = {
   /**
    * 获取基础样式
    */
-  getBaseStyle: (props: TabsProps): React.CSSProperties => {
+  getBaseStyle: (props: Partial<TabsProps>): React.CSSProperties => {
     const { position = 'top', centered = false, style = {} } = props;
 
     // 计算方向
@@ -45,7 +45,7 @@ export const tabsStyles = {
   /**
    * 获取类名
    */
-  getClassName: (props: TabsProps): string => {
+  getClassName: (props: Partial<TabsProps>): string => {
     const { position = 'top', type = 'line', size = 'default', centered = false, className = '' } = props;
 
     const baseClass = 'orva-ui-tabs';

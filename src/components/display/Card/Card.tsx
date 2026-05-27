@@ -22,6 +22,7 @@ import { useTheme } from '@/hooks/ui/useTheme';
 import { useInteractionState } from '@/hooks/ui/useInteractionState';
 import { getRecommendedEasing, getEasingCss } from '@/theme/motion/easings';
 import { getRecommendedDuration } from '@/theme/motion/durations';
+import { getCardClassName, cardSubStyles } from './Card.styles';
 import type { CardProps } from './Card.types';
 
 export const Card = createComponent<CardProps>({
@@ -62,89 +63,88 @@ export const Card = createComponent<CardProps>({
 
     const { isHovered, isPressed, isFocused } = interactionState;
 
-    const cardStyle = useMemo(() => {
-      const sizePadding: Record<string, number | string> = {
-        sm: theme.spacing.sm,
-        md: theme.spacing.md,
-        lg: theme.spacing.lg,
-      };
-      const padding = sizePadding[size] || sizePadding.md;
+    // CVA-based className for all variant/size/hoverable/clickable/bordered combinations
+    const cardClassName = getCardClassName({
+      variant,
+      size,
+      hoverable,
+      clickable,
+      bordered,
+      className,
+    });
 
-      const variantBg: Record<string, string> = {
-        default: theme.colors.backgroundCard,
-        outlined: 'transparent',
-        filled: theme.colors.background,
-        elevated: theme.colors.backgroundCard,
-      };
+    // Inline styles only for dynamic interaction states that can't be expressed via CVA
+    const dynamicStyle = useMemo(() => {
+      const duration = getRecommendedDuration('card', 'hover');
+      const easing = getEasingCss(getRecommendedEasing('move', 'apple'));
 
-      const baseStyle: Record<string, string | number> = {
-        backgroundColor: variantBg[variant] || variantBg.default,
-        borderRadius: theme.borderRadius.lg,
-        padding,
-        overflow: 'hidden',
-        transition: `all ${getRecommendedDuration('card', 'hover')}ms ${getEasingCss(getRecommendedEasing('move', 'apple'))}`,
-        position: 'relative',
+      const result: Record<string, string | number> = {
+        transition: `all ${duration}ms ${easing}`,
       };
 
-      // 边框
-      if (bordered || variant === 'outlined') {
-        baseStyle.border = `1px solid ${theme.colors.border}`;
-      }
-
-      // 悬浮效果
-      if (hoverable && isHovered && !isPressed) {
-        baseStyle.transform = 'translateY(-4px)';
-        baseStyle.boxShadow = theme.shadows.lg;
-      } else if (variant === 'elevated') {
-        baseStyle.boxShadow = theme.shadows.md;
-      } else {
-        baseStyle.boxShadow = theme.shadows.sm;
-      }
-
-      // 按下效果
+      // Pressed state overrides
       if (isPressed) {
-        baseStyle.transform = 'translateY(-1px) scale(0.995)';
-        baseStyle.boxShadow = theme.shadows.sm;
+        result.transform = 'translateY(-1px) scale(0.995)';
+        result.boxShadow = theme.shadows.sm;
       }
 
-      // 焦点光晕
+      // Focus ring
       if (isFocused) {
-        baseStyle.boxShadow = `${theme.shadows.md}, 0 0 0 3px ${theme.colors.primary}20`;
+        result.boxShadow = `${theme.shadows.md}, 0 0 0 3px ${theme.colors.primary}20`;
       }
 
-      // 光泽效果 overlay
-      if (hoverable && isHovered) {
-        baseStyle.backgroundImage = `linear-gradient(135deg, ${theme.colors.primary}05 0%, transparent 50%)`;
+      // Hover gloss effect (dynamic, can't be in CVA)
+      if (hoverable && isHovered && !isPressed) {
+        result.backgroundImage = `linear-gradient(135deg, ${theme.colors.primary}05 0%, transparent 50%)`;
       }
 
-      return { ...baseStyle, ...(style || {}) };
-    }, [variant, size, hoverable, clickable, bordered, isHovered, isPressed, isFocused, theme, style]);
+      return result;
+    }, [isHovered, isPressed, isFocused, hoverable, theme]);
+
+    // Sub-component inline styles (static, from theme)
+    const subStyles = useMemo(() => ({
+      cover: {
+        overflow: 'hidden' as const,
+        borderRadius: `${theme.borderRadius.lg}px ${theme.borderRadius.lg}px 0 0`,
+      },
+      header: {
+        borderBottom: `1px solid ${theme.colors.borderLight}`,
+      },
+      footer: {
+        borderTop: `1px solid ${theme.colors.borderLight}`,
+      },
+      actions: {
+        display: 'flex' as const,
+        gap: 8,
+        justifyContent: 'flex-end' as const,
+      },
+    }), [theme]);
 
     return (
       <View
-        style={cardStyle}
-        className={className}
+        className={cardClassName}
+        style={{ ...dynamicStyle, ...(style || {}) }}
         {...(clickable ? handlers : {})}
         {...rest}
       >
         {cover && (
-          <View style={{ margin: -16, marginBottom: 12, overflow: 'hidden', borderRadius: `${theme.borderRadius.lg}px ${theme.borderRadius.lg}px 0 0` }}>
+          <View className={cardSubStyles.cover} style={subStyles.cover}>
             {cover}
           </View>
         )}
         {header && (
-          <View style={{ marginBottom: 12, paddingBottom: 12, borderBottom: `1px solid ${theme.colors.borderLight}` }}>
+          <View className={cardSubStyles.header} style={subStyles.header}>
             {header}
           </View>
         )}
         {children}
         {footer && (
-          <View style={{ marginTop: 12, paddingTop: 12, borderTop: `1px solid ${theme.colors.borderLight}` }}>
+          <View className={cardSubStyles.footer} style={subStyles.footer}>
             {footer}
           </View>
         )}
         {actions && (
-          <View style={{ marginTop: 12, display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <View className={cardSubStyles.actions} style={subStyles.actions}>
             {actions}
           </View>
         )}

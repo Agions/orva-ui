@@ -129,5 +129,5 @@ export default Notification;
 
 // 组件 displayName
 if (typeof Notification !== 'undefined') {
-  (Notification as any).displayName = 'Notification';
+  (Notification as unknown as { displayName: string }).displayName = 'Notification';
 }

@@ -10,7 +10,7 @@ import type { DesignTokens } from '../theme/tokens';
 import { defaultDesignTokens } from '../theme/tokens';
 import { deepMerge } from '../theme/utils/deepMerge';
 import { isBrowserEnvironment, safeLocalStorage, safeMatchMedia } from '../utils/environment';
-import { get, set } from '../utils/object';
+import { getValueByPath, set } from '../utils/object';
 import { error as logError, createLogger } from '../utils/logger';
 
 // ==================== 类型定义 ====================
@@ -230,17 +230,17 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     // 如果是暗色模式，合并暗色令牌
     if (isDark) {
       baseTokens = deepMerge(
-        defaultTokens as any as Record<string, unknown>,
-        darkTokens as any as Partial<Record<string, unknown>>,
-      ) as any as DesignTokens;
+        defaultTokens as Partial<DesignTokens>,
+        darkTokens,
+      ) as DesignTokens;
     }
 
     // 如果有自定义令牌，合并自定义令牌
     if (customTokens) {
       baseTokens = deepMerge(
-        baseTokens as any as Record<string, unknown>,
-        customTokens as any as Partial<Record<string, unknown>>,
-      ) as any as DesignTokens;
+        baseTokens as Partial<DesignTokens>,
+        customTokens,
+      ) as DesignTokens;
     }
 
     return baseTokens;
@@ -350,9 +350,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     setCustomTokensState((prev) => {
       if (prev) {
         return deepMerge(
-          prev as any as Record<string, unknown>,
-          newTokens as any as Partial<Record<string, unknown>>,
-        ) as any as Partial<DesignTokens>;
+          prev as Partial<DesignTokens>,
+          newTokens,
+        ) as Partial<DesignTokens>;
       }
       return newTokens;
     });
@@ -367,7 +367,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   // 获取令牌值
   const getToken = useCallback(
     <T = unknown,>(path: string): T | undefined => {
-      return get<T>(tokens as any as Record<string, unknown>, path);
+      return getValueByPath(tokens as unknown as Record<string, unknown>, path) as T | undefined;
     },
     [tokens],
   );

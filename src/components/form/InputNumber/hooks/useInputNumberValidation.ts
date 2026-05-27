@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import type { InputNumberValidationResult, InputNumberRule } from '../InputNumber.types';
-
 export interface UseInputNumberValidationParams {
   rules?: InputNumberRule[];
   validator?: (value: number) => boolean | string | Promise<boolean | string>;
@@ -53,7 +52,7 @@ export function useInputNumberValidation({ rules, validator, min, max }: UseInpu
       // 验证规则
       if (rules) {
         for (let i = 0; i < rules.length; i++) {
-          const rule = rules[i] as any;
+          const rule = rules[i] as InputNumberRule;
           if (rule.min !== undefined && inputValue < rule.min) {
             return {
               valid: false,
@@ -124,7 +123,7 @@ export function useInputNumberValidation({ rules, validator, min, max }: UseInpu
 
   const validateRequired = useCallback(
     (inputValue: number | null): boolean => {
-      if (!rules?.some((rule: any) => rule.required)) return true;
+      if (!rules?.some((rule: InputNumberRule) => rule.required)) return true;
       return inputValue !== null;
     },
     [rules],

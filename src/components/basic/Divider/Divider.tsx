@@ -325,12 +325,12 @@ export const Divider = createComponent<DividerProps, DividerRef>({
         },
         focus: () => {
           if (dividerRef.current) {
-            (dividerRef.current as any as { focus?: () => void }).focus?.();
+            (dividerRef.current as unknown as { focus?: () => void }).focus?.();
           }
         },
         blur: () => {
           if (dividerRef.current) {
-            (dividerRef.current as any as { blur?: () => void }).blur?.();
+            (dividerRef.current as unknown as { blur?: () => void }).blur?.();
           }
         },
         scrollIntoView: (options?: ScrollIntoViewOptions) => {

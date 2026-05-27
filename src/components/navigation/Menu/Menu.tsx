@@ -64,7 +64,7 @@ export const Menu = createComponent<MenuProps, MenuRef>({
       ...restProps
     } = props;
 
-    const menuRef = useRef<any>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
     const [internalSelectedKeys, setInternalSelectedKeys] = useState<string[]>(defaultSelectedKeys);
     const [internalOpenKeys, setInternalOpenKeys] = useState<string[]>(defaultOpenKeys);
     const [internalCollapsed, setInternalCollapsed] = useState(controlledCollapsed);
@@ -157,7 +157,7 @@ export const Menu = createComponent<MenuProps, MenuRef>({
     const handleContextMenu = useCallback(
       (event: ITouchEvent) => {
         if (!contextMenu) return;
-        onContextMenu?.('', undefined as any, event);
+        onContextMenu?.('', undefined as unknown as MenuItem, event);
       },
       [contextMenu, onContextMenu],
     );

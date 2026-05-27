@@ -153,7 +153,7 @@ export class DesignTokensManager {
       });
     };
 
-    generateSection(this.tokens as any as Record<string, unknown>);
+    generateSection(this.tokens as unknown as Record<string, unknown>);
     css += '}\n';
 
     return css;
@@ -178,7 +178,7 @@ export class DesignTokensManager {
     };
 
     if (darkColorTokens) {
-      generateColorSection(darkColorTokens as any as Record<string, unknown>);
+      generateColorSection(darkColorTokens as unknown as Record<string, unknown>);
     }
 
     css += '}\n';

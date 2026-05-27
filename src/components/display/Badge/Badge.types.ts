@@ -7,9 +7,11 @@ export interface BadgeProps extends BaseProps {
   overflowCount?: number;
   showZero?: boolean;
   status?: 'default' | 'processing' | 'success' | 'error' | 'warning';
+  /** Badge visual type (color) — maps to status or standalone */
+  type?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info';
   text?: string;
   color?: string;
-  size?: 'default' | 'small';
+  size?: 'sm' | 'md' | 'lg';
   offset?: [number, number];
   title?: string;
   children?: React.ReactNode;

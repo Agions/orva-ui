@@ -138,7 +138,7 @@ function mergeArrays<T>(
  * // result: { a: 1, b: { c: 2, d: 3 }, e: 4 }
  * ```
  */
-export function deepMerge<T extends Record<string, unknown>>(
+export function deepMerge<T extends object>(
   target: T,
   source: Partial<T>,
   options: DeepMergeOptions = {},
@@ -202,8 +202,8 @@ export function deepMerge<T extends Record<string, unknown>>(
     if (isPlainObject(sourceValue)) {
       if (isPlainObject(targetValue)) {
         result[key] = deepMerge(
-          targetValue as Record<string, unknown>,
-          sourceValue as Record<string, unknown>,
+          targetValue as unknown as T,
+          sourceValue as unknown as Partial<T>,
           mergedOptions,
         );
       } else {
@@ -282,7 +282,7 @@ export function deepClone<T>(value: T): T {
  * // result: { a: 3, b: 2, c: 4 }
  * ```
  */
-export function deepMergeAll<T extends Record<string, unknown>>(
+export function deepMergeAll<T extends object>(
   objects: Array<Partial<T>>,
   options: DeepMergeOptions = {},
 ): T {
@@ -307,7 +307,7 @@ export function deepMergeAll<T extends Record<string, unknown>>(
  * @param customTokens - 自定义令牌
  * @returns 合并后的令牌
  */
-export function mergeDesignTokens<T extends Record<string, unknown>>(
+export function mergeDesignTokens<T extends object>(
   defaultTokens: T,
   customTokens: Partial<T>,
 ): T {

@@ -30,7 +30,7 @@ export const Row = createComponent<RowProps, RowRef>({
   render: (props, ref) => {
     const { children, gutter = 0, align = 'top', justify = 'start', wrap = true, className, style, onClick } = props;
 
-    const rowRef = useRef<any>(null);
+    const rowRef = useRef<unknown>(null);
     const [internalAlign, setInternalAlign] = useState<RowAlign>(align);
     const [internalJustify, setInternalJustify] = useState<RowJustify>(justify);
     const [internalGutter, setInternalGutter] = useState<RowGutter>(gutter);
@@ -46,7 +46,7 @@ export const Row = createComponent<RowProps, RowRef>({
     useEffect(() => { setInternalGutter(gutter); }, [gutter]);
     useEffect(() => { setInternalWrap(wrap); }, [wrap]);
 
-    const handleClick = useCallback((event: any) => { onClick?.(event); }, [onClick]);
+    const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => { onClick?.(event); }, [onClick]);
 
     const rowStyle = rowStyles['getBaseStyle']({ gutter: internalGutter, align: internalAlign, justify: internalJustify, wrap: internalWrap, style: style || {} });
     const rowClassName = rowStyles['getClassName']({ align: internalAlign, justify: internalJustify, wrap: internalWrap, className: className || '' });
@@ -63,8 +63,8 @@ export const Row = createComponent<RowProps, RowRef>({
         setGutter: (newGutter: RowGutter) => setInternalGutter(newGutter),
         scrollIntoView: (options?: ScrollIntoViewOptions) => {
           const element = rowRef.current;
-          if (element && typeof element.scrollIntoView === 'function') element.scrollIntoView(options);
-          else if (element && element.$el) element.$el?.scrollIntoView?.(options);
+          if (element && typeof (element as HTMLElement).scrollIntoView === 'function') (element as HTMLElement).scrollIntoView(options);
+          else if (element && '$el' in element) (element as unknown as { $el: HTMLElement }).$el?.scrollIntoView?.(options);
         },
       }),
       [internalAlign, internalJustify, internalGutter],
@@ -72,7 +72,7 @@ export const Row = createComponent<RowProps, RowRef>({
 
     const renderedChildren = React.Children.map(children, (child, index) => {
       if (React.isValidElement(child) && (child.type as unknown as { displayName?: string })?.displayName === 'Col') {
-        return React.cloneElement(child, { key: index, gutter: internalGutter } as any);
+        return React.cloneElement(child, { key: index, gutter: internalGutter } as unknown as Record<string, unknown>);
       }
       return child;
     });

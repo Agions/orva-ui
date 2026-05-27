@@ -424,7 +424,7 @@ export const menuStyles: MenuStyleConfig & MenuStyleFunctions = {
 
   // 获取主题样式
   getThemeStyles: (theme: 'light' | 'dark'): MenuItemStyles => {
-    const themeStyles = (menuStyles as any)[theme] || menuStyles.dark;
+    const themeStyles = (menuStyles as unknown as Record<string, MenuItemStyles>)[theme] || menuStyles.dark;
     return {
       container: themeStyles.container,
       item: themeStyles.item,

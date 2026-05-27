@@ -95,7 +95,7 @@ export function useVideoPlayer(options: UseVideoPlayerOptions): UseVideoPlayerRe
   } = options;
 
   // 引用
-  const videoRef = useRef<any>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const controlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const adTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -259,7 +259,7 @@ export function useVideoPlayer(options: UseVideoPlayerOptions): UseVideoPlayerRe
     if (!video) return;
     try {
       if (typeof window !== 'undefined' && 'requestPictureInPicture' in video) {
-        await (video as any).requestPictureInPicture();
+        await (video as unknown as { requestPictureInPicture: () => Promise<void> }).requestPictureInPicture();
         setState((prev) => ({
           ...prev,
           isPictureInPicture: true,
@@ -370,7 +370,7 @@ export function useVideoPlayer(options: UseVideoPlayerOptions): UseVideoPlayerRe
       canvas.height = video.videoHeight;
       const ctx = canvas.getContext('2d');
       if (!ctx) return null;
-      ctx.drawImage(video as any as CanvasImageSource, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(video as unknown as CanvasImageSource, 0, 0, canvas.width, canvas.height);
       return canvas.toDataURL('image/png');
     } catch (error) {
       logger.error('Failed to get screenshot:', error);

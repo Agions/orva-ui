@@ -89,3 +89,15 @@ export interface ToastMethodConfig {
 	/** 点击事件 */
   onClick?: (_event: React.MouseEvent) => void;
 }
+
+/** Toast 静态方法接口（imperative API） */
+
+export interface ToastStatic {
+  show: (config: ToastMethodConfig | string) => ToastRef;
+  info: (config: ToastMethodConfig | string) => ToastRef;
+  success: (config: ToastMethodConfig | string) => ToastRef;
+  warning: (config: ToastMethodConfig | string) => ToastRef;
+  error: (config: ToastMethodConfig | string) => ToastRef;
+  loading: (config: ToastMethodConfig | string) => ToastRef;
+  hide: () => void;
+}

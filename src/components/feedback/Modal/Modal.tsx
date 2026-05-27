@@ -13,6 +13,7 @@
  */
 
 import { useEffect, useState, useMemo, useCallback } from 'react';
+import type { CSSProperties } from 'react';
 import { View, Text } from '@tarojs/components';
 
 import { createComponent } from '@/utils/createComponent';
@@ -204,7 +205,7 @@ export const Modal = createComponent<ModalProps>({
         {...a11y.getAriaAttributes()}
         {...rest}
       >
-        {showMask && <View style={maskStyle as any} onClick={handleMaskClick} />}
+        {showMask && <View style={maskStyle as unknown as CSSProperties} onClick={handleMaskClick} />}
         <View
           style={{
             ...contentStyle,

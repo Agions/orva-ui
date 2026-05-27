@@ -191,7 +191,7 @@ export class RNAdapter extends BaseHttpAdapter {
         uri: fileUri,
         name: fileName,
         type: fileType,
-      } as any as Blob);
+      } as unknown as Blob);
     }
 
     // 添加额外的表单数据

@@ -179,7 +179,7 @@ export const Timeline = createComponent<TimelineProps, TimelineRef>({
       </View>
     );
   },
-}) as any;
+}) as unknown as React.ComponentType<TimelineProps> & { Item: typeof TimelineItem };
 
 Timeline.Item = TimelineItem;
 

@@ -5,6 +5,18 @@
 
 import { THEMES, ThemeName } from './advanced-themes';
 
+interface ThemeObject {
+  name: string;
+  colors: Record<string, unknown>;
+  fontFamily: {
+    sans: string[];
+    serif: string[];
+    mono: string[];
+  };
+  fontSize: Record<string, string>;
+  fontWeight: Record<string, string>;
+}
+
 export class ThemeVariableGenerator {
   /**
    * 递归扁平化主题对象为键值对
@@ -29,7 +41,7 @@ export class ThemeVariableGenerator {
    * 生成 CSS 变量字符串
    */
   static generateCSSVariables(themeName: ThemeName): string {
-    const theme = THEMES[themeName] as any;
+    const theme = THEMES[themeName] as unknown as ThemeObject;
     const variables: Record<string, string> = this.flattenTheme(theme.colors as Record<string, unknown>);
 
     // 添加特殊变量
@@ -180,7 +192,7 @@ ${DOLLAR}themes: (\n`;
   static generateJSONConfig(): string {
     return JSON.stringify({
       themes: Object.entries(THEMES).reduce((acc, [name, theme]) => {
-        const t = theme as any;
+        const t = theme as unknown as ThemeObject;
         acc[name] = {
           name: t.name,
           colors: t.colors,

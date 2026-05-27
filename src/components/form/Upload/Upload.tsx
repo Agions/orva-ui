@@ -4,13 +4,34 @@ import { View } from '@tarojs/components';
 import { Button } from '../../basic/Button';
 import { Text } from '../../basic/Text';
 import type { ITouchEvent } from '@tarojs/components';
-import type { UploadProps, UploadRef, UploadFile } from './Upload.types';
+import type { UploadProps, UploadRef, UploadFile, TaroTempFile } from './Upload.types';
 
-interface TaroTempFile {
-  path: string;
-  size?: number;
-  name?: string;
-  type?: string;
+interface TaroUploadError {
+  errMsg: string;
+}
+
+function toUploadFile(tempFile: TaroTempFile, existingUid?: string): UploadFile {
+  const ext = tempFile.path.split('.').pop() || '';
+  return {
+    uid: existingUid || String(Date.now() + Math.random()),
+    name: tempFile.name || tempFile.path.split('/').pop() || 'unknown_file',
+    size: tempFile.size ?? 0,
+    type: tempFile.type || `image/${ext}`,
+    status: 'uploading',
+    percent: 0,
+    url: tempFile.path,
+  };
+}
+
+function createEmptyUploadFile(): UploadFile {
+  return {
+    uid: '',
+    name: '',
+    size: 0,
+    type: '',
+    status: 'error',
+    percent: 0,
+  };
 }
 
 import { createComponent } from '@/utils/createComponent';
@@ -178,40 +199,28 @@ export const Upload = createComponent<UploadProps, UploadRef>({
       async (file: TaroTempFile, tempFilePath: string) => {
         if (internalDisabled) return;
 
+        const uidString = String(Date.now() + Math.random());
+
         try {
           // 上传前验证
           if (beforeUpload) {
-            // 由于 Taro 没有原生 File 对象，这里模拟一个类似的对象
-            const mockFile = {
-              ...file,
-              type: `image/${file.path.split('.').pop()}`,
-            };
-            const result = await beforeUpload(mockFile as any as UploadFile);
+            const uploadFileObj = toUploadFile(file, uidString);
+            const result = await beforeUpload(uploadFileObj);
             if (result === false) return;
           }
 
-          const uidString = String(Date.now() + Math.random());
-          const newFile: UploadFile = {
-            uid: uidString,
-            name: file.path.split('/').pop() || 'unknown_file',
-            size: (file.size ?? 0),
-            type: `image/${file.path.split('.').pop()}`,
-            status: 'uploading',
-            percent: 0,
-            url: tempFilePath,
-          };
+          const uploadFileObj = toUploadFile(file, uidString);
+          uploadFileObj.url = tempFilePath;
 
-          const newFileList = [...fileList, newFile];
+          const newFileList = [...fileList, uploadFileObj];
           handleFileChange(newFileList);
           setUploading(true);
 
           // 上传逻辑
           if (customRequest) {
-            // 自定义上传，提供模拟的 File 对象
-            const mockFileForRequest = { ...file, type: `image/${file.path.split('.').pop()}` } as any as UploadFile;
             await customRequest({
-              file: mockFileForRequest,
-              filename: mockFileForRequest.name || '',
+              file: uploadFileObj,
+              filename: uploadFileObj.name || '',
               data: {},
               headers,
               withCredentials,
@@ -221,14 +230,14 @@ export const Upload = createComponent<UploadProps, UploadRef>({
                   f.uid === uidString ? { ...f, percent, status: 'uploading' as const } : f,
                 );
                 handleFileChange(updatedFileList);
-                onProgress?.(percent, mockFileForRequest);
+                onProgress?.(percent, uploadFileObj);
               },
               onSuccess: (response: any) => {
                 const updatedFileList: UploadFile[] = fileList.map((f) =>
                   f.uid === uidString ? { ...f, status: 'done' as const, response } : f,
                 );
                 handleFileChange(updatedFileList);
-                onSuccess?.(response, mockFileForRequest);
+                onSuccess?.(response, uploadFileObj);
                 setUploading(false);
               },
               onError: (error: Error) => {
@@ -236,7 +245,7 @@ export const Upload = createComponent<UploadProps, UploadRef>({
                   f.uid === uidString ? { ...f, status: 'error' as const, error } : f,
                 );
                 handleFileChange(updatedFileList);
-                onError?.(error, mockFileForRequest);
+                onError?.(error, uploadFileObj);
                 setUploading(false);
               },
             });
@@ -255,16 +264,16 @@ export const Upload = createComponent<UploadProps, UploadRef>({
                     f.uid === uidString ? { ...f, status: 'done' as const, response } : f,
                   );
                   handleFileChange(updatedFileList);
-                  onSuccess?.(response, file as any as UploadFile);
+                  onSuccess?.(response, uploadFileObj);
                   setUploading(false);
                 },
-                fail: (err: any) => {
+                fail: (err: TaroUploadError) => {
                   const error = new Error(err.errMsg);
                   const updatedFileList: UploadFile[] = fileList.map((f) =>
                     f.uid === uidString ? { ...f, status: 'error' as const, error } : f,
                   );
                   handleFileChange(updatedFileList);
-                  onError?.(error, file as any as UploadFile);
+                  onError?.(error, uploadFileObj);
                   setUploading(false);
                 },
               });
@@ -276,7 +285,7 @@ export const Upload = createComponent<UploadProps, UploadRef>({
                 f.uid === uidString ? { ...f, percent, status: 'uploading' as const } : f,
               );
               handleFileChange(updatedFileList);
-              onProgress?.(percent, file as any as UploadFile);
+              onProgress?.(percent, uploadFileObj);
               await new Promise((resolve) => setTimeout(resolve, 100));
             }
 
@@ -284,7 +293,7 @@ export const Upload = createComponent<UploadProps, UploadRef>({
               f.uid === uidString ? { ...f, status: 'done' as const, response: { success: true } } : f,
             );
             handleFileChange(updatedFileList);
-            onSuccess?.({ success: true }, file as any as UploadFile);
+            onSuccess?.({ success: true }, uploadFileObj);
             setUploading(false);
           }
         } catch (error) {
@@ -297,7 +306,8 @@ export const Upload = createComponent<UploadProps, UploadRef>({
             );
             handleFileChange(updatedFileList);
           }
-          onError?.(error as Error, file as any as UploadFile);
+          const fallbackFile = toUploadFile(file, uidString);
+          onError?.(error as Error, fallbackFile);
           setUploading(false);
         }
       },
@@ -332,7 +342,8 @@ export const Upload = createComponent<UploadProps, UploadRef>({
         const validFiles = tempFiles.filter((file) => {
           const validation = validateFile(file);
           if (!validation.valid) {
-            onError?.(new Error(validation.error!), file as any as UploadFile);
+            const errorFile = toUploadFile(file);
+            onError?.(new Error(validation.error!), errorFile);
           }
           return validation.valid;
         });
@@ -346,8 +357,9 @@ export const Upload = createComponent<UploadProps, UploadRef>({
         }
       } catch (error) {
         // 处理取消选择等情况
-        if ((error as any as { errMsg: string }).errMsg !== 'chooseImage:fail cancel') {
-          onError?.(error as Error, {} as any as UploadFile);
+        const taroError = error as TaroUploadError;
+        if (taroError.errMsg !== 'chooseImage:fail cancel') {
+          onError?.(error as Error, createEmptyUploadFile());
         }
       }
     }, [internalDisabled, validateFile, maxCount, fileList.length, onError, uploadFile, fileList]);
@@ -370,12 +382,12 @@ export const Upload = createComponent<UploadProps, UploadRef>({
         clearFileList: () => {
           handleFileChange([]);
         },
-        upload: (file: any, tempFilePath?: string) => {
+        upload: (file: TaroTempFile, tempFilePath?: string) => {
           if (tempFilePath) {
             uploadFile(file, tempFilePath);
           } else {
             // 如果只提供了文件路径，直接上传
-            uploadFile({ path: file, size: 0 }, file);
+            uploadFile({ path: file.path, size: 0 }, file.path);
           }
         },
         abort: (file: UploadFile) => {

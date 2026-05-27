@@ -1,158 +1,275 @@
 /**
- * Input 输入框组件（基础版）
+ * Input 输入框组件（基础版）— 重构版
  * @module components/basic/Input
- * @description 基础 Input 输入框组件，支持受控/非受控模式、验证、前缀/后缀图标、清除按钮。
+ * @description 基于 createComponent 构建的输入框组件，支持受控/非受控模式、验证状态、前缀/后缀插槽、清除按钮。
+ *
+ * 架构分层:
+ * - Headless Hook: useInput — 状态逻辑管理
+ * - Styles: Input.styles — CVA 样式变体
+ * - Component: Input — 通过 createComponent 包装
  *
  * @example
  * ```tsx
- * <Input placeholder="请输入内容" onChange={handleChange} />
+ * <Input placeholder="请输入内容" />
  * <Input type="password" clearable />
- * <Input prefix="¥" suffix="元" />
+ * <Input prefix="¥" suffix="元" status="success" successText="格式正确" />
  * ```
  */
 
-import { useCallback, useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Input as TaroInput, View, Text } from '@tarojs/components';
 
 import { createComponent } from '@/utils/createComponent';
 import { useTheme } from '@/hooks/ui/useTheme';
-import { useInteractionState } from '@/hooks/ui/useInteractionState';
 import { useAccessibility, ARIA_ROLES, type AccessibilityProps } from '@/hooks/ui/useAccessibility';
-import type { InputProps, InputRef } from './Input.types';
+import { useInput } from './useInput';
+import { inputStyles } from './Input.styles';
+import type { InputProps, InputRef, InputType, InputSize, InputVariant } from './Input.types';
 
 // ==================== 主组件 ====================
 
 /**
  * Input 基础输入框组件
- * @description 基于 createComponent 构建的输入框组件，支持受控/非受控、聚焦状态、清除功能和可访问性。
- *
- * @param props - 输入框属性，类型为 InputProps 与 AccessibilityProps 的组合
- * @param ref - 引用转发对象，类型为 InputRef
- * @returns 输入框 JSX 元素
- *
- * @example
- * ```tsx
- * <Input type="text" placeholder="用户名" clearable onChange={setUsername} />
- * ```
+ * @description 基于 createComponent 构建，支持受控/非受控、聚焦状态、清除功能、验证状态和可访问性。
  */
 export const Input = createComponent<InputProps & AccessibilityProps, InputRef>({
   name: 'Input',
 
   defaultProps: {
-    type: 'text',
-    size: 'md',
+    type: 'text' as InputType,
+    size: 'md' as InputSize,
     disabled: false,
     readonly: false,
     placeholder: '',
     clearable: false,
-    showPassword: false,
     border: true,
     focusable: true,
     tabIndex: 0,
-  },
+    inputVariant: 'outlined' as InputVariant,
+  } as Partial<InputProps & AccessibilityProps>,
 
-  render: (props) => {
+  render: (props, ref) => {
     const {
-      type = 'text',
+      // UI 布局
       size = 'md',
       disabled = false,
       readonly = false,
       placeholder = '',
+      className = '',
+      style,
+      clearable = false,
+      border = true,
+      prefix,
+      suffix,
+      label,
+      helperText,
+      errorText,
+      successText,
+      // 值
       value,
       defaultValue,
       onChange,
       onFocus,
       onBlur,
-      className = '',
-      style,
-      clearable = false,
-      showPassword = false,
-      border = true,
-      prefix,
-      suffix,
+      onClear,
+      // 验证
+      status: propStatus = 'default',
+      // 原生属性
+      type,
+      password,
+      maxLength,
+      inputVariant = 'outlined',
       focusable = true,
       tabIndex = 0,
+      // 转发
       ...rest
     } = props;
 
     const { theme } = useTheme();
 
-    // 内部状态管理（非受控模式）
-    const [internalValue, setInternalValue] = useState(defaultValue || '');
-    const displayValue = value !== undefined ? value : internalValue;
-
-    const { state: interactionState } = useInteractionState({
-      disabledPress: disabled || readonly,
-    });
-
-    const { handleKeyDown } = useAccessibility({
+    // ============ Headless Hook ============
+    const {
+      value: currentValue,
+      interaction: { isFocused, isHovered },
+      clearable: showClearable,
+      handleChange,
+      handleClear,
+      htmlProps,
+      eventHandlers,
+      status,
+      statusColor,
+      isError,
+    } = useInput({
+      type: type as 'text' | 'password' | 'number' | undefined,
+      size,
+      disabled,
+      readonly,
+      clearable,
+      border,
       focusable,
       tabIndex,
-      role: ARIA_ROLES.textbox,
+      defaultValue,
+      value,
+      onChange,
+      onFocus,
+      onBlur,
+      onClear,
+      status: propStatus,
+      errorText,
+      successText,
+      helperText,
+      label,
     });
 
-    // 尺寸映射
-    const sizeStyles: Record<string, React.CSSProperties> = {
-      xs: { fontSize: 12, padding: '4px 8px', height: 24 },
-      sm: { fontSize: 14, padding: '6px 10px', height: 28 },
-      md: { fontSize: 16, padding: '8px 12px', height: 34 },
-      lg: { fontSize: 18, padding: '10px 14px', height: 40 },
-    };
-    const sizeStyle = sizeStyles[size] || sizeStyles.md;
+    // ============ 可访问性 ============
+    const a11y = useAccessibility({
+      role: ARIA_ROLES.textbox,
+      label: typeof label === 'string' ? label : placeholder,
+      attributes: {
+        'aria-invalid': isError ? 'true' : 'false',
+        'aria-disabled': String(disabled),
+        'aria-readonly': String(readonly),
+      },
+    });
 
-    // 样式计算
-    const inputStyle = useMemo(() => ({
-      display: 'flex',
-      alignItems: 'center',
-      width: '100%',
-      backgroundColor: disabled ? theme.colors.backgroundDisabled : theme.colors.background,
-      border: border ? `1px solid ${interactionState.isFocused ? theme.colors.primary : theme.colors.border}` : 'none',
-      borderRadius: theme.borderRadius.md,
-      padding: sizeStyle.padding,
-      fontSize: sizeStyle.fontSize,
-      color: disabled ? theme.colors.textDisabled : theme.colors.text,
-      transition: 'all 150ms ease',
-      ...(style || {}),
-    }), [theme, disabled, interactionState.isFocused, sizeStyle, border, style]);
+    // ============ 样式 ============
+    const wrapperClasses = useMemo(() => {
+      return inputStyles({ size, error: isError, prefix: !!prefix, suffix: !!suffix, className });
+    }, [size, isError, prefix, suffix, className]);
 
-    const handleChange = useCallback((e: unknown) => {
-      const newValue = (e as { detail: { value: string } })?.detail?.value ?? '';
-      if (value === undefined) {
-        setInternalValue(newValue);
+    // 动态内联样式（用于主题色、交互状态等无法用 Tailwind class 表达的部分）
+    const computedStyle = useMemo((): React.CSSProperties => {
+      const base: React.CSSProperties = {
+        ...(style || {}),
+      };
+
+      // focus ring 颜色
+      if (isFocused && !isError) {
+        base.boxShadow = `0 0 0 2px ${theme.colors.primary}40`;
+        base.borderColor = theme.colors.primary as string;
       }
-      onChange?.(newValue);
-    }, [value, onChange]);
-
-    const handleClear = useCallback(() => {
-      if (value === undefined) {
-        setInternalValue('');
+      if (isHovered && !isFocused && !isError) {
+        const themeColors = theme.colors as unknown as Record<string, string>;
+        base.borderColor = themeColors.borderFocus || (theme.colors.primary as string);
       }
-      onChange?.('');
-    }, [value, onChange]);
 
+      return base;
+    }, [style, isFocused, isHovered, isError, theme]);
+
+    // ============ 渲染 ============
     return (
-      <View style={inputStyle} className={className}>
-        {prefix && <View style={{ marginRight: 8 }}>{prefix}</View>}
-        
-        <TaroInput
-          {...{ type } as Record<string, unknown>}
-          value={displayValue}
-          placeholder={placeholder}
-          disabled={disabled}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onInput={handleChange}
-          style={{ flex: 1, backgroundColor: 'transparent', border: 'none', outline: 'none' }}
-          {...(rest as Record<string, unknown>)}
-        />
-
-        {clearable && displayValue && (
-          <View onClick={handleClear} style={{ marginLeft: 8, cursor: 'pointer' }}>
-            <Text>✕</Text>
-          </View>
+      <View data-testid="input-container" className="w-full">
+        {/* 浮动标签 */}
+        {label && (
+          <Text
+            className={`block mb-1 transition-all duration-200 ${
+              isFocused || (currentValue && String(currentValue).length > 0)
+                ? `text-xs`
+                : `text-sm`
+            }`}
+            style={{
+              color: isFocused
+                ? (theme.colors.primary as string)
+                : (theme.colors.textSecondary as string),
+            }}
+          >
+            {label}
+          </Text>
         )}
 
-        {suffix && <View style={{ marginLeft: 8 }}>{suffix}</View>}
+        {/* 输入框容器 */}
+        <View
+          className={wrapperClasses}
+          style={computedStyle}
+          {...(eventHandlers as unknown as Record<string, unknown>)}
+        >
+          {/* 前缀 */}
+          {prefix && (
+            <View className="flex items-center shrink-0 mr-2" data-testid="input-prefix">
+              {prefix}
+            </View>
+          )}
+
+          {/* Taro Input */}
+          <TaroInput
+            ref={ref as unknown as React.Ref<HTMLInputElement>}
+            data-testid="input"
+            type={type as unknown as (typeof TaroInput extends { type: infer T } ? T : never)}
+            value={String(currentValue ?? '')}
+            placeholder={placeholder}
+            disabled={disabled}
+            password={!!password}
+            maxlength={maxLength}
+            className="flex-1 bg-transparent border-none outline-none p-0 m-0 text-inherit"
+            style={{
+              flex: 1,
+              backgroundColor: 'transparent',
+              border: 'none',
+              outline: 'none',
+              padding: 0,
+              margin: 0,
+              color: 'inherit',
+              fontSize: 'inherit',
+              lineHeight: 'inherit',
+            }}
+            onInput={handleChange}
+            onFocus={(e) => {
+              eventHandlers.onFocus();
+              onFocus?.(e as unknown as Parameters<Exclude<typeof onFocus, undefined>>[0]);
+            }}
+            onBlur={(e) => {
+              eventHandlers.onBlur();
+              onBlur?.(e as unknown as Parameters<Exclude<typeof onBlur, undefined>>[0]);
+            }}
+            {...(a11y.getAriaAttributes() as unknown as Record<string, unknown>)}
+            {...(rest as unknown as Record<string, unknown>)}
+          />
+
+          {/* 清除按钮 */}
+          {showClearable && !disabled && (
+            <View
+              data-testid="input-clear"
+              className="flex items-center justify-center shrink-0 ml-2 w-[18px] h-[18px] rounded-full cursor-pointer transition-opacity duration-200"
+              style={{
+                backgroundColor: isError
+                  ? (theme.colors.error as string)
+                  : ((theme.colors as unknown as Record<string, string>).textDisabled || '#9ca3af'),
+                opacity: isHovered ? 1 : 0.6,
+              }}
+              onClick={handleClear}
+            >
+              <Text className="text-white text-xs leading-none">×</Text>
+            </View>
+          )}
+
+          {/* 后缀 */}
+          {suffix && !showClearable && (
+            <View className="flex items-center shrink-0 ml-2" data-testid="input-suffix">
+              {suffix}
+            </View>
+          )}
+        </View>
+
+        {/* 辅助/验证文本 */}
+        {(helperText || errorText || successText) && (
+          <Text
+            data-testid="input-helper-text"
+            className="block mt-1 text-sm transition-colors duration-200"
+            style={{
+              color: isError
+                ? (theme.colors.error as string)
+                : status === 'success'
+                ? (theme.colors.success as string)
+                : (theme.colors.textSecondary as string),
+            }}
+          >
+            {isError && errorText
+              ? errorText
+              : status === 'success' && successText
+              ? successText
+              : helperText}
+          </Text>
+        )}
       </View>
     );
   },

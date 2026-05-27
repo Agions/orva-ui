@@ -13,7 +13,7 @@ export const paginationStyles = {
   /**
    * 获取基础样式
    */
-  getBaseStyle: (props: PaginationProps): React.CSSProperties => {
+  getBaseStyle: (props: Pick<PaginationProps, 'align' | 'style'>): React.CSSProperties => {
     const { align = 'right', style = {} } = props;
 
     // 计算对齐方式
@@ -32,7 +32,7 @@ export const paginationStyles = {
   /**
    * 获取类名
    */
-  getClassName: (props: PaginationProps): string => {
+  getClassName: (props: Pick<PaginationProps, 'size' | 'position' | 'align' | 'disabled' | 'simple' | 'className'>): string => {
     const {
       size = 'default',
       position = 'bottom',

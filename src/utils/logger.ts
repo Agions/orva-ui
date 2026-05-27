@@ -79,8 +79,12 @@ export class Logger {
    */
   private getDefaultLevel(): LogLevel {
     // 生产环境默认只显示 warn 和 error
-    if (process.env['NODE_ENV'] === 'production') {
-      return 'warn';
+    try {
+      if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') {
+        return 'warn';
+      }
+    } catch {
+      // process 不可用时静默处理
     }
     return 'debug';
   }

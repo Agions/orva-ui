@@ -39,7 +39,7 @@ export const VideoOverlay = createComponent<VideoOverlayProps, HTMLDivElement>({
 
     const theme = useTheme();
     const a11y = useAccessibility({
-      role: (ARIA_ROLES as Record<string, string>).status || 'status' as any,
+      role: ARIA_ROLES.alert,
       label: ARIA_LABELS.videoStatus,
     });
 

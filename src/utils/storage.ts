@@ -323,7 +323,7 @@ export async function getStorageInfo(): Promise<{
   }
 
   const info = await Taro.getStorageInfo();
-  const storageInfo = info as any as { keys: string[]; currentSize: number; limitSize: number };
+  const storageInfo = info as unknown as { keys: string[]; currentSize: number; limitSize: number };
   return {
     keys: storageInfo.keys,
     currentSize: storageInfo.currentSize,

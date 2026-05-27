@@ -17,6 +17,11 @@ export interface SliderMark {
   label: React.ReactNode;
 }
 
+/** Slider 工具提示配置 */
+export interface SliderTooltipConfig {
+  formatter?: (value: number) => React.ReactNode;
+}
+
 /** Slider 属性 */
 export interface SliderProps extends BaseProps {
   /** 当前值 */
@@ -35,7 +40,7 @@ export interface SliderProps extends BaseProps {
   included?: boolean;
   vertical?: boolean;
   reverse?: boolean;
-  tooltip?: boolean;
+  tooltip?: boolean | SliderTooltipConfig;
   size?: Size | SliderSize;
   variant?: Variant | SliderVariant;
   onChangeComplete?: (_value: number) => void;

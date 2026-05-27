@@ -100,7 +100,7 @@ export const Transfer = createComponent<TransferProps & BaseProps, TransferRef>(
       role: ARIA_ROLES.application,
       'aria-disabled': internalDisabled,
       ...accessibilityState,
-    } as any);
+    });
 
     const handleItemClick = useCallback(
       (item: TransferOption, _direction: TransferDirection) => {

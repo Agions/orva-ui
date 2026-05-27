@@ -126,9 +126,9 @@ export function useToggle<T = boolean>(
     // 无参数：布尔切换
     if (leftValueOrOptions === undefined) {
       return {
-        left: false as any as T,
-        right: true as any as T,
-        initialValue: false as any as T,
+        left: false as unknown as T,
+        right: true as unknown as T,
+        initialValue: false as unknown as T,
         onChange: undefined,
       };
     }
@@ -136,9 +136,9 @@ export function useToggle<T = boolean>(
     // 布尔值参数：布尔切换
     if (typeof leftValueOrOptions === 'boolean' && rightValue === undefined) {
       return {
-        left: false as any as T,
-        right: true as any as T,
-        initialValue: leftValueOrOptions as any as T,
+        left: false as unknown as T,
+        right: true as unknown as T,
+        initialValue: leftValueOrOptions as unknown as T,
         onChange: undefined,
       };
     }

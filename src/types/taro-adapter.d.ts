@@ -114,7 +114,7 @@ export function adaptReactToTaroEvent<T>(
 ): TaroTouchEvent | TaroMouseEvent | TaroFocusEvent {
   return (event) => {
     // 转换事件对象，保持类型兼容性
-    handler(event as any as React.TouchEvent<T> || React.MouseEvent<T> || React.FocusEvent<T>);
+    handler(event as unknown as React.TouchEvent<T> | React.MouseEvent<T> | React.FocusEvent<T>);
   };
 }
 
@@ -122,7 +122,7 @@ export function adaptFormEvent(
   handler: FormEventHandler<T> | ChangeEventHandler<T>
 ): TaroFormEvent | TaroChangeEvent {
   return (event) => {
-    handler(event as any as React.FormEvent<T> || React.ChangeEvent<T>);
+    handler(event as unknown as React.FormEvent<T> | React.ChangeEvent<T>);
   };
 }
 

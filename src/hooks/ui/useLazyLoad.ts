@@ -134,7 +134,7 @@ const DEFAULT_RETRY_DELAY = 1000;
  *     {status === 'idle' && placeholderContent}
  *     {status === 'loading' && loadingContent}
  *     {status === 'loaded' && contentRenderer()}
- *     {status === 'error' as any && errorContent}
+ *     {status === 'error' && errorContent}
  *   </div>
  * );
  * ```

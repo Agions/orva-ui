@@ -152,7 +152,7 @@ export const LazyComponent: React.FC<LazyComponentProps> = ({
 
   const ActualComponent =
     typeof component === 'function'
-      ? React.lazy(component as any as () => Promise<{ default: ComponentType<unknown> }>)
+      ? React.lazy(component as unknown as () => Promise<{ default: ComponentType<unknown> }>)
       : component;
 
   return (

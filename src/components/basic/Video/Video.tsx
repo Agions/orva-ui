@@ -418,6 +418,14 @@ const Video = createComponent<VideoProps, VideoMethods>({
       }
     }, [currentAdIndex, ads, handleAdStartCb]);
 
+    // DOM-only event props not supported by Taro's ViewProps type.
+    // Apply them via spread with a relaxed type so they work on web/h5 platforms.
+    const webOnlyProps: Record<string, unknown> = {
+      onContextMenu: handleContextMenu,
+      onMouseMove: handleMouseMove,
+      onMouseLeave: handleMouseLeave,
+    };
+
     return (
       <View
         ref={containerRef}
@@ -430,8 +438,7 @@ const Video = createComponent<VideoProps, VideoMethods>({
         }}
         className={className}
         onClick={handleVideoClick}
-        onContextMenu={handleContextMenu}
-        {...({ onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave } as any)}
+        {...webOnlyProps}
         {...a11y.getAriaAttributes()}
         {...restProps}
       >

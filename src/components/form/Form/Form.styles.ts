@@ -261,7 +261,7 @@ export class FormStyles {
         warning: { color: '#f59e0b', borderColor: '#f59e0b', backgroundColor: '#fffbeb' },
         success: { color: '#22c55e', borderColor: '#22c55e', backgroundColor: '#f0fdf4' },
         loading: { color: '#6b7280', borderColor: '#e5e7eb', backgroundColor: '#f9fafb' },
-      } as any,
+      } as Record<string, { color: string; borderColor?: string; backgroundColor?: string }>,
       item: {
         display: 'flex',
         flexDirection: 'column',

@@ -7,7 +7,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { Size } from '../types/common';
-import { get } from '../utils/object';
+import { getValueByPath } from '../utils/object';
 import { createLogger } from '../utils/logger';
 
 // ==================== 类型定义 ====================
@@ -285,7 +285,7 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children, http, 
     };
 
     return <T = unknown,>(path: string): T | undefined => {
-      return get<T>(fullConfig, path);
+      return getValueByPath(fullConfig, path) as T | undefined;
     };
   }, [mergedHttpConfig, mergedComponentConfig, mergedLocaleConfig]);
 

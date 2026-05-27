@@ -46,7 +46,7 @@ export const Col = createComponent<ColProps, ColRef>({
     useEffect(() => { setInternalOrder(order); }, [order]);
     useEffect(() => { setInternalFlex(flex); }, [flex]);
 
-    const handleClick = useCallback((event: any) => { onClick?.(event); }, [onClick]);
+    const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => { onClick?.(event); }, [onClick]);
 
     const colStyle = colStyles['getBaseStyle']({ span: internalSpan, offset: internalOffset, order: internalOrder, gutter, flex: internalFlex, style: style || {} });
     const responsiveStyle = responsive ? colStyles['getResponsiveStyle'](responsive) : {};
@@ -63,7 +63,7 @@ export const Col = createComponent<ColProps, ColRef>({
         setOffset: (newOffset: ColOffset) => setInternalOffset(newOffset),
         setOrder: (newOrder: ColOrder) => setInternalOrder(newOrder),
         scrollIntoView: (options?: ScrollIntoViewOptions) => {
-          (colRef.current as any)?.scrollIntoView(options);
+          (colRef.current as unknown as HTMLElement)?.scrollIntoView(options);
         },
       }),
       [internalSpan, internalOffset, internalOrder],

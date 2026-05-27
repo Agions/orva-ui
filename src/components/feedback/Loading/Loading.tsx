@@ -26,9 +26,9 @@ export const Loading = createComponent<LoadingProps, LoadingRef>({
     const { type = 'spinner', size = 'default', text, delay = 0, style, className, ...rest } = props;
 
     const [visible, setVisible] = useState(delay === 0);
-    const elementRef = useRef<any>(null);
+    const elementRef = useRef<HTMLDivElement>(null);
     const a11y = useAccessibility({
-      role: ((ARIA_ROLES as Record<string, string>).status || 'status') as unknown as ARIARole,
+      role: 'status' as ARIARole,
       label: text || 'Loading',
     });
 
