@@ -238,8 +238,8 @@ pnpm build
 
 1. 克隆仓库
 ```bash
-git clone https://github.com/agions/taro-lite.git
-cd taro-lite
+git clone https://github.com/agions/orva-ui.git
+cd orva-ui
 ```
 
 2. 安装依赖
@@ -309,5 +309,5 @@ pnpm lint
 
 ## 联系我们
 
-|- GitHub: https://github.com/agions/taro-lite
-|- Issues: https://github.com/agions/taro-lite/issues
+|- GitHub: https://github.com/agions/orva-ui
+|- Issues: https://github.com/agions/orva-ui/issues
