@@ -56,9 +56,8 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       lib: isLib ? {
         entry: path.resolve(__dirname, 'src/index.ts'),
-        name: 'NanoUI',
+        name: 'OrvaUI',
         formats: ['es', 'cjs'],
-        fileName: (format) => `@orva-ui.${format}.js`,
       } : undefined,
 
       rollupOptions: {
@@ -132,7 +131,9 @@ export default defineConfig(({ mode }) => {
             return `assets/${extType}/[name]-[hash][extname]`;
           },
           chunkFileNames: 'js/[name]-[hash].js',
-          entryFileNames: 'js/[name]-[hash].js',
+          entryFileNames: isLib
+            ? 'orva-ui.[format].js'
+            : 'js/[name]-[hash].js',
           compact: isProduction,
           inlineDynamicImports: false,
           globals: isLib ? {
@@ -140,7 +141,9 @@ export default defineConfig(({ mode }) => {
             '@tarojs/components': 'TaroComponents',
           } : undefined,
         },
-        external: isLib ? ['react', 'react-dom', '@tarojs/components', '@tarojs/taro'] : [],
+        external: isLib
+          ? [/^react(\/.*)?$/, /^react-dom(\/.*)?$/, /^@tarojs(\/.*)?$/]
+          : [],
         onwarn(warning, warn) {
           if (warning.code === 'EVAL') return;
           if (warning.code === 'THIS_IS_UNDEFINED') return;

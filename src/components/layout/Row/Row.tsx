@@ -64,7 +64,7 @@ export const Row = createComponent<RowProps, RowRef>({
         scrollIntoView: (options?: ScrollIntoViewOptions) => {
           const element = rowRef.current;
           if (element && typeof (element as HTMLElement).scrollIntoView === 'function') (element as HTMLElement).scrollIntoView(options);
-          else if (element && '$el' in element) (element as unknown as { $el: HTMLElement }).$el?.scrollIntoView?.(options);
+          else if (element && typeof element === 'object' && '$el' in element) (element as unknown as { $el: HTMLElement }).$el?.scrollIntoView?.(options);
         },
       }),
       [internalAlign, internalJustify, internalGutter],

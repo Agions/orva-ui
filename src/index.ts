@@ -273,7 +273,7 @@ export const ComponentLibraryUtils = {
   },
 };
 
-// ==================== 默认导出 ====================
+// ==================== 命名空间导出 ====================
 
 import * as Components from './components';
 import * as Hooks from './hooks';
@@ -281,13 +281,4 @@ import * as Utils from './utils';
 import * as Theme from './theme';
 import * as Types from './types';
 
-export default {
-  Components,
-  Hooks,
-  Utils,
-  Theme,
-  Types,
-  ComponentLibraryUtils,
-  CONFIG,
-  VERSION,
-};
+export { Components, Hooks, Utils, Theme, Types };

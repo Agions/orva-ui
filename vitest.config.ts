@@ -21,9 +21,7 @@ export default defineConfig({
     ],
     testTimeout: 10000,
     hookTimeout: 10000,
-    mockReset: true,
     restoreMocks: true,
-    clearMocks: true,
     // Performance optimizations - use forks for better isolation and speed
     pool: 'forks',
     poolOptions: {
@@ -41,10 +39,6 @@ export default defineConfig({
       },
     },
     // Parallel execution optimization
-    poolMatchGlobs: [
-      ['**/tests/**/*.{test,spec}.{js,ts,jsx,tsx}', 'forks'],
-      ['**/src/**/*.{test,spec}.{js,ts,jsx,tsx}', 'forks'],
-    ],
     // Coverage configuration (disabled by default for speed)
     coverage: {
       enabled: false,
